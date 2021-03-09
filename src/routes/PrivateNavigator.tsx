@@ -1,23 +1,49 @@
-/** Gerencia as rotas internas da aplicação. 
+/** Gerencia as rotas internas da aplicação.
  * Somente acessiveis após o login do usuário
  */
-import React from "react"
+import React from "react";
 
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Dashboard from "../components/Dashboard"
-import Profile from "../components/Profile"
-import Freight from "../components/Freight"
+import Dashboard from "../components/Home";
+import Profile from "../components/Profile";
+import Freight from "../components/freight/Freight";
 
-const Tab = createBottomTabNavigator()
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+const Tab = createBottomTabNavigator();
 
 const PrivateNavigator: React.FC = () => {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="Inicio" component={Dashboard}/>
-            <Tab.Screen name="Fretes" component={Freight}/>
-            <Tab.Screen name="Perfil" component={Profile}/>
-        </Tab.Navigator>
-    )
-}
+  return (
+    <Tab.Navigator initialRouteName="Perfil">
+      <Tab.Screen
+        name="Inicio"
+        component={Dashboard}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Fretes"
+        component={Freight}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="search" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Perfil"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="build" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 export default PrivateNavigator;

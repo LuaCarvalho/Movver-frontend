@@ -1,7 +1,7 @@
 /** Painel principal do app
  */
 import React, { useEffect, useRef, useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 import MapView, { Region } from "react-native-maps";
 
@@ -46,8 +46,8 @@ export default () => {
   });
 
   return (
-    <View style={appCss.container}>
-      <View style={appCss.search}>
+    <>
+      <View style={mapCss.search}>
         <AutoCompleteMap name="Origem" setLocation={setOrigin} />
         <AutoCompleteMap name="Destino" setLocation={setDestination} />
       </View>
@@ -78,6 +78,6 @@ export default () => {
           />
         )}
       </MapView>
-    </View>
+    </>
   );
 };

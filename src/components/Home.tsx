@@ -1,8 +1,6 @@
-/** Painel principal do app
- */
 import React from "react";
 
-import FreightMap from "./maps/FreightMap"
+import FreightMap from "./maps/Map"
 
 const Dashboard = () => {
   return (

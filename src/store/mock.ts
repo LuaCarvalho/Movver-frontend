@@ -1,8 +1,7 @@
-type vehicle = 
-"VUC" | "Caminhão Toco" | "Truck" | "Bitruck" | "Carreta simples" | "Carreta LS" | "Bitrem";
+type vehicle =
+    "VUC" | "Caminhão Toco" | "Truck" | "Bitruck" | "Carreta simples" | "Carreta LS" | "Bitrem";
 
-
-const freights: Array<{
+export interface Freight {
     id: number;
     driver: {
         name: string;
@@ -10,31 +9,56 @@ const freights: Array<{
         vehicle: vehicle;
         available: boolean;
     };
+    date: Date;
+    status: "Finalizada" | "Cancelada";
     price: number;
     locationOrigin: string;
-    locationDestiny: string;
-}> = [
-        {
-            id: 1,
-            driver: { name: "João", trips: 9, vehicle: "Carreta simples", available: true },
-            price: 234,
-            locationDestiny: "Veiga Jardim",
-            locationOrigin: "Parque Atlântico"
+    locationDestination: string;
+}
+
+const freights: Array<Freight> = [
+    {
+        id: 1,
+        driver: {
+            name: "João",
+            trips: 9,
+            vehicle: "Carreta simples",
+            available: true
         },
-        {
-            id: 2,
-            driver: { name: "Marcos", trips: 13, vehicle: "Caminhão Toco", available: false },
-            price: 423,
-            locationDestiny: "Setor marista",
-            locationOrigin: "Park Oeste"
-        }, {
-            id: 3,
-            driver: { name: "Pedro", trips: 23, vehicle: "Carreta LS", available: true },
-            price: 386,
-            locationDestiny: "Setor marista",
-            locationOrigin: "Parque Atalaia"
+        date: new Date("02/22/2021"),
+        status: "Finalizada",
+        price: 234.32,
+        locationDestination: "Veiga Jardim",
+        locationOrigin: "Parque Atlântico"
+    },
+    {
+        id: 2,
+        driver: {
+            name: "Marcos",
+            trips: 13.23,
+            vehicle: "Caminhão Toco",
+            available: false
         },
-    ]
+        date: new Date("11/21/2020"),
+        status: "Finalizada",
+        price: 423.00,
+        locationDestination: "Setor marista",
+        locationOrigin: "Park Oeste"
+    }, {
+        id: 3,
+        driver: {
+            name: "Pedro",
+            trips: 23.12,
+            vehicle: "Carreta LS",
+            available: true
+        },
+        date: new Date("01/13/2021"),
+        status: "Finalizada",
+        price: 386.98,
+        locationDestination: "Setor marista",
+        locationOrigin: "Parque Atalaia"
+    },
+]
 
 
 export default freights;

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import mock from "../store/mock";
+import mock from "../../store/mock";
 
 export default function Freights() {
   return (

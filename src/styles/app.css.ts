@@ -5,11 +5,6 @@ const css = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
     },
-    search: {
-        height: "50%",
-        justifyContent: 'flex-start',
-        backgroundColor: "gray"
-    }
 })
 
 export default css;

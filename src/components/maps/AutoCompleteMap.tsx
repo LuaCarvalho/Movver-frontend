@@ -18,11 +18,6 @@ const AutoComplete = ({
   setLocation: Function;
   name: string;
 }) => {
-  const [result, setResult] = useState<any>([]);
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
 
   return (
     <View style={mapCss.searchMap}>
@@ -43,13 +38,11 @@ const AutoComplete = ({
           enablePoweredByContainer={false}
           enableHighAccuracyLocation={true}
           keyboardShouldPersistTaps="always"
-          nearbyPlacesAPI="GooglePlacesSearch"
           query={{
             key: config.googleApi,
             language: "pt-BR",
             components: "country:br",
           }}
-          styles={mapCss.searchMap}
           onPress={(data, details) => {
             setLocation({
               latitude: details?.geometry.location.lat,

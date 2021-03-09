@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 const css=StyleSheet.create({
+    search: {
+        height: "40%",
+        justifyContent: 'flex-start',
+    },
     map: {
-        height: "50%",
-        width: "100%"
+        height: "60%",
     },
     searchMap: {
         flexDirection: "row",
@@ -15,9 +18,9 @@ const css=StyleSheet.create({
     searchMapAction: {
        backgroundColor: "black",
        color: "white",
-       marginLeft: 5,
-       width: 30,
-       height: "100%",
+       marginLeft: 3,
+       width: 20,
+       flex: 1,
        justifyContent: "center",
        alignItems:"center"
     }
