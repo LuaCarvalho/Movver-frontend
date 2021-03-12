@@ -3,32 +3,32 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import Icon from "react-native-vector-icons/MaterialIcons";
-
-import freights, * as Freights from "../store/mock";
+import { freights } from "../store/mock";
 
 import FreightCard from "./freight/FreightCard";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import appCss from "../styles/app.css";
+
 const Profile: React.FC = () => {
   return (
     <View style={styles.container}>
-      <View style={[styles.card, styles.profileCard]}>
+      <View style={[appCss.card, styles.profileCard]}>
         <Image style={styles.img} source={require("../assets/perfil.png")} />
         <Text style={styles.name}>Joás Andrade</Text>
       </View>
-      <View style={[styles.card, styles.infoCard]}>
+      <View style={[appCss.card, styles.infoCard]}>
         <View style={styles.info}>
-          <Text style={styles.infoTitle}>Email</Text>
+          <Text style={appCss.infoText}>Email</Text>
           <Text>joas7777777@hotmail.com</Text>
         </View>
         <View style={styles.info}>
-          <Text style={styles.infoTitle}>Número de Telefone</Text>
+          <Text style={appCss.infoText}>Número de Telefone</Text>
           <Text>(62) 98390-9812</Text>
         </View>
       </View>
-      <View style={[styles.card, styles.lastFreightsCard]}>
-        <Text style={styles.lastFreightsText}>Fretes recentes</Text>
+      <View style={[appCss.card, styles.lastFreightsCard]}>
+        <Text style={appCss.title}>Fretes recentes</Text>
         <FreightCard freightList={freights} />
         <TouchableOpacity>
           <Text style={styles.lastFreightsButton}>Ver mais antigos</Text>
@@ -46,31 +46,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  card: {
-    flex: 1,
-    width: "100%",
-    padding: 10,
-    margin: 5
-  },
   profileCard: {
+    marginTop: 5,
     flexGrow: 1,
-    elevation: 1,
-    width: "95%"
   },
   infoCard: {
     flexGrow: 1,
-    elevation: 1,
-    width: "95%"
   },
   lastFreightsCard: {
     flexGrow: 5,
-    elevation: 1,
-    width: "95%",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   img: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 100,
     alignSelf: "center",
   },
@@ -80,16 +69,6 @@ const styles = StyleSheet.create({
   },
   info: {
     marginBottom: 5,
-  },
-  infoTitle: {
-    fontSize: 16,
-    elevation: 6,
-    opacity: 0.6,
-  },
-  lastFreightsText: {
-    fontSize: 20,
-    opacity: 0.7,
-    alignSelf:"center"
   },
   lastFreightsButton: {
     fontSize: 15,

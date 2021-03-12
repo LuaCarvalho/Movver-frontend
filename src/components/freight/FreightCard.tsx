@@ -2,6 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import { Freight } from "../../store/mock";
+import appCss from "../../styles/app.css"
+
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const FreightCard = ({ freightList }: { freightList: Freight[] }) => {
   const list = freightList.sort((a, b) => {
@@ -18,12 +21,23 @@ const FreightCard = ({ freightList }: { freightList: Freight[] }) => {
             <Text style={styles.dateText}>{item.date.toLocaleString()}</Text>
           </View>
           <View>
-            <Text style={styles.text}>{item.locationOrigin} </Text>
-            <Text style={styles.text}>{item.locationDestination}</Text>
+            <View style={appCss.textIcon}>
+              <Icon name="room" size={20} color={"gray"} />
+              <Text style={styles.text}>{item.locationOrigin}</Text>
+            </View>
+            <View style={appCss.textIcon}>
+              <Icon name="room" size={20} color={"black"} />
+              <Text style={styles.text}>{item.locationDestination}</Text>
+            </View>
           </View>
-          <View>
-            <Text style={styles.text}>Estado: {item.status}</Text>
-            <Text style={styles.text}>Valor: R$ {item.price}</Text>
+          <View style={styles.priceStatus}>
+            <View style={appCss.textIcon}>
+              <Icon name="circle" size={15} color={"gray"} />
+              <Text style={[styles.text, styles.status]}>{item.status}</Text>
+            </View>
+            <View style={appCss.textIcon}>
+              <Text style={styles.text}>R$ {item.price}</Text>
+            </View>
           </View>
         </View>
       ))}
@@ -34,11 +48,9 @@ export default FreightCard;
 
 const styles = StyleSheet.create({
   myFreight: {
-    paddingRight: 5,
-    paddingLeft: 5,
-    paddingBottom: 10,
+    padding: 5,
     elevation: 2,
-    backgroundColor: "#cfd8dc",
+    backgroundColor: "white",
     borderRadius: 20,
     borderColor: "#2196f3",
     color: "white",
@@ -46,7 +58,6 @@ const styles = StyleSheet.create({
   dateCard: {
     height: 25,
     padding: 5,
-    elevation: 5,
     top: -5,
     borderRadius: 10,
     backgroundColor: "#2196f3",
@@ -59,5 +70,14 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "black",
+  },
+  priceStatus: {
+    flexDirection: "row",
+    marginLeft: 3,
+    marginRight: 3,
+    justifyContent: "space-between",
+  },
+  status: {
+    marginLeft: 3
   },
 });

@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Dashboard from "../components/Home";
 import Profile from "../components/Profile";
-import Freight from "../components/freight/Freight";
+import Freight from "../components/Drivers";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 const PrivateNavigator: React.FC = () => {
   return (
-    <Tab.Navigator initialRouteName="Perfil">
+    <Tab.Navigator initialRouteName="Mudanças & Fretes">
       <Tab.Screen
         name="Inicio"
         component={Dashboard}
@@ -26,7 +26,7 @@ const PrivateNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="Fretes"
+        name="Mudanças & Fretes"
         component={Freight}
         options={{
           tabBarIcon: ({ color, size }) => (
