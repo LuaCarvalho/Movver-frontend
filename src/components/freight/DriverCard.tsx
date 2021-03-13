@@ -3,10 +3,13 @@ import { View, Text, Image, StyleSheet } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+
+import Driver from "@interfaces/Driver";
+
 import appCss from "../../styles/app.css";
 import { grey, green } from "../../styles/color.css";
-import { Driver, truckBodyworkEnum } from "../../store/mock";
-import { numberSeparador } from "../../services/Functions";
+import {truckBodyworkEnum} from "../../model/types/enums"
+import { numberSeparador } from "../../services/functions";
 
 const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
 

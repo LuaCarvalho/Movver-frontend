@@ -5,9 +5,9 @@ import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Dashboard from "../components/Home";
-import Profile from "../components/Profile";
-import Freight from "../components/Drivers";
+import Dashboard from "../components/screens/Home";
+import Profile from "../components/screens/Profile";
+import Freight from "../components/screens/Drivers";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 

@@ -7,6 +7,20 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    //u
+    "target": "es6",
+    "baseUrl": "./src",
+    //Atalhos do TS para acessar pastas
+    "paths": {
+        "@components/*": ["components/*"],
+        "@model/*": ["model/*"],
+        "@routes/*": ["routes/*"],
+        "@store/*": ["store/*"],
+        
+        "@interfaces/*": ["model/interfaces/*"],
+        "@screens/*": ["components/screens/*"],
+        "@services/*": ["services/*"],
+    }
   }
 }

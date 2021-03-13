@@ -9,7 +9,6 @@ import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import MapViewDirections from "react-native-maps-directions";
 
-import appCss from "../../styles/app.css";
 import mapCss from "../../styles/map.css";
 
 import config from "../../services/config/index.json";

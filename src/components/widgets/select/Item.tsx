@@ -5,37 +5,45 @@ import { TouchableOpacity } from "react-native";
 
 import appCss from "../../../styles/app.css";
 
-const SelectItem = ({
+const icons = {
+  SELECTED: "radiobox-marked",
+  NOT_SELECTED: "radiobox-blank",
+};
+
+const Item = ({
+  label,
   value,
-  newValue,
   setValue,
+  newValue,
 }: {
+  label?: string | number;
   value: any;
-  newValue: any;
   setValue: Function;
+  newValue: typeof value;
 }) => {
-  const [icon, setIcon] = useState("radiobox-blank");
+  const [icon, setIcon] = useState<string>(icons.NOT_SELECTED);
 
   //Executa qnd este componente Item for selecionado
   function onSelect() {
     //Se o Item não estiver marcado, marque-o
-    if (icon === "radiobox-blank" && newValue !== value) setIcon("radiobox-marked");
+    setIcon(icons.SELECTED);
     setValue(value);
   }
 
   useEffect(() => {
-    if (newValue !== value) setIcon("radiobox-blank")
+    //Sempre que um novo item é selecionado, os outros são desmarcados
+    if (newValue !== value) setIcon(icons.NOT_SELECTED);
   }, [newValue]);
 
   return (
     <TouchableOpacity onPress={onSelect} style={[appCss.textIcon, styles.item]}>
       <Icon name={icon} size={20} color="gray" />
-      <Text style={styles.itemText}>{value}</Text>
+      <Text style={styles.itemText}>{ label } { value}</Text>
     </TouchableOpacity>
   );
 };
 
-export default SelectItem;
+export default Item;
 
 const styles = StyleSheet.create({
   item: {

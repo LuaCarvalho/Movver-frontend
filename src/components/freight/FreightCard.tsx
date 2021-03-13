@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import { Freight } from "../../store/mock";
+import Freight from "../../model/interfaces/Freight";
 import appCss from "../../styles/app.css"
 
 import Icon from "react-native-vector-icons/MaterialIcons";

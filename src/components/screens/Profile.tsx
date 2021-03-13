@@ -3,18 +3,18 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import { freights } from "../store/mock";
+import { freights } from "../../model/mocks/mock";
 
-import FreightCard from "./freight/FreightCard";
+import FreightCard from "../freight/FreightCard";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import appCss from "../styles/app.css";
+import appCss from "../../styles/app.css";
 
 const Profile: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={[appCss.card, styles.profileCard]}>
-        <Image style={styles.img} source={require("../assets/perfil.png")} />
+        <Image style={styles.img} source={require("../../assets/perfil.png")} />
         <Text style={styles.name}>Joás Andrade</Text>
       </View>
       <View style={[appCss.card, styles.infoCard]}>

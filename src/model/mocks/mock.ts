@@ -1,12 +1,8 @@
+import { truckBodyworkEnum } from "../types/enums";
+import Driver from "../interfaces/Driver";
+import Freight from "../interfaces/Freight";
+import Vehicle from "../interfaces/Vehicle";
 
-export type vehicle = "Veículo utilitário" | "VUC" | "Caminhão Toco ou Semi-pesado" |
-    "Caminhão Truck ou Eixo duplo pesado" | "Bitruck" | "Bitrem";
-
-export enum truckBodyworkEnum {
-    OPEN = "Aberta",
-    CLOSED = "Fechada",
-    OTHER = "Qualquer tipo"
-};
 const licensePlate = [
     "Rbw0A48", "Qtp0666", "Ngd9737", "Gmz0117", "Ogt0130",
     "Kdc5475", "Aqzbd57", "Ngo4740", "Bpb2256", "Bwn3121",
@@ -14,30 +10,6 @@ const licensePlate = [
     "Ogn8770", "Pqq5190", "Hrd3054", "Ogv7001", "Ihn6259",
     "Pre1203", "Ngb3140",
 ]
-export interface Vehicle {
-    type: vehicle;
-    capacity: number;
-    licensePlate: string;
-    truckBudyWork: truckBodyworkEnum;
-    color: string;
-}
-export interface Driver {
-    id: string;
-    name: string;
-    trips: number;
-    vehicle: Vehicle;
-    location: string;
-    available: boolean;
-}
-export interface Freight {
-    id: number;
-    driver: Driver;
-    date: Date;
-    status: "Finalizada" | "Cancelada";
-    price: number;
-    locationOrigin: string;
-    locationDestination: string;
-}
 
 export const vehicles: Array<Vehicle> = [
     {
