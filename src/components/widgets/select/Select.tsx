@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
-    elevation: 5,
+    elevation: 100,
   },
   buttonOpen: {
     width: "100%",

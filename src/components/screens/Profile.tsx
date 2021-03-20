@@ -12,7 +12,7 @@ import appCss from "../../styles/app.css";
 
 const Profile: React.FC = () => {
   return (
-    <View style={styles.container}>
+    <View style={appCss.container}>
       <View style={[appCss.card, styles.profileCard]}>
         <Image style={styles.img} source={require("../../assets/perfil.png")} />
         <Text style={styles.name}>Joás Andrade</Text>
@@ -41,11 +41,6 @@ const Profile: React.FC = () => {
 export default Profile;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   profileCard: {
     marginTop: 5,
     flexGrow: 1,

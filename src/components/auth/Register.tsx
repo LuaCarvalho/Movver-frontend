@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-export default function Register() {
+const Register: React.FC = () => {
     return (
         <View>
             <Text>Register</Text>
         </View>
     )
 }
+
+export default Register;

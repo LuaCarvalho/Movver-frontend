@@ -17,10 +17,8 @@
         "@model/*": ["model/*"],
         "@routes/*": ["routes/*"],
         "@store/*": ["store/*"],
-        
-        "@interfaces/*": ["model/interfaces/*"],
-        "@screens/*": ["components/screens/*"],
-        "@services/*": ["services/*"],
+
+        "@context/*": ["context/*"],
     }
   }
 }

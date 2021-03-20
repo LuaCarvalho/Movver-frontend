@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 const css = StyleSheet.create({
     container: {
         flex: 1,
-        alignContent: "center",
-        backgroundColor: "#d8d8d8",
+        justifyContent: "center",
+        alignItems: "center",
     },
     card: {
         flex: 1,

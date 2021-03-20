@@ -1,15 +1,14 @@
+/** Componente de acesso as rotas
+ */
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 
-import Routes from "./Routes";
+import { NavigationContainer } from "@react-navigation/native";
+import RootNavigator, { navigationRef } from "./routes/RootNavigator";
 
-import appCss from "./styles/app.css"
-
-const AppRoutes: React.FC = () => {
+export default function () {
   return (
-    <SafeAreaView style={appCss.container}>
-      <Routes />
-    </SafeAreaView>
+    <NavigationContainer ref={navigationRef}>
+      <RootNavigator />
+    </NavigationContainer>
   );
-};
-export default AppRoutes;
+}

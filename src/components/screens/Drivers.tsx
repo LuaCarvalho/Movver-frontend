@@ -13,21 +13,19 @@ import Select from "../widgets/select/Select";
 const Drivers: React.FC = () => {
   const [filtredList, setFriltredList] = useState<Driver[]>(drivers);
 
-  const [selectTruckBodywork, setSelectTruckBodywork] = useState(truckBodyworkEnum.ANY);
-  const [selectCapacity, setSelectCapacity] = useState(0);
+  const [bodyworkFilter, setBodyworkFilter] = useState(truckBodyworkEnum.ANY);
+  const [capacityFilter, setCapacityFilter] = useState(0);
 
   useEffect(() => {
     const filtredCapacity = drivers.filter(driver => {
-      const capacity = driver.vehicle.capacity;
-      if (capacity >= selectCapacity) return driver;
+      if (driver.vehicle.capacity >= capacityFilter) return driver;
     });
     const filtredTruckBodywork = filtredCapacity.filter(driver => {
-      const truckBodyWork = driver.vehicle.truckBudyWork;
-      if (selectTruckBodywork === truckBodyworkEnum.ANY) return driver;
-      if (selectTruckBodywork === truckBodyWork) return driver;
+      if (bodyworkFilter === truckBodyworkEnum.ANY) return driver;
+      if (bodyworkFilter === driver.vehicle.truckBudyWork) return driver;
     });
     setFriltredList(filtredTruckBodywork);
-  }, [selectCapacity, selectTruckBodywork]);
+  }, [capacityFilter, bodyworkFilter]);
 
   return (
     <View style={styles.container}>
@@ -39,14 +37,15 @@ const Drivers: React.FC = () => {
         <View style={styles.options}>
           <View style={appCss.textIcon}>
             <Text style={appCss.infoText}>Carroceria: </Text>
-            <Select setValue={setSelectTruckBodywork} items={Object.values(truckBodyworkEnum)} />
+            <Select setValue={setBodyworkFilter} items={Object.values(truckBodyworkEnum)} />
           </View>
           <View style={[appCss.textIcon]}>
             <Text style={appCss.infoText}>Capacidade de carga: </Text>
             <Select
-              setValue={setSelectCapacity}
+              setValue={setCapacityFilter}
               items={[500, 1000, 2000, 4000, 6000, 8000, 10000]}
             />
+              <Select title="Tipo de Carga" setValue={() => {}} items={["mudança", "transporte de materiais"]} />
           </View>
         </View>
       </View>

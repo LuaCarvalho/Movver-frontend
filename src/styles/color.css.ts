@@ -12,7 +12,12 @@ export const green = {
 export const grey = {
   c: "#9E9E9E",
   darken: "#757575",
-  darken3: "#424242"
+  darken3: "#424242",
+  lighten1: "#BDBDBD",
+  lighten2: "#E0E0E0",
+  lighten3: "#EEEEEE",
+  lighten4: "#F5F5F5",
+  lighten5: "#FAFAFA",
 }
 
 export default { blue, green, grey }
