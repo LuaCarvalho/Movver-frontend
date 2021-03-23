@@ -23,13 +23,13 @@ const css = StyleSheet.create({
     },
     textIcon: {
         flexDirection: "row",
+        marginBottom: 5
     },
     infoText: {
         fontSize: 16,
         elevation: 6,
         opacity: 0.7,
     },
-
 })
 
 export default css;

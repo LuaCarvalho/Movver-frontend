@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { truckBodyworkEnum } from "../../model/types/enums";
+import { truckBodyworkEnum, servicesEnum } from "../../model/types/enums";
+
 import { drivers } from "../../model/mocks/mock";
-import Driver from "@interfaces/Driver";
+import Driver from "../../model/interfaces/Driver";
+
+
 import appCss from "../../styles/app.css";
 import DriverCard from "../freight/DriverCard";
 
@@ -45,7 +48,6 @@ const Drivers: React.FC = () => {
               setValue={setCapacityFilter}
               items={[500, 1000, 2000, 4000, 6000, 8000, 10000]}
             />
-              <Select title="Tipo de Carga" setValue={() => {}} items={["mudança", "transporte de materiais"]} />
           </View>
         </View>
       </View>

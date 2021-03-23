@@ -13,40 +13,40 @@ const licensePlate = [
 
 export const vehicles: Array<Vehicle> = [
     {
-        type: "Caminhão Truck ou Eixo duplo pesado",
+        model: "Caminhão Truck ou Eixo duplo pesado",
         capacity: 11000,
         truckBudyWork: truckBodyworkEnum.OPEN,
         licensePlate: "Rbw0A48",
         color: "branco"
     }, {
-        type: "VUC",
+        model: "VUC",
         capacity: 2500,
         truckBudyWork: truckBodyworkEnum.OPEN,
         licensePlate: "Ngd9737",
         color: "preto"
     }, {
-        type: "Veículo utilitário",
+        model: "Veículo utilitário",
         capacity: 900,
         truckBudyWork: truckBodyworkEnum.CLOSED,
         licensePlate: "Qtp0666",
         color: "azul"
     },
     {
-        type: "Caminhão Toco ou Semi-pesado",
+        model: "Caminhão Toco ou Semi-pesado",
         capacity: 6000,
         truckBudyWork: truckBodyworkEnum.OPEN,
         licensePlate: "Gmz0117",
         color: "vermelho"
     },
     {
-        type: "Veículo utilitário",
+        model: "Veículo utilitário",
         capacity: 1400,
         truckBudyWork: truckBodyworkEnum.OPEN,
         licensePlate: "Ogt0130",
         color: "preto"
     },
     {
-        type: "Caminhão Truck ou Eixo duplo pesado",
+        model: "Caminhão Truck ou Eixo duplo pesado",
         capacity: 11000,
         truckBudyWork: truckBodyworkEnum.CLOSED,
         licensePlate: "Kdc5475",

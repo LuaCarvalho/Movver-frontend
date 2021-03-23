@@ -1,26 +1,21 @@
-/** Painel principal do app
- */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 
-import MapView, { Region } from "react-native-maps";
+import { useNavigation } from "@react-navigation/core";
 
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+import MapView, { Region } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
 import { googleApi } from "../../services/config/index";
-import NavigatorButton from "../widgets/NavigatorButton";
-import { TextInput } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/core";
+import { LocationProvider, useLocationContext } from "../../context/LocationContext";
 
 const Home: React.FC = () => {
+  const { origin, destination, setDistance } = useLocationContext();
   const mapRef = useRef<any>(null);
-  const [origin, setOrigin] = useState<Region>();
-  const [actualLocation, setActualLocation] = useState<Region>();
-  const [destination, setDestination] = useState<Region>();
-  const [distance, setDistance] = useState(0);
   const { navigate } = useNavigation();
+  const [actualLocation, setActualLocation] = useState<Region>();
 
   useEffect(() => {
     (async function () {
@@ -46,15 +41,15 @@ const Home: React.FC = () => {
     <>
       <MapView
         style={styles.map}
-        initialRegion={origin ? origin : actualLocation}
+        initialRegion={origin ? origin.region : actualLocation}
         showsUserLocation
         loadingEnabled
         ref={mapRef}
       >
         {destination && (
           <MapViewDirections
-            origin={origin}
-            destination={destination}
+            origin={origin.region}
+            destination={destination.region}
             apikey={googleApi}
             strokeWidth={3}
             onReady={result => {
@@ -72,13 +67,7 @@ const Home: React.FC = () => {
         )}
       </MapView>
       <View onTouchStart={() => navigate("FindDriver")} style={styles.findButton}>
-        <Text
-          style={{
-            opacity: 0.5,
-          }}
-        >
-          Buscar?
-        </Text>
+        <Text>Buscar?</Text>
       </View>
     </>
   );

@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-
-import Driver from "@interfaces/Driver";
+import Driver from "../../model/interfaces/Driver";
 
 import appCss from "../../styles/app.css";
 import { grey, green } from "../../styles/color.css";
-import {truckBodyworkEnum} from "../../model/types/enums"
+import { truckBodyworkEnum } from "../../model/types/enums";
 import { numberSeparador } from "../../services/functions";
 
 const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
-
   const iconTruck = (type: truckBodyworkEnum) => {
     return type == truckBodyworkEnum.OPEN ? "dump-truck" : "truck";
   };

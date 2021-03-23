@@ -1,77 +1,48 @@
 import React, { useState } from "react";
-import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, Pressable, View } from "react-native";
 
 import { item } from "@model/types";
 import Item from "./Item";
+import MvModal from "../MvModal";
 
-const Select = ({
-  title = "Selecione",
-  setValue,
-  items,
-}: {
-  title?: string;
-  setValue: Function;
-  items: item[] | any[];
-}) => {
-  const [modalVisible, setModalVisible] = useState(false);
+const Select = ({ setValue, items }: { setValue: Function; items: item[] | any[] }) => {
   const [newValue, setNewValue] = useState(null);
 
   //Descobre que tipagem o array de items recebeu (pode ser um array simples ou type item)
   const typeItems = typeof items[0] === "object";
+
+  const title = newValue ? String(newValue) : "Selecione";
 
   //Callback que será enviada ao elemento filho Item sempre q o valor mudar
   function onChangeValue(value: any) {
     setValue(value);
     setNewValue(value);
   }
-
   return (
-    <View style={styles.container}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        collapsable={true}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
-        {/* Quando o modal estiver ativo, essa view ocupará todo o espaço
-         * O items na tela se ajustam em relação a ela */}
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Selecione</Text>
-            <View style={styles.items}>
-              {typeItems
-                ? items.map(({ label, value }) => (
-                  //Se o valor vier como um objeto do tipo "item" || Array<item>
-                    <Item
-                      label={label}
-                      value={value}
-                      setValue={onChangeValue}
-                      newValue={newValue}
-                      key={value}
-                    />
-                  ))
-                : items.map(value => (
-                  //Se o valor vier como um tipo primitivo || Array<number | string>
-                    <Item
-                      value={value}
-                      setValue={onChangeValue}
-                      newValue={newValue}
-                      key={String(value)}
-                    />
-                  ))}
-            </View>
-            <Pressable style={styles.buttonClose} onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.buttonCloseText}>Pronto</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <TouchableOpacity style={styles.buttonOpen} onPress={() => setModalVisible(true)}>
-        <Text style={styles.textSelect}>{newValue ? newValue : title}</Text>
-      </TouchableOpacity>
-    </View>
+    <MvModal title={title}>
+      <View style={styles.items}>
+        {typeItems
+          ? items.map(({ label, value }) => (
+              //Se o valor vier como um objeto do tipo "item" || Array<item>
+              <Item
+                label={label}
+                value={value}
+                setValue={onChangeValue}
+                newValue={newValue}
+                key={value}
+              />
+            ))
+          : items.map(value => (
+              //Se o valor vier como um tipo primitivo || Array<number | string>
+              <Item
+                value={value}
+                setValue={onChangeValue}
+                newValue={newValue}
+                key={String(value)}
+              />
+            ))}
+      </View>
+    </MvModal>
   );
 };
 

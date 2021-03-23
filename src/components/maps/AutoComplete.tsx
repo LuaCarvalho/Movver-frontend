@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   GooglePlaceDetail,
   GooglePlacesAutocomplete,
@@ -11,29 +11,27 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { googleApi } from "../../services/config";
 
 import { grey } from "../../styles/color.css";
-import { directionEnum } from "../../context/LocationContext";
+import { useLocationContext } from "../../context/LocationContext";
+import { directionEnum } from "../../model/types/enums";
+import Location from "../../model/interfaces/Location";
 
-const AutoComplete = ({
-  setLocation,
-  direction,
-}: {
-  setLocation: Function;
-  direction: directionEnum;
-}) => {
+const AutoComplete = ({ direction }: { direction: directionEnum }) => {
+  const setLocation = useLocationContext().setLocation;
+
   const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
   function onPress({}, details: GooglePlaceDetail | null) {
-    const location = details!.geometry.location;
+    const latitude = details!.geometry.location.lat;
+    const longitude = details!.geometry.location.lng;
     setLocation({
-      latitude: location?.lat,
-      longitude: location?.lng,
-      latitudeDelta: 0.000922,
-      longitudeDelta: 0.000421,
+      direction,
+      region: { latitude, longitude, latitudeDelta: 1, longitudeDelta: 1 },
     });
   }
 
   function clear() {
-    ref.current?.clear();
+    ref.current?.setAddressText("");
+    setLocation({} as Location);
   }
 
   return (
@@ -57,7 +55,7 @@ const AutoComplete = ({
         }}
       />
       <TouchableOpacity style={styles.searchAction} onPress={clear}>
-        <Icon name="close" size={25} color="black" />
+        <Icon name="close-circle" size={25} color="gray" />
       </TouchableOpacity>
     </View>
   );

@@ -1,33 +1,30 @@
 import React, { createContext, useContext, useState } from "react";
-import { Point } from "react-native-google-places-autocomplete";
 
-export enum directionEnum {
-  ORIGEN = "Origem",
-  DESTINATION = "Destino"
-}
-
-export interface Place {
-  description: string;
-  direction: directionEnum;
-  geometry: { location: Point };
-}
+import { directionEnum } from "../model/types/enums";
+import Location from "../model/interfaces/Location";
 
 interface ContextType {
-  locations: Place[];
-  addLocation: (location: Place) => void;
+  origin: Location;
+  destination: Location;
+  distance: number;
+  setDistance: (distance: number) => void;
+  setLocation: (location: Location) => void;
 }
 
-export const LocationContext = createContext<ContextType>({} as ContextType);
+export const LocationContext = createContext({} as ContextType);
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [locations, setLocations] = useState<Place[]>([]);
+  const [origin, setOrigin] = useState({} as Location);
+  const [destination, setDestination] = useState({} as Location);
+  const [distance, setDistance] = useState(0);
 
-  function addLocation(location: Place): void {
-    setLocations([...locations, location]);
+  function setLocation(location: Location) {
+    if (location.direction === directionEnum.ORIGIN) setOrigin(location);
+    else setDestination(location);
   }
 
   return (
-    <LocationContext.Provider value={{ locations, addLocation }}>
+    <LocationContext.Provider value={{ origin, destination, distance, setDistance, setLocation }}>
       {children}
     </LocationContext.Provider>
   );
