@@ -1,16 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from "react-native";
 
-import MvModal, { StyleMvModel, ModalContext } from "../MvModal";
+import MvModal from "../MvModal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { grey, blue } from "../../../styles/color.css";
-
-export interface StyleSelectCard {
-  styleMvModel?: StyleMvModel;
-  container?: ViewStyle;
-  icons?: TextStyle;
-  text?: TextStyle;
-}
+import { blue } from "../../../styles/color.css";
 
 interface Option {
   value: any;
@@ -24,27 +17,35 @@ function randomColor(index: number) {
   return blue.lighten;
 }
 
-const SelectCard = ({ options, style }: { options: Option[]; style?: StyleSelectCard }) => {
-  const { visible, setVisible } = useContext(ModalContext);
+const SelectCard = ({ options, setValue }: { options: Option[]; setValue: Function }) => {
+  const [newValue, setNewValue] = useState<string>();
 
-  function onPress() {
-    setVisible(false);
+  const title = newValue ? String(newValue) : "Selecione";
+
+  function onChangeValue(value: any) {
+    setValue(value);
+    setNewValue(value);
   }
 
   return (
-    <MvModal showCloseButton={false} style={style?.styleMvModel}>
-      <View style={[compentStyle.container, style?.container]}>
+    <MvModal title={title}>
+      <View style={compStyle.container}>
         {options.map((option, index) => (
           <TouchableOpacity
-            onPress={onPress}
+            onPress={() => onChangeValue(option.value)}
             key={option.value}
             style={[
               { backgroundColor: option.color ? option.color : randomColor(index) },
-              compentStyle.option,
+              compStyle.option,
             ]}
           >
-            {option.icon && <Icon name={option.icon} size={40} style={style?.icons} />}
-            <Text style={[compentStyle.text, style?.text]}>Mudança</Text>
+            <View style={compStyle.titleAndIcon}>
+              <Icon name={option.icon || ""} size={40} />
+              <Text style={compStyle.title}>{option.label || option.value}</Text>
+            </View>
+            <View style={compStyle.information}>
+              <Text style={compStyle.text}>Balbablabalblab</Text>
+            </View>
           </TouchableOpacity>
         ))}
       </View>
@@ -53,24 +54,38 @@ const SelectCard = ({ options, style }: { options: Option[]; style?: StyleSelect
 };
 export default SelectCard;
 
-const compentStyle = StyleSheet.create({
+const compStyle = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    padding: 2,
+    flexDirection: "column",
+    flexWrap: "wrap-reverse",
+    alignContent: "center",
   },
   option: {
     flex: 1,
-    minWidth: "40%",
-    maxHeight: 260,
+    width: "100%",
     justifyContent: "center",
-    margin: 2,
+    padding: 5,
+    flexDirection: "row",
+  },
+  titleAndIcon: {
+    width: "30%",
+    justifyContent: "center",
     alignItems: "center",
+    padding: 5,
+
+    borderRightWidth: 1,
+  },
+  title: {
+    fontSize: 17,
+    opacity: 0.6,
+  },
+  information: {
+    width: "70%",
+    padding: 10,
   },
   text: {
-    fontSize: 18,
-    alignSelf: "center",
+    fontSize: 15,
+    opacity: 0.8,
   },
 });

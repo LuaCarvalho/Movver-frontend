@@ -23,7 +23,8 @@ const css = StyleSheet.create({
     },
     textIcon: {
         flexDirection: "row",
-        marginBottom: 5
+        marginBottom: 5,
+        alignItems: "center"
     },
     infoText: {
         fontSize: 16,

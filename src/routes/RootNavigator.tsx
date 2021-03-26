@@ -19,6 +19,7 @@ export function navigate(name: any, params?: any) {
 export default function RootNavigator() {
   return (
     <Stack.Navigator
+      initialRouteName="PublicNavigator"
       screenOptions={{
         headerTitle: "Movver",
         headerTitleAlign: "center",

@@ -38,7 +38,7 @@ const Item = ({
   return (
     <TouchableOpacity onPress={onSelect} style={[appCss.textIcon, styles.item]}>
       <Icon name={icon} size={20} color="gray" />
-      <Text style={styles.itemText}>{ label } { value}</Text>
+      <Text style={styles.itemText}>{label}</Text>
     </TouchableOpacity>
   );
 };

@@ -1,82 +1,57 @@
-import React, { createContext, useEffect, useState } from "react";
-import { Modal, StyleSheet, Text, Pressable, View, ViewStyle, TextStyle } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
-export interface StyleMvModel {
-  horizontalView?: ViewStyle;
-  verticalView: ViewStyle;
-  internalButton?: ViewStyle;
-  internalButtonText?: TextStyle;
-}
-
-interface Context {
-  visible: boolean;
-  setVisible: Function;
-}
-
-export const ModalContext = createContext({} as Context);
+import React, { useState } from "react";
+import { Modal, StyleSheet, Text, Pressable, View, TouchableOpacity } from "react-native";
+import { grey } from "../../styles/color.css";
 
 const MvModel = ({
   title = "Selecione",
-  style,
-  showCloseButton = true,
   children,
 }: {
   title?: string;
-  style?: StyleMvModel;
-  showCloseButton?: boolean;
   children: React.ReactNode;
 }) => {
   const [visible, setVisible] = useState(false);
 
-  function close() {
-    setVisible(false)
-  }
-
   return (
-    <ModalContext.Provider value={{ visible, setVisible: close }}>
+    <>
       <Modal animationType="slide" transparent={true} visible={visible} collapsable={true}>
-        {/* Quando o modal estiver ativo, essa view ocupará todo o espaço
-         * O items na tela se ajustam em relação a ela */}
-        <View style={[compentStyle.horizontalView, style?.horizontalView]}>
-          <View style={[compentStyle.verticalView, style?.verticalView]}>
-            <Text style={compentStyle.modalText}>Selecione</Text>
-            {children}
-            {showCloseButton && (
-              <Pressable style={compentStyle.buttonClose} onPress={() => setVisible(!visible)}>
-                <Text style={compentStyle.buttonCloseText}>Pronto</Text>
-              </Pressable>
-            )}
-          </View>
+        <TouchableOpacity
+          style={compStyle.view}
+          onPressIn={() => setVisible(false)}
+        ></TouchableOpacity>
+        <View style={[compStyle.view, compStyle.viewBottom]}>
+          <Text style={compStyle.modalText}>Selecione</Text>
+          <View style={compStyle.children}>{children}</View>
+          <Pressable style={compStyle.buttonClose} onPress={() => setVisible(!visible)}>
+            <Text style={compStyle.buttonCloseText}>Pronto</Text>
+          </Pressable>
         </View>
       </Modal>
-      <TouchableOpacity
-        style={[compentStyle.buttonOpen, style?.internalButton]}
-        onPress={() => setVisible(true)}
-      >
-        <Text style={[compentStyle.textSelect, style?.internalButtonText]}>{title}</Text>
+      <TouchableOpacity style={compStyle.buttonOpen} onPress={() => setVisible(true)}>
+        <Text style={compStyle.textSelect}>{title}</Text>
       </TouchableOpacity>
-    </ModalContext.Provider>
+    </>
   );
 };
 
 export default MvModel;
 
-const compentStyle = StyleSheet.create({
-  horizontalView: {
+const compStyle = StyleSheet.create({
+  view: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    width: "100%",
   },
-  verticalView: {
-    flex: 1,
+  viewBottom: {
     maxHeight: "50%",
     alignSelf: "flex-end",
-    backgroundColor: "white",
+    backgroundColor: grey.lighten4,
     borderRadius: 10,
-    padding: 10,
+    padding: 5,
   },
+  children: {
+    flexGrow: 1,
+    margin: 5,
+  },
+
   buttonOpen: {
     width: "100%",
   },
@@ -106,7 +81,6 @@ const compentStyle = StyleSheet.create({
     color: "black",
     fontSize: 17,
     opacity: 0.6,
-    marginBottom: 15,
     textAlign: "center",
   },
   items: {

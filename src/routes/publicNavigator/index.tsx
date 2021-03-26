@@ -8,11 +8,12 @@ import Login from '../../components/auth/Login'
 import Register from '../../components/auth/Register'
 
 
+
 const Stack = createStackNavigator()
 
 const PublicNavigator: React.FC = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Register" headerMode="none">
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>

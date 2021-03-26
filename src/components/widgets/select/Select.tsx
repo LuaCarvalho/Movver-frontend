@@ -1,46 +1,45 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, Pressable, View } from "react-native";
+import React, { useMemo, useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import { item } from "@model/types";
 import Item from "./Item";
 import MvModal from "../MvModal";
 
-const Select = ({ setValue, items }: { setValue: Function; items: item[] | any[] }) => {
+type item = { label: string; value: any };
+type items = item[] | string[] | number[];
+
+const Select = ({ setValue, items }: { setValue: Function; items: items }) => {
   const [newValue, setNewValue] = useState(null);
 
-  //Descobre que tipagem o array de items recebeu (pode ser um array simples ou type item)
-  const typeItems = typeof items[0] === "object";
-
   const title = newValue ? String(newValue) : "Selecione";
+
+  //Função q transforma qlqr tipo de array em uma array de "item"
+  function transformToItems(arr: items): item[] {
+    if (typeof arr[0] === "object") return arr as item[];
+    return arr.map(i => ({ value: i, label: String(i) }));
+  }
+
+  //useMemo -> evita que essa função seja chamada repetidas vezes desnecessariamente
+  const itemsList = useMemo(() => transformToItems(items), [items])
 
   //Callback que será enviada ao elemento filho Item sempre q o valor mudar
   function onChangeValue(value: any) {
     setValue(value);
     setNewValue(value);
   }
+  
   return (
     <MvModal title={title}>
       <View style={styles.items}>
-        {typeItems
-          ? items.map(({ label, value }) => (
-              //Se o valor vier como um objeto do tipo "item" || Array<item>
-              <Item
-                label={label}
-                value={value}
-                setValue={onChangeValue}
-                newValue={newValue}
-                key={value}
-              />
-            ))
-          : items.map(value => (
-              //Se o valor vier como um tipo primitivo || Array<number | string>
-              <Item
-                value={value}
-                setValue={onChangeValue}
-                newValue={newValue}
-                key={String(value)}
-              />
-            ))}
+        {itemsList.map(({ label, value }) => (
+          //Se o valor vier como um objeto do tipo "item" || Array<item>
+          <Item
+            label={label}
+            value={value}
+            setValue={onChangeValue}
+            newValue={newValue}
+            key={value}
+          />
+        ))}
       </View>
     </MvModal>
   );

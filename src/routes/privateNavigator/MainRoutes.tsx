@@ -9,13 +9,12 @@ import Profile from "../../components/screens/Profile";
 import Freight from "../../components/screens/Drivers";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Text } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
 const MainNavigator: React.FC = () => {
   return (
-    <Tab.Navigator initialRouteName="Inicio">
+    <Tab.Navigator tabBarOptions={{}} initialRouteName="Inicio">
       <Tab.Screen
         name="Inicio"
         component={Home}

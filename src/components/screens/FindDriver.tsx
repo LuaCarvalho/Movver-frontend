@@ -18,7 +18,9 @@ import SelectCard from "../widgets/selectCard/SelectCard";
 const FindDriver = () => {
   const { goBack } = useNavigation();
   const { origin, destination, distance } = useLocationContext();
+
   const [description, setDescription] = useState(false);
+  const [service, setService] = useState<string>();
 
   return (
     <View style={styles.modalViewColumn}>
@@ -38,11 +40,7 @@ const FindDriver = () => {
           <View style={appCss.textIcon}>
             <Text style={appCss.infoText}>Tipo da carga: </Text>
             <SelectCard
-              style={{
-                styleMvModel: {
-                  verticalView: { backgroundColor: grey.lighten4 },
-                },
-              }}
+              setValue={setService}
               options={[
                 { value: "Mudança", icon: "truck" },
                 { value: "Outros", icon: "dump-truck" },
@@ -70,10 +68,23 @@ const FindDriver = () => {
             </View>
           )}
         </View>
-        {/* )} */}
-
         <View style={[styles.card, styles.actionsCard]}>
-          <MvButton action={goBack} />
+          <MvButton
+            action={goBack}
+            style={{
+              width: "50%",
+              alignSelf: "center",
+              borderRadius: 100,
+              height: 45,
+            }}
+          >
+            <View style={[appCss.textIcon, {
+           
+            }]}>
+              <Icon name="account-search" size={25} />
+              <Text>Buscar</Text>
+            </View>
+          </MvButton>
         </View>
       </View>
     </View>
