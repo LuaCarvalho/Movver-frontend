@@ -28,7 +28,7 @@ const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
           </View>
           <View style={appCss.textIcon}>
             <Icon name={iconTruck(vehicle.truckBudyWork)} size={20} color={grey.darken3} />
-            <Text> {vehicle.type}</Text>
+            <Text> {vehicle.model}</Text>
           </View>
           <View style={appCss.textIcon}>
             <Icon name="weight-kilogram" size={20} color={grey.darken3} />

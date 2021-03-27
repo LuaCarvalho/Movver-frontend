@@ -3,6 +3,10 @@ export const blue = {
   lighten: "#BBDEFB",
   lighten2: "#90CAF9",
   lighten5: "#E3F2FD",
+  darken: "#1E88E5",
+  darken2: "#1976D2",
+  darken4: "#0D47A1",
+
 }
 export const green = {
   c: "#4CAF50",

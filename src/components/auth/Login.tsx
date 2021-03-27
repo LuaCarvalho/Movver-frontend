@@ -1,24 +1,47 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { useNavigation } from "@react-navigation/core";
 
 import MvButton from "../widgets/MvButton";
 
 import appCss from "../../styles/app.css";
+import authCss from "../../styles/auth.css";
+
 import * as colors from "../../styles/color.css";
-import { useNavigation } from "@react-navigation/core";
+import MvInput from "../../components/widgets/MvInput";
 
 const Login: React.FC = () => {
   const { navigate } = useNavigation();
 
   return (
-    <View style={cStyle.container}>
-      <View style={cStyle.form}>
-        <Text>Apenas para descomplicar sua vida!</Text>
-        <TextInput placeholder="Username" style={cStyle.inputs} />
-        <TextInput placeholder="Senha" style={cStyle.inputs} />
-        <MvButton style={cStyle.buttonLogin} action={() => navigate("PrivateNavigator")}>
-          <Text>Entrar</Text>
+    <View style={authCss.container}>
+      <View style={authCss.card}>
+        <View style={cStyle.user}>
+          <Image style={cStyle.image} source={require("../../assets/perfil.png")} />
+          <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
+          <Text>Faça a autenticação para continuar</Text>
+        </View>
+        <View>
+          <MvInput icon="email-outline" placeholder="Email" keyboardType="email-address" />
+          <MvInput icon="lock-outline" placeholder="Senha" secureTextEntry />
+        </View>
+        <MvButton style={authCss.loginButton} action={() => navigate("PrivateNavigator")}>
+          <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
+        <View style={authCss.cardRegister}>
+          <Text style={{ opacity: 0.8 }}>Ainda não possui uma conta?</Text>
+          <TouchableOpacity onPress={() => navigate("Register")}>
+            <Text style={{ color: colors.blue.darken2, fontSize: 16 }}>Crie uma nova conta</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -27,27 +50,34 @@ const Login: React.FC = () => {
 export default Login;
 
 const cStyle = StyleSheet.create({
-  container: {
-    flex: 1,
+  user: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.grey.lighten2,
+    margin: 50,
   },
-  form: {
-    flex: 1,
-    width: "90%",
-    padding: 10,
+  image: {
+    marginRight: 10,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 3,
+  },
+  loginButton: {
+    height: 40,
+    width: "70%",
+    alignSelf: "center",
+    borderRadius: 10,
     justifyContent: "center",
-    backgroundColor: colors.grey.lighten3,
   },
-  inputs: {
-    color: "black",
-    backgroundColor: "white",
-    borderWidth: 0.5,
+  loginText: {
+    fontSize: 16,
+    color: "white",
+    textTransform: "uppercase",
+  },
+  cardRegister: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 20,
     padding: 5,
-    margin: 5,
-  },
-  buttonLogin: {
-    margin: 5,
   },
 });

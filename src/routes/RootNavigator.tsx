@@ -21,7 +21,6 @@ export default function RootNavigator() {
     <Stack.Navigator
       initialRouteName="PublicNavigator"
       screenOptions={{
-        headerTitle: "Movver",
         headerTitleAlign: "center",
       }}
     >
