@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, Image } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -6,12 +6,16 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { blue, grey } from "../../styles/color.css";
 
 const MvInput = ({
+  value,
+  setCallback,
   placeholder,
   icon,
   iconSize,
   keyboardType,
   secureTextEntry,
 }: {
+  value: string;
+  setCallback: (value: string) => void;
   placeholder: string;
   icon: string;
   iconSize?: number;
@@ -32,13 +36,16 @@ const MvInput = ({
       </View>
       <View style={cStyle.cardInput}>
         <View>
-          {isTyping && <Text style={cStyle.inputPlaceholder}>{placeholder.toUpperCase()}</Text>}
+          {(isTyping || Boolean(value.length)) && (
+            <Text style={cStyle.inputPlaceholder}>{placeholder.toUpperCase()}</Text>
+          )}
         </View>
         <TextInput
-          autoFocus={false}
+          value={value}
           onFocus={() => setIsTyping(true)}
           onBlur={() => setIsTyping(false)}
-          style={[cStyle.input,]}
+          onChangeText={text => setCallback(text)}
+          style={[cStyle.input]}
           placeholder={isTyping ? "" : placeholder}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
@@ -58,19 +65,20 @@ const cStyle = StyleSheet.create({
     padding: 5,
     width: "95%",
     borderBottomWidth: 1,
-    borderColor: grey.lighten2
+    borderColor: grey.lighten2,
   },
   containerFocus: {
     backgroundColor: "#fff",
     elevation: 1,
     shadowRadius: 10,
     shadowColor: grey.lighten5,
-    borderColor: blue.lighten2
+    borderColor: blue.lighten2,
   },
   inputPlaceholder: {
     opacity: 0.5,
     fontSize: 12,
     fontWeight: "bold",
+    color: blue.darken2
   },
   input: {
     color: "black",
@@ -87,6 +95,5 @@ const cStyle = StyleSheet.create({
   icon: {
     marginRight: 5,
     marginLeft: 5,
-    // backgroundColor: "gray"
   },
 });

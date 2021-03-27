@@ -1,6 +1,8 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import MvButton from "../widgets/MvButton";
 import MvInput from "../../components/widgets/MvInput";
@@ -9,11 +11,17 @@ import appCss from "../../styles/app.css";
 import * as colors from "../../styles/color.css";
 import authCss from "../../styles/auth.css";
 
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { ScrollView } from "react-native-gesture-handler";
+import User from "../../model/classes/User";
 
 const Login: React.FC = () => {
   const { navigate, goBack } = useNavigation();
+
+  const [name, setName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [birthday, setBirthday] = useState<string>("");
+  const [cpf, setCpf] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmpassword, setConfirmPassword] = useState<string>("");
 
   return (
     <View style={authCss.container}>
@@ -28,29 +36,55 @@ const Login: React.FC = () => {
         </View>
 
         <ScrollView style={authCss.form}>
-          <MvInput icon="account-outline" placeholder="Nome" />
-          <MvInput icon="cellphone" placeholder="Número do telefone" keyboardType="phone-pad" />
+          <MvInput placeholder="Nome" value={name} setCallback={setName} icon="account-outline" />
           <MvInput
-            icon="calendar-outline"
+            placeholder="Número do telefone"
+            value={phone}
+            setCallback={setPhone}
+            icon="cellphone"
+            keyboardType="phone-pad"
+          />
+          <MvInput
             placeholder="Data de nascimento"
+            value={birthday}
+            setCallback={setBirthday}
+            icon="calendar-outline"
             keyboardType="number-pad"
           />
-          <MvInput icon="wallet-outline" placeholder="CPF" keyboardType="number-pad" />
-          <MvInput icon="lock-outline" placeholder="Senha" secureTextEntry />
-          <MvInput icon="lock" placeholder="Repetir senha" secureTextEntry />
+          <MvInput
+            placeholder="CPF"
+            value={cpf}
+            setCallback={setCpf}
+            icon="wallet-outline"
+            keyboardType="number-pad"
+          />
+          <MvInput
+            placeholder="Senha"
+            value={password}
+            setCallback={setPassword}
+            icon="lock-outline"
+            secureTextEntry
+          />
+          <MvInput
+            placeholder="Repetir senha"
+            value={confirmpassword}
+            setCallback={setConfirmPassword}
+            icon="lock"
+            secureTextEntry
+          />
         </ScrollView>
 
-        <MvButton style={authCss.loginButton} action={() => navigate("PrivateNavigator")}>
+        <MvButton
+          style={authCss.loginButton}
+          action={() => console.log(new User(name, Number(phone), password, birthday, cpf))}
+        >
           <Text style={authCss.registerText}>Criar conta</Text>
         </MvButton>
 
         <View style={authCss.cardRegister}>
           <Text style={{ opacity: 0.8 }}>Já possui uma conta?</Text>
           <TouchableOpacity>
-            <Text
-              onPress={() => navigate("Login")}
-              style={{ color: colors.blue.darken2, fontSize: 16 }}
-            >
+            <Text onPress={goBack} style={{ color: colors.blue.darken2, fontSize: 16 }}>
               Entre
             </Text>
           </TouchableOpacity>
@@ -65,6 +99,6 @@ export default Login;
 const cStyle = StyleSheet.create({
   infos: {
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

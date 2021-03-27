@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -20,6 +20,8 @@ import MvInput from "../../components/widgets/MvInput";
 
 const Login: React.FC = () => {
   const { navigate } = useNavigation();
+  const [phone, setPhone] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   return (
     <View style={authCss.container}>
@@ -29,11 +31,23 @@ const Login: React.FC = () => {
           <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
           <Text>Faça a autenticação para continuar</Text>
         </View>
-        <View>
-          <MvInput icon="email-outline" placeholder="Email" keyboardType="email-address" />
-          <MvInput icon="lock-outline" placeholder="Senha" secureTextEntry />
+        <View style={cStyle.form}>
+          <MvInput
+            value={phone}
+            setCallback={setPhone}
+            icon="phone-outline"
+            placeholder="phone"
+            keyboardType="phone-pad"
+          />
+          <MvInput
+            value={password}
+            setCallback={setPassword}
+            icon="lock-outline"
+            placeholder="Senha"
+            secureTextEntry
+          />
         </View>
-        <MvButton style={authCss.loginButton} action={() => navigate("PrivateNavigator")}>
+        <MvButton style={authCss.loginButton} action={() => console.log(phone, password)}>
           <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>
@@ -53,14 +67,17 @@ const cStyle = StyleSheet.create({
   user: {
     justifyContent: "center",
     alignItems: "center",
-    margin: 50,
+    margin: 40,
   },
   image: {
-    marginRight: 10,
     width: 80,
     height: 80,
     borderRadius: 40,
-    borderWidth: 3,
+  },
+  form: {
+    minHeight: "20%",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
   loginButton: {
     height: 40,
