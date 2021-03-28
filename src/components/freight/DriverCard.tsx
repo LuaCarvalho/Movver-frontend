@@ -3,12 +3,12 @@ import { View, Text, Image, StyleSheet } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import Driver from "../../model/interfaces/Driver";
+import Driver from "../../domain/model/interfaces/Driver";
 
 import appCss from "../../styles/app.css";
 import { grey, green } from "../../styles/color.css";
-import { truckBodyworkEnum } from "../../model/types/enums";
-import { numberSeparador } from "../../services/functions";
+import { truckBodyworkEnum } from "../../domain/model/types/enums";
+import { numberSeparador } from "../../domain/services/function";
 
 const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
   const iconTruck = (type: truckBodyworkEnum) => {

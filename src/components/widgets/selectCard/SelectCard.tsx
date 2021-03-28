@@ -5,7 +5,7 @@ import MvModal from "../MvModal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { blue } from "../../../styles/color.css";
 
-interface Option {
+export interface Option {
   value: any;
   label?: string;
   color?: string;

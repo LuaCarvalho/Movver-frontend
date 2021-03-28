@@ -11,7 +11,7 @@ import appCss from "../../styles/app.css";
 import * as colors from "../../styles/color.css";
 import authCss from "../../styles/auth.css";
 
-import User from "../../model/classes/User";
+import { Register_CF } from "../../domain/services/auth";
 
 const Login: React.FC = () => {
   const { navigate, goBack } = useNavigation();
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 
   return (
     <View style={authCss.container}>
-      <View style={authCss.card}>
+      <View style={authCss.mainView}>
         <TouchableOpacity onPress={goBack} style={{ width: 45 }}>
           <Icon style={{ marginLeft: 10 }} name="keyboard-backspace" size={45} />
         </TouchableOpacity>
@@ -76,17 +76,15 @@ const Login: React.FC = () => {
 
         <MvButton
           style={authCss.loginButton}
-          action={() => console.log(new User(name, Number(phone), password, birthday, cpf))}
+          action={() => console.log(Register_CF(name, phone, password, birthday, cpf))}
         >
           <Text style={authCss.registerText}>Criar conta</Text>
         </MvButton>
 
         <View style={authCss.cardRegister}>
           <Text style={{ opacity: 0.8 }}>Já possui uma conta?</Text>
-          <TouchableOpacity>
-            <Text onPress={goBack} style={{ color: colors.blue.darken2, fontSize: 16 }}>
-              Entre
-            </Text>
+          <TouchableOpacity onPress={goBack}>
+            <Text style={authCss.alreadyExistOrNo}>Entre</Text>
           </TouchableOpacity>
         </View>
       </View>

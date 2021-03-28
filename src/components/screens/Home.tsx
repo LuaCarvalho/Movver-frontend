@@ -1,47 +1,35 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
-import * as Location from "expo-location";
-import * as Permissions from "expo-permissions";
-import MapView, { Region } from "react-native-maps";
+import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
-import { googleApi } from "../../services/config/index";
-import { LocationProvider, useLocationContext } from "../../context/LocationContext";
+import { googleApi } from "../../domain/services/config";
+
+import { useLocationContext } from "../../context/LocationContext";
+import { directionEnum } from "../../domain/model/types/enums";
+import { getCurrentLocation } from "../../domain/services/location";
 
 const Home: React.FC = () => {
-  const { origin, destination, setDistance } = useLocationContext();
+  const { origin, destination, addLocation, addDistance } = useLocationContext();
   const mapRef = useRef<any>(null);
   const { navigate } = useNavigation();
-  const [actualLocation, setActualLocation] = useState<Region>();
 
+  //Inicialmente o mapa irá mostrar a localização atual
   useEffect(() => {
     (async function () {
-      //Pede permissão para acessar a localizão
-      const { status } = await Permissions.askAsync(Permissions.LOCATION);
-      if (status === "granted") {
-        const {
-          coords: { latitude, longitude },
-        } = await Location.getCurrentPositionAsync({
-          accuracy: Location.LocationAccuracy.High,
-        });
-        setActualLocation({
-          latitude,
-          longitude,
-          longitudeDelta: 0.000922,
-          latitudeDelta: 0.000421,
-        });
-      } else throw new Error("Location permission not granted");
+      const location = await getCurrentLocation(directionEnum.ORIGIN);
+      addLocation(location);
     })();
-  });
+  }, []);
 
   return (
     <>
       <MapView
         style={styles.map}
-        initialRegion={origin ? origin.region : actualLocation}
+        initialRegion={origin.region}
         showsUserLocation
         loadingEnabled
         ref={mapRef}
@@ -53,7 +41,7 @@ const Home: React.FC = () => {
             apikey={googleApi}
             strokeWidth={3}
             onReady={result => {
-              setDistance(result.distance);
+              addDistance(result.distance);
               mapRef.current.fitToCoordinates(result.coordinates, {
                 edgePadding: {
                   bottom: 50,

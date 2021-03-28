@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { truckBodyworkEnum, servicesEnum } from "../../model/types/enums";
+import { truckBodyworkEnum, servicesEnum } from "../../domain/model/types/enums";
 
-import { drivers } from "../../model/mocks/mock";
-import Driver from "../../model/interfaces/Driver";
+import { drivers } from "../../domain/model/mocks/mock";
+import Driver from "../../domain/model/interfaces/Driver";
 
 
 import appCss from "../../styles/app.css";

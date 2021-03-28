@@ -9,7 +9,7 @@ export default StyleSheet.create(
       alignItems: "center",
       backgroundColor: colors.grey.lighten5,
     },
-    card: {
+    mainView: {
       width: "95%",
       backgroundColor: colors.grey.lighten5,
       justifyContent: "space-between",
@@ -40,5 +40,9 @@ export default StyleSheet.create(
       color: "white",
       textTransform: "uppercase",
     },
+    alreadyExistOrNo: {
+      color: colors.blue.darken2,
+      fontSize: 16
+    }
   }
 )

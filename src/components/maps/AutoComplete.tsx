@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import {
   GooglePlaceDetail,
   GooglePlacesAutocomplete,
@@ -8,31 +8,44 @@ import {
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { googleApi } from "../../services/config";
+import { googleApi } from "../../domain/services/config";
+import { useLocationContext } from "../../context/LocationContext";
+import { directionEnum } from "../../domain/model/types/enums";
 
 import { grey } from "../../styles/color.css";
-import { useLocationContext } from "../../context/LocationContext";
-import { directionEnum } from "../../model/types/enums";
-import Location from "../../model/interfaces/Location";
 
-const AutoComplete = ({ direction }: { direction: directionEnum }) => {
-  const setLocation = useLocationContext().setLocation;
+import Localization from "../../domain/model/interfaces/Localization";
+import { getCurrentLocation, Locatization_CF } from "../../domain/services/location";
+
+const AutoComplete = ({ direction, focus }: { direction: directionEnum; focus?: boolean }) => {
+  const { addLocation } = useLocationContext();
 
   const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
   function onPress({}, details: GooglePlaceDetail | null) {
     const latitude = details!.geometry.location.lat;
     const longitude = details!.geometry.location.lng;
-    setLocation({
-      direction,
-      region: { latitude, longitude, latitudeDelta: 1, longitudeDelta: 1 },
-    });
+    const location = Locatization_CF(direction, latitude, longitude);
+    addLocation(location);
   }
 
   function clear() {
     ref.current?.setAddressText("");
-    setLocation({} as Location);
+    addLocation({} as Localization);
   }
+
+  /** Se esse componente receber a localização de origem,
+   ** inicialmente ele irá apontar para a localização atual */
+  useEffect(() => {
+    if (direction === directionEnum.ORIGIN) {
+      (async function () {
+        //O texto informativo deve ser definido primeiro, afinal, ele é sincrono
+        ref.current?.setAddressText("Localização atual");
+        const location = await getCurrentLocation(direction);
+        addLocation(location);
+      })();
+    }
+  }, []);
 
   return (
     <View style={styles.search}>
@@ -69,7 +82,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: "95%",
     borderRadius: 5,
-    marginTop: 5,
   },
   searchAction: {
     height: 44,

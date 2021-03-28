@@ -22,9 +22,11 @@ export default MButton;
 
 const compStyle = StyleSheet.create({
   mButton: {
+    width: "80%",
     backgroundColor: blue.c,
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     padding: 5,
   },
 });

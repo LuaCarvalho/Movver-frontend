@@ -11,6 +11,6 @@ export enum servicesEnum {
 
 export enum directionEnum {
   ORIGIN = "Origem",
-  DESTINATION = "Destino"
+  DESTINATION = "Destino",
 }
 

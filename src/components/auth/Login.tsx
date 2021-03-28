@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
-import MvButton from "../widgets/MvButton";
-
+import * as colors from "../../styles/color.css";
 import appCss from "../../styles/app.css";
 import authCss from "../../styles/auth.css";
 
-import * as colors from "../../styles/color.css";
+import MvButton from "../widgets/MvButton";
 import MvInput from "../../components/widgets/MvInput";
+
+import { Login_CF } from "../../domain/services/auth";
 
 const Login: React.FC = () => {
   const { navigate } = useNavigation();
@@ -25,7 +18,7 @@ const Login: React.FC = () => {
 
   return (
     <View style={authCss.container}>
-      <View style={authCss.card}>
+      <View style={authCss.mainView}>
         <View style={cStyle.user}>
           <Image style={cStyle.image} source={require("../../assets/perfil.png")} />
           <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
@@ -47,13 +40,16 @@ const Login: React.FC = () => {
             secureTextEntry
           />
         </View>
-        <MvButton style={authCss.loginButton} action={() => console.log(phone, password)}>
+        <MvButton
+          style={authCss.loginButton}
+          action={() => navigate("PrivateNavigator")}
+        >
           <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>
           <Text style={{ opacity: 0.8 }}>Ainda não possui uma conta?</Text>
           <TouchableOpacity onPress={() => navigate("Register")}>
-            <Text style={{ color: colors.blue.darken2, fontSize: 16 }}>Crie uma nova conta</Text>
+            <Text style={authCss.alreadyExistOrNo}>Crie uma nova conta</Text>
           </TouchableOpacity>
         </View>
       </View>

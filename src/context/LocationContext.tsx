@@ -1,30 +1,32 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { directionEnum } from "../model/types/enums";
-import Location from "../model/interfaces/Location";
+import { directionEnum } from "../domain/model/types/enums";
+import Localization from "../domain/model/interfaces/Localization";
 
 interface ContextType {
-  origin: Location;
-  destination: Location;
+  origin: Localization;
+  destination: Localization;
   distance: number;
-  setDistance: (distance: number) => void;
-  setLocation: (location: Location) => void;
+  addDistance: (distance: number) => void;
+  addLocation: (location: Localization) => void;
 }
 
 export const LocationContext = createContext({} as ContextType);
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [origin, setOrigin] = useState({} as Location);
-  const [destination, setDestination] = useState({} as Location);
+  const [origin, setOrigin] = useState({} as Localization);
+  const [destination, setDestination] = useState({} as Localization);
   const [distance, setDistance] = useState(0);
 
-  function setLocation(location: Location) {
-    if (location.direction === directionEnum.ORIGIN) setOrigin(location);
-    else setDestination(location);
+  function addLocation(local: Localization): void {
+    if (local.direction === directionEnum.ORIGIN) setOrigin(local);
+    else setDestination(local);
   }
 
   return (
-    <LocationContext.Provider value={{ origin, destination, distance, setDistance, setLocation }}>
+    <LocationContext.Provider
+      value={{ origin, destination, distance, addDistance: setDistance, addLocation }}
+    >
       {children}
     </LocationContext.Provider>
   );

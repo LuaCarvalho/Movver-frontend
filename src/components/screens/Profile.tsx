@@ -3,7 +3,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import { freights } from "../../model/mocks/mock";
+import { freights } from "../../domain/model/mocks/mock";
 
 import FreightCard from "../freight/FreightCard";
 import { TouchableOpacity } from "react-native-gesture-handler";
