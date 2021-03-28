@@ -2,7 +2,7 @@ import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 
 import Localization from "../../model/interfaces/Localization"
-import { directionEnum } from "../../../domain/model/types/enums";
+import { directionEnum } from "../../model/types/enums";
 
 
 //Função construtora, responsavel por retornar um objeto do tipo Localization
@@ -23,7 +23,7 @@ export async function getCurrentLocation(direction: directionEnum): Promise<Loca
   const { status } = await Permissions.askAsync(Permissions.LOCATION);
   if (status !== "granted") throw new Error("O acesso a localização não foi permitido!");
   const { coords } = await Location.getCurrentPositionAsync({
-    accuracy: Location.LocationAccuracy.High,
+    accuracy: Location.LocationAccuracy.Highest,
   });
   const localization = Locatization_CF(direction, coords.latitude, coords.longitude)
   return localization;

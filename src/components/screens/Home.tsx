@@ -8,12 +8,12 @@ import MapViewDirections from "react-native-maps-directions";
 
 import { googleApi } from "../../domain/services/config";
 
-import { useLocationContext } from "../../context/LocationContext";
+import { useLocalizationContext } from "../../context/LocalizationContext";
 import { directionEnum } from "../../domain/model/types/enums";
-import { getCurrentLocation } from "../../domain/services/location";
+import { getCurrentLocation } from "../../domain/services/localization/location";
 
 const Home: React.FC = () => {
-  const { origin, destination, addLocation, addDistance } = useLocationContext();
+  const { origin, destination, addDistance, addLocalization } = useLocalizationContext();
   const mapRef = useRef<any>(null);
   const { navigate } = useNavigation();
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     (async function () {
       const location = await getCurrentLocation(directionEnum.ORIGIN);
-      addLocation(location);
+      addLocalization(location);
     })();
   }, []);
 

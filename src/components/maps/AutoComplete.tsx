@@ -9,16 +9,16 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { googleApi } from "../../domain/services/config";
-import { useLocationContext } from "../../context/LocationContext";
+import { useLocalizationContext } from "../../context/LocalizationContext";
 import { directionEnum } from "../../domain/model/types/enums";
 
 import { grey } from "../../styles/color.css";
 
 import Localization from "../../domain/model/interfaces/Localization";
-import { getCurrentLocation, Locatization_CF } from "../../domain/services/location";
+import { getCurrentLocation, Locatization_CF } from "../../domain/services/localization/location";
 
 const AutoComplete = ({ direction, focus }: { direction: directionEnum; focus?: boolean }) => {
-  const { addLocation } = useLocationContext();
+  const { addLocalization } = useLocalizationContext();
 
   const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
@@ -26,12 +26,12 @@ const AutoComplete = ({ direction, focus }: { direction: directionEnum; focus?: 
     const latitude = details!.geometry.location.lat;
     const longitude = details!.geometry.location.lng;
     const location = Locatization_CF(direction, latitude, longitude);
-    addLocation(location);
+    addLocalization(location);
   }
 
   function clear() {
     ref.current?.setAddressText("");
-    addLocation({} as Localization);
+    addLocalization({} as Localization);
   }
 
   /** Se esse componente receber a localização de origem,
@@ -42,7 +42,7 @@ const AutoComplete = ({ direction, focus }: { direction: directionEnum; focus?: 
         //O texto informativo deve ser definido primeiro, afinal, ele é sincrono
         ref.current?.setAddressText("Localização atual");
         const location = await getCurrentLocation(direction);
-        addLocation(location);
+        addLocalization(location);
       })();
     }
   }, []);

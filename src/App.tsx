@@ -4,15 +4,17 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator, { navigationRef } from "./routes/RootNavigator";
-import { LocationProvider } from "./context/LocationContext";
-import { Dimensions } from "react-native";
+import { LocalizationProvider } from "./context/LocalizationContext";
+import { TomCompleteProvider  } from "./context/TomCompleteContext";
 
 export default function () {
   return (
     <NavigationContainer ref={navigationRef}>
-      <LocationProvider>
-        <RootNavigator />
-      </LocationProvider>
+      <TomCompleteProvider>
+        <LocalizationProvider>
+          <RootNavigator />
+        </LocalizationProvider>
+      </TomCompleteProvider>
     </NavigationContainer>
   );
 }

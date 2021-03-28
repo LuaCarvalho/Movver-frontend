@@ -8,14 +8,16 @@ import { grey, green, blue } from "../../styles/color.css";
 
 import { directionEnum } from "../../domain/model/types/enums";
 
-import { useLocationContext } from "../../context/LocationContext";
+import { useLocalizationContext } from "../../context/LocalizationContext";
 
 import MvButton from "../widgets/MvButton";
 import AutoComplete from "../../components/maps/AutoComplete";
-import AutoComplete2 from "../../components/maps/AutoComplete2";
+import TomComplete from "../maps/TomComplete";
 
 import Select from "../widgets/select/Select";
 import SelectCard, { Option } from "../widgets/selectCard/SelectCard";
+
+import TomContainer from "../maps/TomContainer";
 
 const services: Array<Option> = [
   { value: "Mudança", icon: "truck" },
@@ -25,15 +27,20 @@ const services: Array<Option> = [
 
 const FindDriver = () => {
   const { goBack, navigate } = useNavigation();
-  const { origin, destination, distance } = useLocationContext();
+  const { origin, destination, distance } = useLocalizationContext();
 
   const [description, setDescription] = useState<boolean>();
   const [service, setService] = useState<string>();
 
-  const LocationHistory: React.FC = () => <></>;
+
+  const CentralComponent: React.FC = () => (
+    <View style={cStyle.centralContent}>{true ? <LocationHistory /> : <Form />}</View>
+  );
+
+  const LocationHistory: React.FC = () => <TomContainer />;
 
   const Form: React.FC = () => (
-    <View style={[cStyle.card, cStyle.formCard]}>
+    <View style={{padding: 5}}>
       <View style={appCss.textIcon}>
         <Text style={appCss.infoText}>Tipo da carga: </Text>
         <SelectCard setValue={setService} options={services} />
@@ -60,9 +67,6 @@ const FindDriver = () => {
     </View>
   );
 
-  const CentralComponent: React.FC = () =>
-    !origin.region || !destination.region ? <LocationHistory /> : <Form />;
-
   return (
     <View style={cStyle.container}>
       <View style={cStyle.mainView}>
@@ -72,8 +76,9 @@ const FindDriver = () => {
           </TouchableOpacity>
           <View>
             {/* <AutoComplete direction={directionEnum.ORIGIN} /> */}
-            {/* <AutoComplete direction={directionEnum.DESTINATION} focus /> */}
-            <AutoComplete2 />
+            {/* <AutoComplete direction={directionEnum.DESTINATION} focus />  */}
+            <TomComplete direction={directionEnum.ORIGIN} />
+            <TomComplete direction={directionEnum.DESTINATION} focus />
           </View>
           {Boolean(distance) && (
             <View style={appCss.textIcon}>
@@ -115,6 +120,12 @@ const cStyle = StyleSheet.create({
     backgroundColor: "white",
     marginTop: 5,
   },
+  centralContent: {
+    flexGrow: 8,
+    elevation: 5,
+    marginTop: 5,
+    backgroundColor: "white",
+  },
   searchBoxesCard: {
     flexGrow: 1,
   },
@@ -123,9 +134,6 @@ const cStyle = StyleSheet.create({
     fontSize: 13,
     opacity: 0.5,
     textAlign: "right",
-  },
-  formCard: {
-    flexGrow: 8,
   },
   descriptionInput: {
     padding: 10,
