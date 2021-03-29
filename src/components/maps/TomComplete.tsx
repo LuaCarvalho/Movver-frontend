@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, TouchableHighlight, View } from "react-native";
+
+import axios from "axios";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { grey } from "../../styles/color.css";
-import { tomKey } from "../../domain/services/config";
-
 import TomQuery from "../../domain/model/interfaces/TomTomSearch";
 
-import axios from "axios";
+import { grey } from "../../styles/color.css";
+import { tomKey } from "../../domain/services/config";
 
 import { useTomCompleteContext } from "../../context/TomCompleteContext";
 import { useLocalizationContext } from "../../context/LocalizationContext";
@@ -18,51 +18,74 @@ import { getCurrentLocation } from "../../domain/services/localization/location"
 
 /* TomComplete:
  * providencia uma forma de simples de buscar endereções atráves de entradas de texto */
-const TomComplete = ({ direction, focus }: { direction: directionEnum; focus?: boolean }) => {
-  const { addLocalization  } = useLocalizationContext();
-  const { setTomSearch, setDirection } = useTomCompleteContext();
+const TomComplete = ({ direction }: { direction: directionEnum }) => {
+  const { addLocalization, origin } = useLocalizationContext();
+  const {
+    contextQuery,
+    contextDirection,
+    setTomSearch,
+    setContextDirection,
+  } = useTomCompleteContext();
 
   const [query, setQuery] = useState<string>("");
 
+  const isSelect = direction === contextDirection;
 
   async function getAddres(search: string): Promise<TomQuery> {
-    const query1 = encodeURIComponent(search);
-    const limit = 5;
     const baseUrl = "https://api.tomtom.com/search/2/search/";
-    const url = `${baseUrl}${query1}.json?&countrySet=br&language=pt-br&limit=${limit}&key=${tomKey}`;
+    const query = encodeURIComponent(search);
+    const aproxLat = origin.region.latitude;
+    const aproxLon = origin.region.longitude;
+    const limit = "limit=" + 5;
+    const url = `${baseUrl}${query}.json?&countrySet=br&lat=${aproxLat}&lon=${aproxLon}&language=pt-br&${limit}&key=${tomKey}`;
     const res = await axios.get(url);
     const data: TomQuery = res.data;
     return data;
   }
 
+  /* Se esse componente receber a localização de origem, irá apontar para a localização atual */
+  useEffect(() => {
+    (async function () {
+      if (direction !== directionEnum.ORIGIN) return;
+      //O texto informativo deve ser definido primeiro, afinal, ele é sincrono
+      setQuery("Localização atual");
+      const location = await getCurrentLocation(direction);
+      addLocalization(location);
+    })();
+  }, []);
+
+  //Sempre que uma nova entrada for digitada, ira buscar novos endereções
   useEffect(() => {
     (async () => {
+      //Evita que ao digitar aja uma excesso de consultas
       if (query.length === 0 || query.length % 3 !== 0) return;
       const res = await getAddres(query);
       setTomSearch(res);
-      setDirection(direction)
+      setContextDirection(direction);
     })();
   }, [query]);
 
-  /* Se esse componente receber a localização de origem,
-   * inicialmente ele irá apontar para a localização atual */
+  //Atualiza o campo do input de acordo com os dados escolhidos pelo usuário no "TomContainer"
   useEffect(() => {
-    if (direction === directionEnum.ORIGIN) {
-      (async function () {
-        //O texto informativo deve ser definido primeiro, afinal, ele é sincrono
-        setQuery("Localização atual");
-        const location = await getCurrentLocation(direction);
-        addLocalization(location);
-      })();
-    }
-  }, []);
+    //Verifica se os dados deve ser inseridos nesse componente ou não
+    if (contextDirection === direction) setQuery(contextQuery);
+  }, [contextQuery]);
 
   return (
     <View style={cStyle.search}>
-      <TextInput value={query} onChangeText={text => setQuery(text)} style={cStyle.input} />
-      <TouchableOpacity onPress={() => setQuery("")} style={cStyle.searchAction}>
+      <TextInput
+        value={query}
+        onTouchStart={() => setContextDirection(direction)}
+        onChangeText={text => setQuery(text)}
+        style={cStyle.input}
+      />
+      <TouchableHighlight
+        onPress={() => setQuery("")}
+        style={cStyle.clearButton}
+        underlayColor={grey.lighten2}
+      >
         <Icon name="close-circle" size={25} color="gray" />
-      </TouchableOpacity>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -81,7 +104,7 @@ const cStyle = StyleSheet.create({
     padding: 10,
     backgroundColor: grey.lighten4,
   },
-  searchAction: {
+  clearButton: {
     height: 44,
     width: 25,
     justifyContent: "center",

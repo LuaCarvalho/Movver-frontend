@@ -2,11 +2,12 @@ import Localization from "domain/model/interfaces/Localization";
 import Address from "../../model/interfaces/Address"
 
 export function Address_FC(
-  id: string,
+  resultId: string,
   title: string,
   district: string,
   city: string,
   state: string,
+  distance: number,
   localization: Localization): Address {
-  return { id, title, district, city, state, localization }
+  return { resultId, title, district, city, state, distance, localization }
 }

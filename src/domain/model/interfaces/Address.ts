@@ -1,10 +1,11 @@
 import Localization from "./Localization";
 
 export default interface Address {
-  readonly id: string,
+  readonly resultId: string,
   readonly title: string,
   readonly district: string,
   readonly city: string,
   readonly state: string,
+  readonly distance: number, 
   readonly localization: Localization
 }

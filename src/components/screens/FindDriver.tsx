@@ -11,13 +11,13 @@ import { directionEnum } from "../../domain/model/types/enums";
 import { useLocalizationContext } from "../../context/LocalizationContext";
 
 import MvButton from "../widgets/MvButton";
-import AutoComplete from "../../components/maps/AutoComplete";
 import TomComplete from "../maps/TomComplete";
 
 import Select from "../widgets/select/Select";
 import SelectCard, { Option } from "../widgets/selectCard/SelectCard";
 
 import TomContainer from "../maps/TomContainer";
+import { useTomCompleteContext } from "../../context/TomCompleteContext";
 
 const services: Array<Option> = [
   { value: "Mudança", icon: "truck" },
@@ -27,20 +27,18 @@ const services: Array<Option> = [
 
 const FindDriver = () => {
   const { goBack, navigate } = useNavigation();
-  const { origin, destination, distance } = useLocalizationContext();
+
+  const { origin, destination } = useLocalizationContext();
 
   const [description, setDescription] = useState<boolean>();
   const [service, setService] = useState<string>();
 
-
   const CentralComponent: React.FC = () => (
-    <View style={cStyle.centralContent}>{true ? <LocationHistory /> : <Form />}</View>
+    <View style={cStyle.centralContent}>{true ? <TomContainer /> : <Form />}</View>
   );
 
-  const LocationHistory: React.FC = () => <TomContainer />;
-
   const Form: React.FC = () => (
-    <View style={{padding: 5}}>
+    <View style={{ padding: 5 }}>
       <View style={appCss.textIcon}>
         <Text style={appCss.infoText}>Tipo da carga: </Text>
         <SelectCard setValue={setService} options={services} />
@@ -75,27 +73,21 @@ const FindDriver = () => {
             <Icon name="window-close" size={30} />
           </TouchableOpacity>
           <View>
-            {/* <AutoComplete direction={directionEnum.ORIGIN} /> */}
-            {/* <AutoComplete direction={directionEnum.DESTINATION} focus />  */}
             <TomComplete direction={directionEnum.ORIGIN} />
-            <TomComplete direction={directionEnum.DESTINATION} focus />
+            <TomComplete direction={directionEnum.DESTINATION} />
           </View>
-          {Boolean(distance) && (
-            <View style={appCss.textIcon}>
-              <Text style={cStyle.distance}>Distância: {distance | 0}km</Text>
-            </View>
-          )}
         </View>
-        {/* {destination.region && origin.region && ( */}
         <CentralComponent />
-        <View style={[cStyle.card, cStyle.actionCard]}>
-          <MvButton action={goBack} style={cStyle.actionButton}>
-            <View style={[appCss.textIcon, {}]}>
-              <Icon name="account-search-outline" color="black" size={25} />
-              <Text>Buscar</Text>
-            </View>
-          </MvButton>
-        </View>
+        {origin.region && destination.region && (
+          <View style={[cStyle.card, cStyle.actionCard]}>
+            <MvButton action={goBack} style={cStyle.actionButton}>
+              <View style={[appCss.textIcon, {}]}>
+                <Icon name="account-search-outline" color="black" size={25} />
+                <Text>Buscar</Text>
+              </View>
+            </MvButton>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -126,9 +118,7 @@ const cStyle = StyleSheet.create({
     marginTop: 5,
     backgroundColor: "white",
   },
-  searchBoxesCard: {
-    flexGrow: 1,
-  },
+  searchBoxesCard: {},
   distance: {
     flex: 1,
     fontSize: 13,
