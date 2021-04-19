@@ -8,9 +8,6 @@ import authCss from "../../styles/auth.css";
 import MvButton from "../widgets/mv-button";
 
 
-
-
-
 const Login: React.FC = () => {
   const { navigate, goBack } = useNavigation();
 

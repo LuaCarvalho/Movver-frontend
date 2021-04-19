@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-
+import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
 import Driver from "../../domain/model/interfaces/Driver";
-
-import appCss from "../../styles/app.css";
-import { grey, green } from "../../styles/color.css";
 import { truckBodyworkEnum } from "../../domain/model/types/enums";
 import { numberSeparador } from "../../domain/services/function";
+import appCss from "../../styles/app.css";
+import { green, grey } from "../../styles/color.css";
+
+
+
 
 const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
   const iconTruck = (type: truckBodyworkEnum) => {
@@ -22,7 +22,7 @@ const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
           <View style={styles.driver}>
             <Image
               style={[styles.driverImg, { borderColor: available ? green.lighten3 : grey.darken }]}
-              source={require("../../assets/perfil.png")}
+              source={require("../../assets/perfil.jpeg")}
             />
             <Text style={styles.driverName}>{name}</Text>
           </View>

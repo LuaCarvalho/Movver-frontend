@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../../context/LocalizationContext";
-import LocationFinder from "./LocationFinder";
+import LocationFinder from "./location-finder";
 
 const FindDriver = () => {
   const { goBack, navigate } = useNavigation();

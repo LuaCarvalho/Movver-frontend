@@ -3,8 +3,8 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PrivateNavigator from "./privateNavigator";
-import PublicNavigator from "./publicNavigator";
+import PrivateNavigator from "./private-navigator";
+import PublicNavigator from "./public-navigator";
 
 const Stack = createStackNavigator();
 

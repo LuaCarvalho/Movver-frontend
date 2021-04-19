@@ -11,7 +11,7 @@ const Profile: React.FC = () => {
   return (
     <View style={appCss.container}>
       <View style={[appCss.card, styles.profileCard]}>
-        <Image style={styles.img} source={require("../../assets/perfil.png")} />
+        <Image style={styles.img} source={require("../../assets/perfil.jpeg")} />
         <Text style={styles.name}>Joás Andrade</Text>
       </View>
       <View style={[appCss.card, styles.infoCard]}>

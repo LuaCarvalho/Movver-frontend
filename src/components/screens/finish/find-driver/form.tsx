@@ -4,8 +4,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../../context/LocalizationContext";
 import appCss from "../../../../styles/app.css";
 import * as Colors from "../../../../styles/color.css";
-import Select from "../../../widgets/select/Select";
-import SelectCard, { Option } from "../../../widgets/select-card/SelectCard";
+import Select from "../../../widgets/select";
+import SelectCard, { Option } from "../../../widgets/select-card";
 
 
 const services: Array<Option> = [

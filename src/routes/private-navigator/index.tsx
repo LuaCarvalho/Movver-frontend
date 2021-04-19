@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import FindDriver from '../../components/screens/finish/find-driver';
 import Finish from "../../components/screens/finish";
-import MainRoutes from "./MainRoutes";
+import MainRoutes from "./main-routes";
 
 
 

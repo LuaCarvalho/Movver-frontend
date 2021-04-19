@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     <View style={authCss.container}>
       <View style={authCss.mainView}>
         <View style={cStyle.user}>
-          <Image style={cStyle.image} source={require("../../assets/perfil.png")} />
+          <Image style={cStyle.image} source={require("../../assets/perfil.jpeg")} />
           <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
           <Text>Faça a autenticação para continuar</Text>
         </View>

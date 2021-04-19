@@ -6,8 +6,8 @@ import MapViewDirections from "react-native-maps-directions";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { googleApi } from "../../../domain/services/config";
-import MvButton from "../../widgets/MvButton";
-import Form from "./find-driver/Form";
+import MvButton from "../../widgets/mv-button";
+import Form from "./find-driver/form";
 
 
 export default function Finish() {

@@ -1,11 +1,11 @@
 /** Componente de acesso as rotas
  */
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { SafeAreaView } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import RootNavigator from "./routes/RootNavigator";
 import { LocalizationProvider } from "./context/LocalizationContext";
 import { TomCompleteProvider } from "./context/TomCompleteContext";
+import RootNavigator from "./routes/root-navigator";
 
 export default function () {
   return (
