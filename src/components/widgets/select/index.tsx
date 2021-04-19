@@ -18,7 +18,7 @@ const Select = ({ setValue, items }: { setValue: Function; items: items }) => {
   }
 
   //useMemo -> evita que essa função seja chamada repetidas vezes desnecessariamente
-  const itemsList = useMemo(() => transformToItems(items), [items])
+  const itemsList: item[] = useMemo(() => transformToItems(items), [items])
 
   //Callback que será enviada ao elemento filho Item sempre q o valor mudar
   function onChangeValue(value: any) {

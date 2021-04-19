@@ -2,28 +2,22 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Driver from "../../../domain/model/interfaces/Driver";
-import { drivers } from "../../../domain/model/mocks/mock";
 import { truckBodyworkEnum } from "../../../domain/model/types/enums";
+import DriverService from "../../../domain/services/api/driver-service-api";
 import appCss from "../../../styles/app.css";
 import DriverCard from "../../freight/driver-card";
 import Select from "../../widgets/select";
 
 const Drivers: React.FC = () => {
-  const [filtredList, setFriltredList] = useState<Driver[]>(drivers);
+  const [drivers, setDrivers] = useState<Driver[]>([]);
 
   const [bodyworkFilter, setBodyworkFilter] = useState(truckBodyworkEnum.ANY);
   const [capacityFilter, setCapacityFilter] = useState(0);
 
   useEffect(() => {
-    const filtredCapacity = drivers.filter(driver => {
-      if (driver.vehicle.capacity >= capacityFilter) return driver;
-    });
-    const filtredTruckBodywork = filtredCapacity.filter(driver => {
-      if (bodyworkFilter === truckBodyworkEnum.ANY) return driver;
-      if (bodyworkFilter === driver.vehicle.truckBudyWork) return driver;
-    });
-    setFriltredList(filtredTruckBodywork);
-  }, [capacityFilter, bodyworkFilter]);
+    DriverService.getDrivers(bodyworkFilter)
+      .then(response => setDrivers(response));
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -49,8 +43,8 @@ const Drivers: React.FC = () => {
       <ScrollView style={[appCss.card, styles.driversCard]}>
         <Text
           style={styles.resultCounter}
-        >{`Resultados: ${filtredList.length} de ${drivers.length}`}</Text>
-        <DriverCard drivers={filtredList} />
+        >{`Resultados: ${drivers.length} de ${drivers.length}`}</Text>
+        <DriverCard drivers={drivers} />
       </ScrollView>
     </View>
   );

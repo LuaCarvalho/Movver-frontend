@@ -2,7 +2,6 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Driver from "../../domain/model/interfaces/Driver";
-import { truckBodyworkEnum } from "../../domain/model/types/enums";
 import { numberSeparador } from "../../domain/services/function";
 import appCss from "../../styles/app.css";
 import { green, grey } from "../../styles/color.css";
@@ -11,8 +10,8 @@ import { green, grey } from "../../styles/color.css";
 
 
 const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
-  const iconTruck = (type: truckBodyworkEnum) => {
-    return type == truckBodyworkEnum.OPEN ? "dump-truck" : "truck";
+  const iconTruck = (truckBodyWorkOpen: boolean) => {
+    return truckBodyWorkOpen ? "dump-truck" : "truck";
   };
 
   return (
@@ -27,7 +26,7 @@ const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
             <Text style={styles.driverName}>{name}</Text>
           </View>
           <View style={appCss.textIcon}>
-            <Icon name={iconTruck(vehicle.truckBudyWork)} size={20} color={grey.darken3} />
+            <Icon name={iconTruck(vehicle.truckBodyWorkOpen)} size={20} color={grey.darken3} />
             <Text> {vehicle.model}</Text>
           </View>
           <View style={appCss.textIcon}>
