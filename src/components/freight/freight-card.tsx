@@ -1,12 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-
-import Freight from "../../domain/model/interfaces/Freight";
-import appCss from "../../styles/app.css"
-
+import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Freight from "../../domain/model/interfaces/Freight";
+import appCss from "../../styles/app.css";
 
 const FreightCard = ({ freightList }: { freightList: Freight[] }) => {
+  
   const list = freightList.sort((a, b) => {
     if (a.date.getTime() < b.date.getTime()) return 1;
     if (a.date.getTime() > b.date.getTime()) return -1;

@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-
-import { truckBodyworkEnum, servicesEnum } from "../../domain/model/types/enums";
-
-import { drivers } from "../../domain/model/mocks/mock";
-import Driver from "../../domain/model/interfaces/Driver";
-
-
-import appCss from "../../styles/app.css";
-import DriverCard from "../freight/DriverCard";
-
-import Select from "../widgets/select/Select";
+import Driver from "../../../domain/model/interfaces/Driver";
+import { drivers } from "../../../domain/model/mocks/mock";
+import { truckBodyworkEnum } from "../../../domain/model/types/enums";
+import appCss from "../../../styles/app.css";
+import DriverCard from "../../freight/driver-card";
+import Select from "../../widgets/select";
 
 const Drivers: React.FC = () => {
   const [filtredList, setFriltredList] = useState<Driver[]>(drivers);
@@ -70,6 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleCard: {
+    justifyContent: "center",
     flexGrow: 1,
     marginTop: 5,
     alignItems: "center",

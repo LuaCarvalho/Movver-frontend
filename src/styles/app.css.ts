@@ -24,7 +24,7 @@ const css = StyleSheet.create({
     textIcon: {
         flexDirection: "row",
         marginBottom: 5,
-        alignItems: "center"
+        alignItems: "center",
     },
     infoText: {
         fontSize: 16,

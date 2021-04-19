@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from "react-native";
 
-import MvModal from "../MvModal";
+import MvModal from "../mv-modal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { blue } from "../../../styles/color.css";
 

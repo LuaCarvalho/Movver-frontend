@@ -7,6 +7,10 @@ export function numberSeparador(bigNumber: number): string {
   return newValue.reverse().join("")
 }
 
+export function getPercentage(value: number, perc: number) {
+  return value / 100 * perc;
+}
+
 
 export function getStateAbrev(state: string | undefined) {
   if (!state) return "";

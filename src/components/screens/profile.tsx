@@ -1,14 +1,11 @@
 /** Componente para o perfil do usuário
  */
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-
-import { freights } from "../../domain/model/mocks/mock";
-
-import FreightCard from "../freight/FreightCard";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { freights } from "../../domain/model/mocks/mock";
 import appCss from "../../styles/app.css";
+import FreightCard from "../freight/freight-card";
 
 const Profile: React.FC = () => {
   return (

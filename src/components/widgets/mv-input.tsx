@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, Image } from "react-native";
+import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, Image, ViewStyle } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -13,6 +13,7 @@ const MvInput = ({
   iconSize,
   keyboardType,
   secureTextEntry,
+  style,
 }: {
   value: string;
   setCallback: (value: string) => void;
@@ -21,11 +22,12 @@ const MvInput = ({
   iconSize?: number;
   keyboardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
+  style?: ViewStyle | ViewStyle[];
 }) => {
   const [isTyping, setIsTyping] = useState(false);
 
   return (
-    <View style={[cStyle.container, isTyping ? cStyle.containerFocus : {}]}>
+    <View style={[cStyle.container, isTyping ? cStyle.containerFocus : {}, style]}>
       <View style={cStyle.cardIcon}>
         <Icon
           name={icon}
@@ -78,7 +80,7 @@ const cStyle = StyleSheet.create({
     opacity: 0.5,
     fontSize: 12,
     fontWeight: "bold",
-    color: blue.darken2
+    color: blue.darken2,
   },
   input: {
     color: "black",

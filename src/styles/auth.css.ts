@@ -17,16 +17,9 @@ export default StyleSheet.create(
       elevation: 5,
       flexGrow: 5,
     },
-    cardRegister: {
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: 20,
-      padding: 5,
-    },
     form: {
       maxHeight: "80%",
       marginBottom: 10,
-      overlayColor: "blue",
     },
     loginButton: {
       height: 40,
@@ -34,6 +27,12 @@ export default StyleSheet.create(
       alignSelf: "center",
       borderRadius: 10,
       justifyContent: "center",
+    },
+    cardRegister: {
+      justifyContent: "center",
+      alignItems: "center",
+      marginBottom: 20,
+      padding: 5,
     },
     registerText: {
       fontSize: 16,

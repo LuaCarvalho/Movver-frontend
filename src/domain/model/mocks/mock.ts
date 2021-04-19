@@ -1,7 +1,7 @@
-import { truckBodyworkEnum } from "../types/enums";
 import Driver from "../interfaces/Driver";
 import Freight from "../interfaces/Freight";
 import Vehicle from "../interfaces/Vehicle";
+import { truckBodyworkEnum } from "../types/enums";
 
 const licensePlate = [
     "Rbw0A48", "Qtp0666", "Ngd9737", "Gmz0117", "Ogt0130",

@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
-
-import Item from "./Item";
-import MvModal from "../MvModal";
+import MvModal from "../mv-modal";
+import Item from "./select-item";
 
 type item = { label: string; value: any };
 type items = item[] | string[] | number[];

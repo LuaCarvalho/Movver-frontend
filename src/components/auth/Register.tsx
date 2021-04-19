@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
-import MvButton from "../widgets/MvButton";
-import MvInput from "../../components/widgets/MvInput";
-
-import appCss from "../../styles/app.css";
-import * as colors from "../../styles/color.css";
-import authCss from "../../styles/auth.css";
-
+import MvInput from "../../components/widgets/mv-input";
 import { Register_CF } from "../../domain/services/auth";
+import authCss from "../../styles/auth.css";
+import MvButton from "../widgets/mv-button";
+
+
+
+
 
 const Login: React.FC = () => {
   const { navigate, goBack } = useNavigation();
@@ -35,44 +33,46 @@ const Login: React.FC = () => {
           <Text>Crie uma conta para aproveitar todos os recursos</Text>
         </View>
 
-        <ScrollView style={authCss.form}>
-          <MvInput placeholder="Nome" value={name} setCallback={setName} icon="account-outline" />
-          <MvInput
-            placeholder="Número do telefone"
-            value={phone}
-            setCallback={setPhone}
-            icon="cellphone"
-            keyboardType="phone-pad"
-          />
-          <MvInput
-            placeholder="Data de nascimento"
-            value={birthday}
-            setCallback={setBirthday}
-            icon="calendar-outline"
-            keyboardType="number-pad"
-          />
-          <MvInput
+        <View  style={authCss.form}>
+          <ScrollView>
+            <MvInput placeholder="Nome" value={name} setCallback={setName} icon="account-outline" />
+            <MvInput
+              placeholder="Número do telefone"
+              value={phone}
+              setCallback={setPhone}
+              icon="cellphone"
+              keyboardType="phone-pad"
+            />
+            <MvInput
+              placeholder="Data de nascimento"
+              value={birthday}
+              setCallback={setBirthday}
+              icon="calendar-outline"
+              keyboardType="number-pad"
+            />
+            {/* <MvInput
             placeholder="CPF"
             value={cpf}
             setCallback={setCpf}
             icon="wallet-outline"
             keyboardType="number-pad"
-          />
-          <MvInput
-            placeholder="Senha"
-            value={password}
-            setCallback={setPassword}
-            icon="lock-outline"
-            secureTextEntry
-          />
-          <MvInput
-            placeholder="Repetir senha"
-            value={confirmpassword}
-            setCallback={setConfirmPassword}
-            icon="lock"
-            secureTextEntry
-          />
-        </ScrollView>
+          /> */}
+            <MvInput
+              placeholder="Senha"
+              value={password}
+              setCallback={setPassword}
+              icon="lock-outline"
+              secureTextEntry
+            />
+            <MvInput
+              placeholder="Repetir senha"
+              value={confirmpassword}
+              setCallback={setConfirmPassword}
+              icon="lock"
+              secureTextEntry
+            />
+          </ScrollView>
+        </View>
 
         <MvButton
           style={authCss.loginButton}
@@ -82,9 +82,9 @@ const Login: React.FC = () => {
         </MvButton>
 
         <View style={authCss.cardRegister}>
-          <Text style={{ opacity: 0.8 }}>Já possui uma conta?</Text>
+          <Text style={{ opacity: 0.8 }}>Deseja ser um motorista?</Text>
           <TouchableOpacity onPress={goBack}>
-            <Text style={authCss.alreadyExistOrNo}>Entre</Text>
+            <Text style={authCss.alreadyExistOrNo}>Cadastro para motorista</Text>
           </TouchableOpacity>
         </View>
       </View>

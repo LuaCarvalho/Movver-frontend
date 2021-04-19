@@ -15,13 +15,20 @@ interface ContextType {
 export const TomCompleteContext = createContext({} as ContextType);
 
 export const TomCompleteProvider = ({ children }: { children: React.ReactNode }) => {
-  const [contextQuery, setContextQuery] = useState("");
+  const [contextQuery, setContextQuery] = useState<string>("");
   const [tomSearch, setTomSearch] = useState({} as TomTomSearch);
   const [contextDirection, setContextDirection] = useState({} as directionEnum);
 
   return (
     <TomCompleteContext.Provider
-      value={{ contextQuery, tomSearch, contextDirection, setContextQuery, setContextDirection, setTomSearch }}
+      value={{
+        contextQuery,
+        tomSearch,
+        contextDirection,
+        setContextQuery,
+        setContextDirection,
+        setTomSearch,
+      }}
     >
       {children}
     </TomCompleteContext.Provider>

@@ -1,15 +1,9 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-
-import * as colors from "../../styles/color.css";
-import appCss from "../../styles/app.css";
+import React, { useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import MvInput from "../../components/widgets/mv-input";
 import authCss from "../../styles/auth.css";
-
-import MvButton from "../widgets/MvButton";
-import MvInput from "../../components/widgets/MvInput";
-
-import { Login_CF } from "../../domain/services/auth";
+import MvButton from "../widgets/mv-button";
 
 const Login: React.FC = () => {
   const { navigate } = useNavigation();
@@ -24,7 +18,7 @@ const Login: React.FC = () => {
           <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
           <Text>Faça a autenticação para continuar</Text>
         </View>
-        <View style={cStyle.form}>
+        <View style={authCss.form}>
           <MvInput
             value={phone}
             setCallback={setPhone}
@@ -69,11 +63,6 @@ const cStyle = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-  },
-  form: {
-    minHeight: "20%",
-    justifyContent: "space-between",
-    marginBottom: 10,
   },
   loginButton: {
     height: 40,

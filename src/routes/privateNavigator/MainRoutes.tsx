@@ -1,14 +1,12 @@
 /** Gerencia as rotas principais da aplicação.
  ** Somente acessiveis após o login do usuário */
-import React from "react";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import Home from "../../components/screens/Home";
-import Profile from "../../components/screens/Profile";
-import Freight from "../../components/screens/Drivers";
-
+import React from "react";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Freight from "../../components/screens/drivers";
+import Home from "../../components/screens/home";
+import Profile from "../../components/screens/profile";
+
 
 const Tab = createBottomTabNavigator();
 

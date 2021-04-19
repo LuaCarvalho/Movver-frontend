@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, TextInput, TouchableHighlight, View } from "react-native";
-
 import axios from "axios";
-
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
-import TomQuery from "../../domain/model/interfaces/TomTomSearch";
-
-import { grey } from "../../styles/color.css";
-import { tomKey } from "../../domain/services/config";
-
-import { useTomCompleteContext } from "../../context/TomCompleteContext";
-import { useLocalizationContext } from "../../context/LocalizationContext";
-
-import { directionEnum } from "../../domain/model/types/enums";
-import { getCurrentLocation } from "../../domain/services/localization/location";
+import { useLocalizationContext } from "../../../context/LocalizationContext";
+import { useTomCompleteContext } from "../../../context/TomCompleteContext";
+import TomQuery from "../../../domain/model/interfaces/TomTomSearch";
+import { directionEnum } from "../../../domain/model/types/enums";
+import { tomKey } from "../../../domain/services/config";
+import { getCurrentLocation } from "../../../domain/services/localization/location";
+import { grey } from "../../../styles/color.css";
+import MvInput from "../mv-input";
 
 /* TomComplete:
  * providencia uma forma de simples de buscar endereções atráves de entradas de texto */
@@ -32,20 +27,22 @@ const TomComplete = ({ direction }: { direction: directionEnum }) => {
   const isSelect = direction === contextDirection;
 
   async function getAddres(search: string): Promise<TomQuery> {
-    const baseUrl = "https://api.tomtom.com/search/2/search/";
     const query = encodeURIComponent(search);
-    const aproxLat = origin.region.latitude;
-    const aproxLon = origin.region.longitude;
-    const limit = "limit=" + 5;
-    const url = `${baseUrl}${query}.json?&countrySet=br&lat=${aproxLat}&lon=${aproxLon}&language=pt-br&${limit}&key=${tomKey}`;
-    const res = await axios.get(url);
+    const BASE_URL = "https://api.tomtom.com/search/2/search/";
+    const APROX_LAT = origin.region.latitude;
+    const APROX_LON = origin.region.longitude;
+    const LIMIT = 5;
+    const URL = `${BASE_URL}${query}.json?&countrySet=br&lat=${APROX_LAT}&lon=${APROX_LON}&language=pt-br&limit=${LIMIT}&key=${tomKey}`;
+    const res = await axios.get(URL);
     const data: TomQuery = res.data;
     return data;
   }
 
-  /* Se esse componente receber a localização de origem, irá apontar para a localização atual */
+  //Primeira função a ser executada ao clicar no componente
   useEffect(() => {
     (async function () {
+      setContextDirection(direction);
+      /* Se esse componente receber a localização de origem, irá apontar para a localização atual */
       if (direction !== directionEnum.ORIGIN) return;
       //O texto informativo deve ser definido primeiro, afinal, ele é sincrono
       setQuery("Localização atual");
@@ -54,16 +51,15 @@ const TomComplete = ({ direction }: { direction: directionEnum }) => {
     })();
   }, []);
 
-  //Sempre que uma nova entrada for digitada, ira buscar novos endereções
-  useEffect(() => {
-    (async () => {
-      //Evita que ao digitar aja uma excesso de consultas
-      if (query.length === 0 || query.length % 3 !== 0) return;
-      const res = await getAddres(query);
-      setTomSearch(res);
-      setContextDirection(direction);
-    })();
-  }, [query]);
+  //Faz a busca por endereços
+  async function searchAddres(text: string) {
+    setQuery(text);
+    //Evita que ao digitar aja uma excesso de consultas
+    if (query.length === 0 || query.length % 3 !== 0) return;
+    const res = await getAddres(query);
+    setTomSearch(res);
+    setContextDirection(direction);
+  }
 
   //Atualiza o campo do input de acordo com os dados escolhidos pelo usuário no "TomContainer"
   useEffect(() => {
@@ -73,11 +69,13 @@ const TomComplete = ({ direction }: { direction: directionEnum }) => {
 
   return (
     <View style={cStyle.search}>
-      <TextInput
+      <MvInput
+        icon="map-marker"
+        placeholder={direction}
         value={query}
-        onTouchStart={() => setContextDirection(direction)}
-        onChangeText={text => setQuery(text)}
-        style={cStyle.input}
+        style={{height: 55, marginBottom: 0, marginTop: 0}}
+        //Sempre que uma nova entrada for digitada, ira buscar novos endereções
+        setCallback={searchAddres}
       />
       <TouchableHighlight
         onPress={() => setQuery("")}
@@ -95,14 +93,10 @@ export default TomComplete;
 const cStyle = StyleSheet.create({
   search: {
     flexDirection: "row",
-    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
     margin: 5,
-  },
-  input: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: grey.lighten4,
   },
   clearButton: {
     height: 44,

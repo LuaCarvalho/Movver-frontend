@@ -4,17 +4,13 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
 import MapView from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
-
-import { googleApi } from "../../domain/services/config";
 
 import { useLocalizationContext } from "../../context/LocalizationContext";
 import { directionEnum } from "../../domain/model/types/enums";
 import { getCurrentLocation } from "../../domain/services/localization/location";
 
 const Home: React.FC = () => {
-  const { origin, destination, addDistance, addLocalization } = useLocalizationContext();
-  const mapRef = useRef<any>(null);
+  const { origin, addLocalization } = useLocalizationContext();
   const { navigate } = useNavigation();
 
   //Inicialmente o mapa irá mostrar a localização atual
@@ -27,33 +23,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <MapView
-        style={styles.map}
-        initialRegion={origin.region}
-        showsUserLocation
-        loadingEnabled
-        ref={mapRef}
-      >
-        {destination && (
-          <MapViewDirections
-            origin={origin.region}
-            destination={destination.region}
-            apikey={googleApi}
-            strokeWidth={3}
-            onReady={result => {
-              addDistance(result.distance);
-              mapRef.current.fitToCoordinates(result.coordinates, {
-                edgePadding: {
-                  bottom: 50,
-                  top: 50,
-                  left: 50,
-                  right: 50,
-                },
-              });
-            }}
-          />
-        )}
-      </MapView>
+      <MapView style={styles.map} initialRegion={origin.region} showsUserLocation loadingEnabled />
       <View onTouchStart={() => navigate("FindDriver")} style={styles.findButton}>
         <Text>Buscar?</Text>
       </View>

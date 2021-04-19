@@ -1,21 +1,21 @@
 import React from "react";
+import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useLocalizationContext } from "../../../context/LocalizationContext";
+import { useTomCompleteContext } from "../../../context/TomCompleteContext";
+import Address from "../../../domain/model/interfaces/Address";
+import Localization from "../../../domain/model/interfaces/Localization";
+import { Result } from "../../../domain/model/interfaces/TomTomSearch";
+import { getStateAbrev } from "../../../domain/services/function";
+import { Address_FC } from "../../../domain/services/localization/address";
+import { Locatization_CF } from "../../../domain/services/localization/location";
+import { grey } from "../../../styles/color.css";
 
-import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from "react-native";
-import { blue, grey } from "../../styles/color.css";
 
-import { useTomCompleteContext } from "../../context/TomCompleteContext";
 
-import { getStateAbrev } from "../../domain/services/function";
 
-import { Locatization_CF } from "../../domain/services/localization/location";
-import { Address_FC } from "../../domain/services/localization/address";
 
-import Localization from "../../domain/model/interfaces/Localization";
-import Address from "../../domain/model/interfaces/Address";
-import { Result } from "../../domain/model/interfaces/TomTomSearch";
 
-import { useLocalizationContext } from "../../context/LocalizationContext";
 
 const MvContainer  = () => {
   const { addLocalization } = useLocalizationContext();
@@ -51,6 +51,7 @@ const MvContainer  = () => {
     const address = getAddress(result);
     const localization = address?.localization;
     const query = `${address.title},${address.district}${address.city}${address.state}`;
+    console.log(query)
     setContextQuery(query);
     addLocalization(localization);
   }

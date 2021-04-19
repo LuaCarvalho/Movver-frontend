@@ -5,24 +5,23 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import PrivateNavigator from "./privateNavigator";
 import PublicNavigator from "./publicNavigator";
-import { NavigationContainerRef } from "@react-navigation/core";
 
 const Stack = createStackNavigator();
-
-//Permite que componentes fora das rotas acessem a navegação
-export const navigationRef = React.createRef<NavigationContainerRef>();
-
-export function navigate(name: any, params?: any) {
-  navigationRef.current?.navigate(name, params);
-}
 
 export default function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="PrivateNavigator"
+      initialRouteName="PublicNavigator"
       screenOptions={{
-        headerTitle:"Movver",
+        headerTitle:"",
         headerTitleAlign: "center",
+        headerStyle: {
+          height: 30,
+          opacity: 0
+        },
+        cardStyle: {
+          height: 10
+        }
       }}
     >
       <Stack.Screen name="PrivateNavigator" component={PrivateNavigator} />
