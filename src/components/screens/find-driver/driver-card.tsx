@@ -1,10 +1,10 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Driver from "../../domain/model/interfaces/Driver";
-import { numberSeparador } from "../../domain/services/function";
-import appCss from "../../styles/app.css";
-import { green, grey } from "../../styles/color.css";
+import Driver from "../../../domain/model/interfaces/Driver";
+import { numberSeparador } from "../../../domain/services/function";
+import appCss from "../../../styles/app.css";
+import { green, grey } from "../../../styles/color.css";
 
 
 
@@ -21,7 +21,7 @@ const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {
           <View style={styles.driver}>
             <Image
               style={[styles.driverImg, { borderColor: available ? green.lighten3 : grey.darken }]}
-              source={require("../../assets/perfil.jpeg")}
+              source={require("../../../assets/perfil.jpeg")}
             />
             <Text style={styles.driverName}>{name}</Text>
           </View>

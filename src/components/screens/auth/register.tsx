@@ -2,10 +2,10 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import MvInput from "../../components/widgets/mv-input";
-import { Register_CF } from "../../domain/services/auth";
-import authCss from "../../styles/auth.css";
-import MvButton from "../widgets/mv-button";
+import { Register_CF } from "../../../domain/services/auth";
+import authCss from "../../../styles/auth.css";
+import MvButton from "../../widgets/mv-button";
+import MvInput from "../../widgets/mv-input";
 
 
 const Login: React.FC = () => {

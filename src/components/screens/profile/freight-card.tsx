@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import Freight from "../../domain/model/interfaces/Freight";
-import appCss from "../../styles/app.css";
+import Freight from "../../../domain/model/interfaces/Freight";
+import appCss from "../../../styles/app.css";
 
 const FreightCard = ({ freightList }: { freightList: Freight[] }) => {
   

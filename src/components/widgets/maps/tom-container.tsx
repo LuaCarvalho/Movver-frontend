@@ -51,7 +51,6 @@ const MvContainer  = () => {
     const address = getAddress(result);
     const localization = address?.localization;
     const query = `${address.title},${address.district}${address.city}${address.state}`;
-    console.log(query)
     setContextQuery(query);
     addLocalization(localization);
   }

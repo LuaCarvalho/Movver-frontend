@@ -3,7 +3,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import Freight from "../../components/screens/drivers";
+import FindDriver from "../../components/screens/find-driver";
 import Home from "../../components/screens/home";
 import Profile from "../../components/screens/profile";
 
@@ -14,21 +14,21 @@ const MainNavigator: React.FC = () => {
   return (
     <Tab.Navigator tabBarOptions={{}} initialRouteName="Inicio">
       <Tab.Screen
-        name="Inicio"
+        name="Home"
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => <Icon name="home" color={color} size={size} />,
         }}
       />
       <Tab.Screen
-        name="Mudanças & Fretes"
-        component={Freight}
+        name="Find Driver"
+        component={FindDriver}
         options={{
           tabBarIcon: ({ color, size }) => <Icon name="search" color={color} size={size} />,
         }}
       />
       <Tab.Screen
-        name="Perfil"
+        name="Profile"
         component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => <Icon name="build" color={color} size={size} />,

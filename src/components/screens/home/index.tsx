@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-
 import { useNavigation } from "@react-navigation/core";
-
+import React, { useEffect } from "react";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
+import { useLocalizationContext } from "../../../context/LocalizationContext";
+import { directionEnum } from "../../../domain/model/types/enums";
+import { getCurrentLocation } from "../../../domain/services/localization/location";
 
-import { useLocalizationContext } from "../../context/LocalizationContext";
-import { directionEnum } from "../../domain/model/types/enums";
-import { getCurrentLocation } from "../../domain/services/localization/location";
+
+
 
 const Home: React.FC = () => {
   const { origin, addLocalization } = useLocalizationContext();
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
   return (
     <>
       <MapView style={styles.map} initialRegion={origin.region} showsUserLocation loadingEnabled />
-      <View onTouchStart={() => navigate("FindDriver")} style={styles.findButton}>
+      <View onTouchStart={() => navigate("Freightage")} style={styles.findButton}>
         <Text>Buscar?</Text>
       </View>
     </>

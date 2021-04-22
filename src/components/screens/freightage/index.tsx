@@ -2,10 +2,10 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../../../context/LocalizationContext";
-import LocationFinder from "./location-finder";
+import { useLocalizationContext } from "../../../context/LocalizationContext";
+import LocationFinder from "../../widgets/maps/location-finder";
 
-const FindDriver = () => {
+const Freightage = () => {
   const { goBack, navigate } = useNavigation();
 
   const { origin, destination } = useLocalizationContext();
@@ -13,7 +13,7 @@ const FindDriver = () => {
   const isLocalization = origin.region && destination.region;
 
   useEffect(() => {
-    if (isLocalization) navigate("Finish");
+    if (isLocalization) navigate("FreightageFinish");
   }, [isLocalization]);
 
   return (
@@ -28,7 +28,7 @@ const FindDriver = () => {
   );
 };
 
-export default FindDriver;
+export default Freightage;
 
 const cStyle = StyleSheet.create({
   container: {

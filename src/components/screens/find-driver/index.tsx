@@ -5,7 +5,7 @@ import Driver from "../../../domain/model/interfaces/Driver";
 import { truckBodyworkEnum } from "../../../domain/model/types/enums";
 import DriverService from "../../../domain/services/api/driver-service-api";
 import appCss from "../../../styles/app.css";
-import DriverCard from "../../freight/driver-card";
+import DriverCard from "./driver-card";
 import Select from "../../widgets/select";
 
 const Drivers: React.FC = () => {

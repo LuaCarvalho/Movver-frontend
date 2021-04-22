@@ -1,11 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import FindDriver from '../../components/screens/finish/find-driver';
-import Finish from "../../components/screens/finish";
+import Freightage from "../../components/screens/freightage";
+import FreightageFinish from "../../components/screens/freightage/freightage-finish";
 import MainRoutes from "./main-routes";
-
-
-
 
 const Stack = createStackNavigator();
 
@@ -13,8 +10,8 @@ const PrivateNavigator: React.FC = () => {
   return (
     <Stack.Navigator headerMode={"none"}>
       <Stack.Screen name="MainRoutes" component={MainRoutes} />
-      <Stack.Screen name="FindDriver" component={FindDriver} />
-      <Stack.Screen name="Finish" component={Finish} />
+      <Stack.Screen name="Freightage" component={Freightage} />
+      <Stack.Screen name="FreightageFinish" component={FreightageFinish} />
     </Stack.Navigator>
   );
 };

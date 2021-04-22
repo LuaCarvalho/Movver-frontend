@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import MvInput from "../../components/widgets/mv-input";
-import authCss from "../../styles/auth.css";
-import MvButton from "../widgets/mv-button";
+import MvInput from "../../widgets/mv-input";
+import authCss from "../../../styles/auth.css";
+import MvButton from "../../widgets/mv-button";
 
 const Login: React.FC = () => {
   const { navigate } = useNavigation();
@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     <View style={authCss.container}>
       <View style={authCss.mainView}>
         <View style={cStyle.user}>
-          <Image style={cStyle.image} source={require("../../assets/perfil.jpeg")} />
+          <Image style={cStyle.image} source={require("../../../assets/perfil.jpeg")} />
           <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
           <Text>Faça a autenticação para continuar</Text>
         </View>

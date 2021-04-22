@@ -1,7 +1,6 @@
 import Driver from "../interfaces/Driver";
 import Freight from "../interfaces/Freight";
 import Vehicle from "../interfaces/Vehicle";
-import { truckBodyworkEnum } from "../types/enums";
 
 const licensePlate = [
     "Rbw0A48", "Qtp0666", "Ngd9737", "Gmz0117", "Ogt0130",
@@ -15,40 +14,40 @@ export const vehicles: Array<Vehicle> = [
     {
         model: "Caminhão Truck ou Eixo duplo pesado",
         capacity: 11000,
-        truckBudyWork: truckBodyworkEnum.OPEN,
+        truckBodyWorkOpen: true,
         licensePlate: "Rbw0A48",
         color: "branco"
     }, {
         model: "VUC",
         capacity: 2500,
-        truckBudyWork: truckBodyworkEnum.OPEN,
+        truckBodyWorkOpen: true,
         licensePlate: "Ngd9737",
         color: "preto"
     }, {
         model: "Veículo utilitário",
         capacity: 900,
-        truckBudyWork: truckBodyworkEnum.CLOSED,
+        truckBodyWorkOpen: false,
         licensePlate: "Qtp0666",
         color: "azul"
     },
     {
         model: "Caminhão Toco ou Semi-pesado",
         capacity: 6000,
-        truckBudyWork: truckBodyworkEnum.OPEN,
+        truckBodyWorkOpen: true,
         licensePlate: "Gmz0117",
         color: "vermelho"
     },
     {
         model: "Veículo utilitário",
         capacity: 1400,
-        truckBudyWork: truckBodyworkEnum.OPEN,
+        truckBodyWorkOpen: true,
         licensePlate: "Ogt0130",
         color: "preto"
     },
     {
         model: "Caminhão Truck ou Eixo duplo pesado",
         capacity: 11000,
-        truckBudyWork: truckBodyworkEnum.CLOSED,
+        truckBodyWorkOpen: true,
         licensePlate: "Kdc5475",
         color: "branco"
     }

@@ -7,10 +7,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { googleApi } from "../../../domain/services/config";
 import MvButton from "../../widgets/mv-button";
-import Form from "./find-driver/form";
+import FreightageForm from "./freightage-form";
 
 
-export default function Finish() {
+export default function Freightage() {
   const { goBack, navigate } = useNavigation();
 
   const { origin, destination, addDistance, addLocalization } = useLocalizationContext();
@@ -48,7 +48,7 @@ export default function Finish() {
         <Icon name="keyboard-backspace" size={35} />
       </TouchableOpacity>
       <View style={cStyle.settingCard}>
-        <Form />
+        <FreightageForm />
         <TouchableOpacity>
           <MvButton style={{height: 40}} action={() => { }}>
             <Text style={cStyle.actionText}>Confirmar</Text>
