@@ -75,7 +75,7 @@ export interface Result {
   ]
 }
 
-export default interface TomTomSearch {
+export interface TomTomSearch {
   summary: {
     query: string,
     queryType: string,

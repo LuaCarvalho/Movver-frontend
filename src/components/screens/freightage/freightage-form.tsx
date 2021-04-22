@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
-import appCss from "../../../styles/app.css";
+import { appCss } from "../../../styles/app.css";
 import * as Colors from "../../../styles/color.css";
 import Select from "../../widgets/select";
 import SelectCard, { Option } from "../../widgets/select-card";
-
 
 const services: Array<Option> = [
   { value: "Mudança", icon: "truck" },
@@ -14,7 +13,7 @@ const services: Array<Option> = [
   { value: "Transporte de Materiais", icon: "dump-truck" },
 ];
 
-const Form: React.FC = () => {
+export const FreightageForm: React.FC = () => {
   const { origin, destination } = useLocalizationContext();
 
   const [description, setDescription] = useState<boolean>();
@@ -23,10 +22,10 @@ const Form: React.FC = () => {
 
   /* <Icon name="arrow-expand-up" size={15} color={Colors.grey.darken3} /> */
   return (
-    <View style={cStyle.container}>
-      <View style={cStyle.expand2}></View>
-      <View style={cStyle.expand}></View>
-      <View style={cStyle.form}>
+    <View style={styles.container}>
+      <View style={styles.expand2}></View>
+      <View style={styles.expand}></View>
+      <View style={styles.form}>
         <View style={appCss.textIcon}>
           <Icon name="package-variant" color={Colors.grey.darken3} size={25} />
           <Text style={appCss.infoText}>Tipo da carga: </Text>
@@ -48,7 +47,7 @@ const Form: React.FC = () => {
             <TextInput
               numberOfLines={4}
               multiline
-              style={cStyle.descriptionInput}
+              style={styles.descriptionInput}
               placeholder="Escrever algo aqui..."
             />
           </View>
@@ -58,9 +57,7 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
-
-const cStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },

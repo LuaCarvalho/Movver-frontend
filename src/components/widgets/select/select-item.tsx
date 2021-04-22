@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { TouchableOpacity } from "react-native";
+import { appCss } from "../../../styles/app.css";
 
-import appCss from "../../../styles/app.css";
 
 const icons = {
   SELECTED: "radiobox-marked",

@@ -1,6 +1,6 @@
-import Vehicle from "./Vehicle";
+import { Vehicle } from "./Vehicle";
 
-export default interface Driver {
+export interface Driver {
   id: string;
   name: string;
   trips: number;

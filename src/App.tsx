@@ -3,20 +3,23 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { SafeAreaView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LocalizationProvider } from "./context/LocalizationContext";
 import { TomCompleteProvider } from "./context/TomCompleteContext";
-import RootNavigator from "./routes/root-navigator";
+import { Routes } from "./routes";
 
 export default function () {
   return (
-    <NavigationContainer>
-      <TomCompleteProvider>
-        <LocalizationProvider>
-          <SafeAreaView style={{flex: 1}}>
-            <RootNavigator />
-          </SafeAreaView>
-        </LocalizationProvider>
-      </TomCompleteProvider>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <TomCompleteProvider>
+          <LocalizationProvider>
+            <SafeAreaView style={{ flex: 1 }}>
+              <Routes />
+            </SafeAreaView>
+          </LocalizationProvider>
+        </TomCompleteProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

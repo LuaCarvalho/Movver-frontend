@@ -2,13 +2,12 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Register_CF } from "../../../domain/services/auth";
 import authCss from "../../../styles/auth.css";
 import MvButton from "../../widgets/mv-button";
 import MvInput from "../../widgets/mv-input";
 
 
-const Login: React.FC = () => {
+export const Register = () => {
   const { navigate, goBack } = useNavigation();
 
   const [name, setName] = useState<string>("");
@@ -73,7 +72,7 @@ const Login: React.FC = () => {
 
         <MvButton
           style={authCss.loginButton}
-          action={() => console.log(Register_CF(name, phone, password, birthday, cpf))}
+          action={() => console.log(name, phone, password, birthday, cpf)}
         >
           <Text style={authCss.registerText}>Criar conta</Text>
         </MvButton>
@@ -88,8 +87,6 @@ const Login: React.FC = () => {
     </View>
   );
 };
-
-export default Login;
 
 const cStyle = StyleSheet.create({
   infos: {

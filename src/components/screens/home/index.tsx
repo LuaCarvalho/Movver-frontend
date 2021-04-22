@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
-import { directionEnum } from "../../../domain/model/types/enums";
+import { directionEnum } from "../../../domain/model/enums";
 import { getCurrentLocation } from "../../../domain/services/localization/location";
 
 

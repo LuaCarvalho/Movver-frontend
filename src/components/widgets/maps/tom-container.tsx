@@ -3,8 +3,8 @@ import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-na
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { useTomCompleteContext } from "../../../context/TomCompleteContext";
-import Address from "../../../domain/model/interfaces/Address";
-import Localization from "../../../domain/model/interfaces/Localization";
+import { Address } from "../../../domain/model/interfaces/Address";
+import { Localization } from "../../../domain/model/interfaces/Localization";
 import { Result } from "../../../domain/model/interfaces/TomTomSearch";
 import { getStateAbrev } from "../../../domain/services/function";
 import { Address_FC } from "../../../domain/services/localization/address";
@@ -12,12 +12,7 @@ import { Locatization_CF } from "../../../domain/services/localization/location"
 import { grey } from "../../../styles/color.css";
 
 
-
-
-
-
-
-const MvContainer  = () => {
+export const TomContainer  = () => {
   const { addLocalization } = useLocalizationContext();
   const { tomSearch, contextDirection, setContextQuery } = useTomCompleteContext();
 
@@ -44,8 +39,9 @@ const MvContainer  = () => {
     const distance = result.dist;
     return Address_FC(resultId, title, district, city, state, distance, getPosition(result));
   }
+  
 
-  function onPress(resultId: string) {
+  function handlerOnPress(resultId: string) {
     const result = tomSearch.results.find(({ id }) => id === resultId);
     if (!result) return;
     const address = getAddress(result);
@@ -56,28 +52,28 @@ const MvContainer  = () => {
   }
 
   return (
-    <ScrollView style={cStyle.container}>
+    <ScrollView style={styles.container}>
       {tomSearch?.results
         ?.map(res => getAddress(res))
         .filter(p => p.title)
         .map(address => (
           <TouchableHighlight
-            onPress={() => onPress(address.resultId)}
+            onPress={() => handlerOnPress(address.resultId)}
             key={address.resultId}
             underlayColor={grey.lighten3}
           >
-            <View style={cStyle.addressContainer}>
-              <View style={cStyle.addressCard}>
+            <View style={styles.addressContainer}>
+              <View style={styles.addressCard}>
                 <Icon name="map" size={22} color={grey.darken} />
-                <View style={cStyle.titleAndIcon}>
-                  <Text style={cStyle.textTitle}>{address.title}</Text>
+                <View style={styles.titleAndIcon}>
+                  <Text style={styles.textTitle}>{address.title}</Text>
                   <Text style={{ fontSize: 12, color: grey.darken }}>
                     {distanceFrom(address.distance)}
                   </Text>
                 </View>
               </View>
               <Text
-                style={cStyle.text}
+                style={styles.text}
               >{`${address.district} ${address.city} ${address.state}`}</Text>
             </View>
           </TouchableHighlight>
@@ -86,9 +82,7 @@ const MvContainer  = () => {
   );
 };
 
-export default MvContainer;
-
-const cStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,

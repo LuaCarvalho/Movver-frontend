@@ -1,12 +1,10 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Driver from "../../../domain/model/interfaces/Driver";
+import { Driver } from "../../../domain/model/interfaces/Driver";
 import { numberSeparador } from "../../../domain/services/function";
-import appCss from "../../../styles/app.css";
+import { appCss } from "../../../styles/app.css";
 import { green, grey } from "../../../styles/color.css";
-
-
 
 
 const DriverCard = ({ drivers }: { drivers: Array<Driver> }) => {

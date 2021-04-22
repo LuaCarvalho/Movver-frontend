@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import Driver from "../../../domain/model/interfaces/Driver";
-import { truckBodyworkEnum } from "../../../domain/model/types/enums";
-import DriverService from "../../../domain/services/api/driver-service-api";
-import appCss from "../../../styles/app.css";
-import DriverCard from "./driver-card";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { truckBodyworkEnum } from "../../../domain/model/enums";
+import { Driver } from "../../../domain/model/interfaces/Driver";
+import driverHttp from "../../../domain/services/api/driver-http";
+import { appCss } from "../../../styles/app.css";
 import Select from "../../widgets/select";
+import DriverCard from "./driver-card";
 
-const Drivers: React.FC = () => {
+export const FindDriver: React.FC = () => {
   const [drivers, setDrivers] = useState<Driver[]>([]);
 
   const [bodyworkFilter, setBodyworkFilter] = useState(truckBodyworkEnum.ANY);
   const [capacityFilter, setCapacityFilter] = useState(0);
 
   useEffect(() => {
-    DriverService.getDrivers(bodyworkFilter)
-      .then(response => setDrivers(response));
-  }, [])
+    driverHttp.getDrivers(bodyworkFilter).then(response => setDrivers(response));
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.titleCard, appCss.card]}>
+    <SafeAreaView style={styles.container}>
+      <View style={[styles.card, styles.titleCard]}>
         <Text style={appCss.title}>Motoristas próximos</Text>
       </View>
-      <View style={[styles.optionsCard, appCss.card]}>
+      <View style={[styles.card, styles.optionsCard]}>
         <Text>Seleções</Text>
         <View style={styles.options}>
           <View style={appCss.textIcon}>
@@ -40,23 +40,31 @@ const Drivers: React.FC = () => {
           </View>
         </View>
       </View>
-      <ScrollView style={[appCss.card, styles.driversCard]}>
+      <ScrollView style={[styles.card, styles.driversCard]}>
         <Text
           style={styles.resultCounter}
         >{`Resultados: ${drivers.length} de ${drivers.length}`}</Text>
         <DriverCard drivers={drivers} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
-
-export default Drivers;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  card: {
+    flex: 1,
+    paddingRight: 10,
+    paddingLeft: 10,
+    marginBottom: 5,
+    backgroundColor: "white",
+    width: "95%",
+    elevation: 3,
+    padding: 5,
   },
   titleCard: {
     justifyContent: "center",

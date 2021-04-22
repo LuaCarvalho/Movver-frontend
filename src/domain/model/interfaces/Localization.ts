@@ -1,4 +1,4 @@
-import { directionEnum } from "../types/enums";
+import { directionEnum } from "../enums";
 
 interface Region {
   latitude: number,
@@ -8,7 +8,7 @@ interface Region {
 }
 
 
-export default interface Localization {
+export interface Localization {
   direction: directionEnum;
   region: Region;
 }

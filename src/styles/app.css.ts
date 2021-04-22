@@ -1,20 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-const css = StyleSheet.create({
+export const appCss = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    card: {
-        flex: 1,
-        paddingRight: 10,
-        paddingLeft: 10,
-        marginBottom: 5,
-        backgroundColor: "white",
-        width: "95%",
-        elevation: 3,
-        padding: 5,
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     title: {
         fontSize: 18,
@@ -32,5 +22,3 @@ const css = StyleSheet.create({
         opacity: 0.7,
     },
 })
-
-export default css;

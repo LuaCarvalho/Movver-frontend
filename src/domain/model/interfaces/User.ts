@@ -1,4 +1,4 @@
-export default interface User {
+export interface User {
   readonly name: string;
   readonly phone: string;
   readonly birthday: string;

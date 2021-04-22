@@ -1,8 +1,8 @@
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+import { directionEnum } from "../../model/enums";
+import { Localization } from "../../model/interfaces/Localization";
 
-import Localization from "../../model/interfaces/Localization"
-import { directionEnum } from "../../model/types/enums";
 
 
 //Função construtora, responsavel por retornar um objeto do tipo Localization

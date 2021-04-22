@@ -1,14 +1,19 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import MvInput from "../../widgets/mv-input";
+import { mainRoutes } from "../../../routes/routes-enum";
 import authCss from "../../../styles/auth.css";
 import MvButton from "../../widgets/mv-button";
+import MvInput from "../../widgets/mv-input";
 
-const Login: React.FC = () => {
+export const Login = () => {
   const { navigate } = useNavigation();
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  function handlerLogin() {
+    navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+  }
 
   return (
     <View style={authCss.container}>
@@ -34,10 +39,7 @@ const Login: React.FC = () => {
             secureTextEntry
           />
         </View>
-        <MvButton
-          style={authCss.loginButton}
-          action={() => navigate("PrivateNavigator")}
-        >
+        <MvButton style={authCss.loginButton} action={handlerLogin}>
           <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>
@@ -50,8 +52,6 @@ const Login: React.FC = () => {
     </View>
   );
 };
-
-export default Login;
 
 const cStyle = StyleSheet.create({
   user: {

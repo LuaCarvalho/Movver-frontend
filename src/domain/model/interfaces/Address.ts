@@ -1,6 +1,6 @@
-import Localization from "./Localization";
+import { Localization } from "./Localization";
 
-export default interface Address {
+export interface Address {
   readonly resultId: string,
   readonly title: string,
   readonly district: string,

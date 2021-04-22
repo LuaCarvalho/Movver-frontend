@@ -1,6 +1,6 @@
-import Driver from "../interfaces/Driver";
-import Freight from "../interfaces/Freight";
-import Vehicle from "../interfaces/Vehicle";
+import { Driver } from "../../model/interfaces/Driver";
+import { Freight } from "../../model/interfaces/Freight";
+import { Vehicle } from "../../model/interfaces/Vehicle";
 
 const licensePlate = [
     "Rbw0A48", "Qtp0666", "Ngd9737", "Gmz0117", "Ogt0130",

@@ -1,5 +1,5 @@
-import Driver from "../../../model/interfaces/Driver";
+import { Driver } from "../../../model/interfaces/Driver";
 
-export default interface DriverHttp {
+export interface DriverHttp {
   getDrivers(filter: string): Promise<Driver[]>;
 }

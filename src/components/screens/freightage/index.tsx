@@ -1,41 +1,38 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
-import LocationFinder from "../../widgets/maps/location-finder";
+import { secondaryRoutes } from "../../../routes/routes-enum";
+import { appCss } from "../../../styles/app.css";
+import { LocationFinder } from "./location-finder";
 
-const Freightage = () => {
+export const Freightage = () => {
   const { goBack, navigate } = useNavigation();
 
   const { origin, destination } = useLocalizationContext();
 
-  const isLocalization = origin.region && destination.region;
+  const isLocalization = Boolean(origin.region) && Boolean(destination.region);
 
+  //Quando a localização de origem e destino são selecionadas, o frete inicia
   useEffect(() => {
-    if (isLocalization) navigate("FreightageFinish");
-  }, [isLocalization]);
+    if (isLocalization) navigate(secondaryRoutes.FREIGHTAGE_START);
+  }, [origin, destination]);
 
   return (
-    <View style={cStyle.container}>
+    <SafeAreaView style={appCss.container}>
       <View style={cStyle.mainView}>
         <TouchableOpacity onPress={goBack} style={cStyle.close}>
           <Icon name="window-close" size={30} />
         </TouchableOpacity>
         <LocationFinder />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default Freightage;
-
 const cStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
   mainView: {
     flex: 1,
     backgroundColor: "white",

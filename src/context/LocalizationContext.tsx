@@ -1,7 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-
-import { directionEnum } from "../domain/model/types/enums";
-import Localization from "../domain/model/interfaces/Localization";
+import React, { createContext, useContext, useState } from "react";
+import { directionEnum } from "../domain/model/enums";
+import { Localization } from "../domain/model/interfaces/Localization";
 
 interface ContextType {
   origin: Localization;
@@ -19,8 +18,9 @@ export const LocalizationProvider = ({ children }: { children: React.ReactNode }
   const [distance, setDistance] = useState(0);
 
   function addLocalization(local: Localization): void {
-    if (local.direction === directionEnum.ORIGIN) setOrigin(local);
-    else setDestination(local);
+    if (local.direction === directionEnum.ORIGIN)
+      return setOrigin(local);
+    setDestination(local);
   }
 
   return (

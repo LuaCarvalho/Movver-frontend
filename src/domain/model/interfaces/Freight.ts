@@ -1,6 +1,6 @@
-import Driver from "./Driver";
+import { Driver } from "./Driver";
 
-export default interface Freight {
+export interface Freight {
   id: number;
   driver: Driver;
   date: Date;

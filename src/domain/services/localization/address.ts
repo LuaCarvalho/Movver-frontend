@@ -1,5 +1,5 @@
-import Localization from "domain/model/interfaces/Localization";
-import Address from "../../model/interfaces/Address"
+import { Localization } from "domain/model/interfaces/Localization";
+import { Address } from "../../model/interfaces/Address";
 
 export function Address_FC(
   resultId: string,

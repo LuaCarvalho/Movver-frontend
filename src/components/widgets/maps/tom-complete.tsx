@@ -4,8 +4,8 @@ import { StyleSheet, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { useTomCompleteContext } from "../../../context/TomCompleteContext";
-import TomQuery from "../../../domain/model/interfaces/TomTomSearch";
-import { directionEnum } from "../../../domain/model/types/enums";
+import { directionEnum } from "../../../domain/model/enums";
+import { TomTomSearch } from "../../../domain/model/interfaces/TomTomSearch";
 import { tomKey } from "../../../domain/services/config";
 import { getCurrentLocation } from "../../../domain/services/localization/location";
 import { grey } from "../../../styles/color.css";
@@ -13,7 +13,7 @@ import MvInput from "../mv-input";
 
 /* TomComplete:
  * providencia uma forma de simples de buscar endereções atráves de entradas de texto */
-const TomComplete = ({ direction }: { direction: directionEnum }) => {
+export const TomComplete = ({ direction }: { direction: directionEnum }) => {
   const { addLocalization, origin } = useLocalizationContext();
   const {
     contextQuery,
@@ -26,7 +26,7 @@ const TomComplete = ({ direction }: { direction: directionEnum }) => {
 
   const isSelect = direction === contextDirection;
 
-  async function getAddres(search: string): Promise<TomQuery> {
+  async function getAddres(search: string): Promise<TomTomSearch> {
     const query = encodeURIComponent(search);
     const BASE_URL = "https://api.tomtom.com/search/2/search/";
     const APROX_LAT = origin.region.latitude;
@@ -34,7 +34,7 @@ const TomComplete = ({ direction }: { direction: directionEnum }) => {
     const LIMIT = 5;
     const URL = `${BASE_URL}${query}.json?&countrySet=br&lat=${APROX_LAT}&lon=${APROX_LON}&language=pt-br&limit=${LIMIT}&key=${tomKey}`;
     const res = await axios.get(URL);
-    const data: TomQuery = res.data;
+    const data: TomTomSearch = res.data;
     return data;
   }
 
@@ -87,8 +87,6 @@ const TomComplete = ({ direction }: { direction: directionEnum }) => {
     </View>
   );
 };
-
-export default TomComplete;
 
 const cStyle = StyleSheet.create({
   search: {

@@ -1,7 +1,6 @@
-import { directionEnum } from "../domain/model/types/enums";
 import React, { createContext, useContext, useState } from "react";
-
-import TomTomSearch from "../domain/model/interfaces/TomTomSearch";
+import { directionEnum } from "../domain/model/enums";
+import { TomTomSearch } from "../domain/model/interfaces/TomTomSearch";
 
 interface ContextType {
   contextQuery: string;

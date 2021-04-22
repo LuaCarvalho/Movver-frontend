@@ -3,22 +3,23 @@ import React, { useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { googleApi } from "../../../domain/services/config";
 import MvButton from "../../widgets/mv-button";
-import FreightageForm from "./freightage-form";
+import { FreightageForm } from "./freightage-form";
 
 
-export default function Freightage() {
+export function FreightageStart() {
   const { goBack, navigate } = useNavigation();
 
   const { origin, destination, addDistance, addLocalization } = useLocalizationContext();
   const mapRef = useRef<any>(null);
   return (
-    <>
+    <SafeAreaView style={styles.container} >
       <MapView
-        style={cStyle.map}
+        style={styles.map}
         initialRegion={origin.region}
         showsUserLocation
         loadingEnabled
@@ -44,22 +45,22 @@ export default function Freightage() {
           />
         )}
       </MapView>
-      <TouchableOpacity onPress={goBack} activeOpacity={0.8} style={cStyle.backButton}>
+      <TouchableOpacity onPress={goBack} activeOpacity={0.8} style={styles.backButton}>
         <Icon name="keyboard-backspace" size={35} />
       </TouchableOpacity>
-      <View style={cStyle.settingCard}>
+      <View style={styles.settingCard}>
         <FreightageForm />
         <TouchableOpacity>
           <MvButton style={{height: 40}} action={() => { }}>
-            <Text style={cStyle.actionText}>Confirmar</Text>
+            <Text style={styles.actionText}>Confirmar</Text>
           </MvButton>
         </TouchableOpacity>
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 
-const cStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
