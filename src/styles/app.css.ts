@@ -8,17 +8,22 @@ export const appCss = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        opacity: 0.75,
+        opacity: 0.9,
         alignSelf: "center",
     },
-    textIcon: {
-        flexDirection: "row",
-        marginBottom: 5,
-        alignItems: "center",
+    subtitle: {
+        fontSize: 16,
+        elevation: 6,
+        opacity: 0.8
     },
     infoText: {
         fontSize: 16,
         elevation: 6,
         opacity: 0.7,
+    },
+    textIcon: {
+        flexDirection: "row",
+        marginBottom: 5,
+        alignItems: "center",
     },
 })

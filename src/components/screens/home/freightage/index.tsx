@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../../context/LocalizationContext";
-import { secondaryRoutes } from "../../../routes/routes-enum";
-import { appCss } from "../../../styles/app.css";
-import { LocationFinder } from "./location-finder";
+import { useLocalizationContext } from "../../../../context/LocalizationContext";
+import { secondaryRoutes } from "../../../../routes/routes-enum";
+import { appCss } from "../../../../styles/app.css";
+import { LocationFinder } from "../../../widgets/maps/location-finder";
 
 export const Freightage = () => {
   const { goBack, navigate } = useNavigation();

@@ -1,15 +1,13 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { useTomCompleteContext } from "../../../context/TomCompleteContext";
 import { directionEnum } from "../../../domain/model/enums";
-import { TomTomSearch } from "../../../domain/model/interfaces/TomTomSearch";
-import { tomKey } from "../../../domain/services/config";
-import { getCurrentLocation } from "../../../domain/services/localization/location";
+import { getAddress } from "../../../domain/services/maps/handler-address";
+import { getCurrentLocation } from "../../../domain/services/maps/location";
 import { grey } from "../../../styles/color.css";
-import MvInput from "../mv-input";
+import { MvInput } from "../mv-input";
 
 /* TomComplete:
  * providencia uma forma de simples de buscar endereções atráves de entradas de texto */
@@ -23,20 +21,6 @@ export const TomComplete = ({ direction }: { direction: directionEnum }) => {
   } = useTomCompleteContext();
 
   const [query, setQuery] = useState<string>("");
-
-  const isSelect = direction === contextDirection;
-
-  async function getAddres(search: string): Promise<TomTomSearch> {
-    const query = encodeURIComponent(search);
-    const BASE_URL = "https://api.tomtom.com/search/2/search/";
-    const APROX_LAT = origin.region.latitude;
-    const APROX_LON = origin.region.longitude;
-    const LIMIT = 5;
-    const URL = `${BASE_URL}${query}.json?&countrySet=br&lat=${APROX_LAT}&lon=${APROX_LON}&language=pt-br&limit=${LIMIT}&key=${tomKey}`;
-    const res = await axios.get(URL);
-    const data: TomTomSearch = res.data;
-    return data;
-  }
 
   //Primeira função a ser executada ao clicar no componente
   useEffect(() => {
@@ -56,7 +40,7 @@ export const TomComplete = ({ direction }: { direction: directionEnum }) => {
     setQuery(text);
     //Evita que ao digitar aja uma excesso de consultas
     if (query.length === 0 || query.length % 3 !== 0) return;
-    const res = await getAddres(query);
+    const res = await getAddress(query, origin);
     setTomSearch(res);
     setContextDirection(direction);
   }
@@ -73,7 +57,7 @@ export const TomComplete = ({ direction }: { direction: directionEnum }) => {
         icon="map-marker"
         placeholder={direction}
         value={query}
-        style={{height: 55, marginBottom: 0, marginTop: 0}}
+        style={{ height: 55, marginBottom: 0, marginTop: 0 }}
         //Sempre que uma nova entrada for digitada, ira buscar novos endereções
         setCallback={searchAddres}
       />

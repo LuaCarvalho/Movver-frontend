@@ -16,7 +16,7 @@ export function Locatization_CF(
   }
 }
 
-/** Pede permissão do usuário para acessar sua geolocalição e retorna erro se não for concedida.
+/** Pede permissão do usuário para acessar sua geolocalição ou retorna um erro se não for concedida.
  ** Recebe um ENUM e, como base nele, irá construir um objeto do tipo "Localization"  */
 export async function getCurrentLocation(direction: directionEnum): Promise<Localization> {
   //Pede permissão para acessar a localizão

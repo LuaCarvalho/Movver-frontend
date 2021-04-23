@@ -7,8 +7,8 @@ import { Address } from "../../../domain/model/interfaces/Address";
 import { Localization } from "../../../domain/model/interfaces/Localization";
 import { Result } from "../../../domain/model/interfaces/TomTomSearch";
 import { getStateAbrev } from "../../../domain/services/function";
-import { Address_FC } from "../../../domain/services/localization/address";
-import { Locatization_CF } from "../../../domain/services/localization/location";
+import { Address_FC } from "../../../domain/services/maps/handler-address";
+import { Locatization_CF } from "../../../domain/services/maps/location";
 import { grey } from "../../../styles/color.css";
 
 
@@ -39,7 +39,6 @@ export const TomContainer  = () => {
     const distance = result.dist;
     return Address_FC(resultId, title, district, city, state, distance, getPosition(result));
   }
-  
 
   function handlerOnPress(resultId: string) {
     const result = tomSearch.results.find(({ id }) => id === resultId);

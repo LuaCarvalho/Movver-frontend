@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Modal, StyleSheet, Text, Pressable, View, TouchableOpacity } from "react-native";
+import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { grey } from "../../styles/color.css";
 
-const MvModel = ({
+export const MvModal = ({
   title = "Selecione",
   children,
 }: {
@@ -14,28 +14,23 @@ const MvModel = ({
   return (
     <>
       <Modal animationType="slide" transparent={true} visible={visible} collapsable={true}>
-        <TouchableOpacity
-          style={compStyle.view}
-          onPressIn={() => setVisible(false)}
-        ></TouchableOpacity>
-        <View style={[compStyle.view, compStyle.viewBottom]}>
-          <Text style={compStyle.modalText}>Selecione</Text>
-          <View style={compStyle.children}>{children}</View>
-          <Pressable style={compStyle.buttonClose} onPress={() => setVisible(!visible)}>
-            <Text style={compStyle.buttonCloseText}>Pronto</Text>
+        <TouchableOpacity style={styles.view} onPressIn={() => setVisible(false)} />
+        <View style={[styles.view, styles.viewBottom]}>
+          <Text style={styles.modalText}>Selecione</Text>
+          <View style={styles.children}>{children}</View>
+          <Pressable style={styles.buttonClose} onPress={() => setVisible(!visible)}>
+            <Text style={styles.buttonCloseText}>Pronto</Text>
           </Pressable>
         </View>
       </Modal>
-      <TouchableOpacity style={compStyle.buttonOpen} onPress={() => setVisible(true)}>
-        <Text style={compStyle.textSelect}>{title}</Text>
+      <TouchableOpacity style={styles.buttonOpen} onPress={() => setVisible(true)}>
+        <Text style={styles.textSelect}>{title}</Text>
       </TouchableOpacity>
     </>
   );
 };
 
-export default MvModel;
-
-const compStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   view: {
     flex: 1,
     width: "100%",

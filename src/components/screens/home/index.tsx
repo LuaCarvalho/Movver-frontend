@@ -4,12 +4,12 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { directionEnum } from "../../../domain/model/enums";
-import { getCurrentLocation } from "../../../domain/services/localization/location";
+import { getCurrentLocation } from "../../../domain/services/maps/location";
 
 
 
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
   const { origin, addLocalization } = useLocalizationContext();
   const { navigate } = useNavigation();
 

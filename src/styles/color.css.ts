@@ -2,11 +2,14 @@ export const blue = {
   c: "#2196F3",
   lighten: "#BBDEFB",
   lighten2: "#90CAF9",
+  lighten3: "#90CAF9",
+  lighten4: "#BBDEFB",
   lighten5: "#E3F2FD",
   darken: "#1E88E5",
   darken2: "#1976D2",
   darken4: "#0D47A1",
-
+  accent1: "#82B1FF",
+  accent2: "#448AFF",
 }
 export const green = {
   c: "#4CAF50",

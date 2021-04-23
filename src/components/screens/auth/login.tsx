@@ -1,10 +1,11 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { mainRoutes } from "../../../routes/routes-enum";
 import authCss from "../../../styles/auth.css";
-import MvButton from "../../widgets/mv-button";
-import MvInput from "../../widgets/mv-input";
+import { MvButton } from "../../widgets/mv-button";
+import { MvInput } from "../../widgets/mv-input";
 
 export const Login = () => {
   const { navigate } = useNavigation();
@@ -16,7 +17,7 @@ export const Login = () => {
   }
 
   return (
-    <View style={authCss.container}>
+    <SafeAreaView style={authCss.container}>
       <View style={authCss.mainView}>
         <View style={cStyle.user}>
           <Image style={cStyle.image} source={require("../../../assets/perfil.jpeg")} />
@@ -39,7 +40,7 @@ export const Login = () => {
             secureTextEntry
           />
         </View>
-        <MvButton style={authCss.loginButton} action={handlerLogin}>
+        <MvButton propStyle={authCss.loginButton} action={handlerLogin}>
           <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>
@@ -49,7 +50,7 @@ export const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

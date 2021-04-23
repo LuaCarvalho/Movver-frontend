@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import authCss from "../../../styles/auth.css";
-import MvButton from "../../widgets/mv-button";
-import MvInput from "../../widgets/mv-input";
-
+import { MvButton } from "../../widgets/mv-button";
+import { MvInput } from "../../widgets/mv-input";
 
 export const Register = () => {
   const { navigate, goBack } = useNavigation();
@@ -18,7 +18,7 @@ export const Register = () => {
   const [confirmpassword, setConfirmPassword] = useState<string>("");
 
   return (
-    <View style={authCss.container}>
+    <SafeAreaView style={authCss.container}>
       <View style={authCss.mainView}>
         <TouchableOpacity onPress={goBack} style={{ width: 45 }}>
           <Icon style={{ marginLeft: 10 }} name="keyboard-backspace" size={45} />
@@ -29,7 +29,7 @@ export const Register = () => {
           <Text>Crie uma conta para aproveitar todos os recursos</Text>
         </View>
 
-        <View  style={authCss.form}>
+        <View style={authCss.form}>
           <ScrollView>
             <MvInput placeholder="Nome" value={name} setCallback={setName} icon="account-outline" />
             <MvInput
@@ -71,7 +71,7 @@ export const Register = () => {
         </View>
 
         <MvButton
-          style={authCss.loginButton}
+          propStyle={authCss.loginButton}
           action={() => console.log(name, phone, password, birthday, cpf)}
         >
           <Text style={authCss.registerText}>Criar conta</Text>
@@ -84,7 +84,7 @@ export const Register = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

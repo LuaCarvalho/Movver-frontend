@@ -1,28 +1,27 @@
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from "react-native";
-
+import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 import { blue } from "../../styles/color.css";
 
-const MButton = ({
+
+export const MvButton = ({
   action,
   children,
-  style,
+  propStyle,
 }: {
   action: Function;
   children: React.ReactNode;
-  style?: ViewStyle;
+  propStyle?: ViewStyle;
 }) => {
   return (
-    <TouchableOpacity onPress={() => action()} style={[compStyle.mButton, style]}>
+    <TouchableOpacity onPress={() => action()} style={[styles.mvButton, propStyle]}>
       {children}
     </TouchableOpacity>
   );
 };
-export default MButton;
 
-const compStyle = StyleSheet.create({
-  mButton: {
-    width: "80%",
+const styles = StyleSheet.create({
+  mvButton: {
+    width: 100,
     backgroundColor: blue.c,
     justifyContent: "center",
     alignItems: "center",

@@ -3,8 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Freight } from "../../../domain/model/interfaces/Freight";
 import { appCss } from "../../../styles/app.css";
+import colorCss from "../../../styles/color.css";
 
-export const FreightCard = ({ freightList }: { freightList: Freight[] }) => {
+export const FreightHistory = ({ freightList }: { freightList: Freight[] }) => {
   
   const list = freightList.sort((a, b) => {
     if (a.date.getTime() < b.date.getTime()) return 1;
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     padding: 5,
     top: -5,
     borderRadius: 10,
-    backgroundColor: "#2196f3",
+    backgroundColor: colorCss.blue.c,
     alignSelf: "center",
     justifyContent: "center",
   },

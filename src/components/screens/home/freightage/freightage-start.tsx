@@ -5,11 +5,10 @@ import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../../context/LocalizationContext";
-import { googleApi } from "../../../domain/services/config";
-import MvButton from "../../widgets/mv-button";
+import { useLocalizationContext } from "../../../../context/LocalizationContext";
+import { googleApi } from "../../../../domain/services/config";
+import { MvButton } from "../../../widgets/mv-button";
 import { FreightageForm } from "./freightage-form";
-
 
 export function FreightageStart() {
   const { goBack, navigate } = useNavigation();
@@ -17,7 +16,7 @@ export function FreightageStart() {
   const { origin, destination, addDistance, addLocalization } = useLocalizationContext();
   const mapRef = useRef<any>(null);
   return (
-    <SafeAreaView style={styles.container} >
+    <SafeAreaView style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={origin.region}
@@ -51,7 +50,7 @@ export function FreightageStart() {
       <View style={styles.settingCard}>
         <FreightageForm />
         <TouchableOpacity>
-          <MvButton style={{height: 40}} action={() => { }}>
+          <MvButton propStyle={{ height: 40 }} action={() => {}}>
             <Text style={styles.actionText}>Confirmar</Text>
           </MvButton>
         </TouchableOpacity>
@@ -90,6 +89,6 @@ const styles = StyleSheet.create({
   },
   actionText: {
     fontSize: 16,
-    color: "white"
-  }
+    color: "white",
+  },
 });

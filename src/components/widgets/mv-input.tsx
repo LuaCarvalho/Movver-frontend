@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, Image, ViewStyle } from "react-native";
-
+import React, { useState } from "react";
+import { KeyboardTypeOptions, StyleSheet, Text, TextInput, View, ViewStyle } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
 import { blue, grey } from "../../styles/color.css";
 
-const MvInput = ({
+
+
+export const MvInput = ({
   value,
   setCallback,
   placeholder,
@@ -56,7 +56,6 @@ const MvInput = ({
     </View>
   );
 };
-export default MvInput;
 
 const cStyle = StyleSheet.create({
   container: {

@@ -5,24 +5,20 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { freights } from "../../../domain/services/mocks/mock";
 import { appCss } from "../../../styles/app.css";
-import { FreightCard } from "./freight-card";
+import { FreightHistory } from "./freight-history";
+import { ProfileSettings } from "./profile-settings/index";
 
-const Profile = () => {
+export const Profile = () => {
   const { navigate } = useNavigation();
-  
-  function handlerSettings() {
-    navigate("profile-settings");
-  }
 
   return (
     <SafeAreaView style={appCss.container}>
       <View style={styles.card}>
-        <TouchableOpacity onPress={handlerSettings} style={styles.settings}>
-          <Icon color="gray" name="settings" size={25} />
-        </TouchableOpacity>
+        <View style={styles.settings}>
+          <ProfileSettings />
+        </View>
         <View>
           <Image style={styles.img} source={require("../../../assets/perfil.jpeg")} />
           <Text style={styles.name}>Joás Andrade</Text>
@@ -40,7 +36,7 @@ const Profile = () => {
       </View>
       <View style={[styles.card, styles.lastFreightsCard]}>
         <Text style={appCss.title}>Fretes recentes</Text>
-        <FreightCard freightList={freights} />
+        <FreightHistory freightList={freights} />
         <TouchableOpacity>
           <Text style={styles.lastFreightsButton}>Ver mais antigos</Text>
         </TouchableOpacity>
@@ -48,8 +44,6 @@ const Profile = () => {
     </SafeAreaView>
   );
 };
-
-export default Profile;
 
 const styles = StyleSheet.create({
   card: {
@@ -61,10 +55,15 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   settings: {
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
   },
   infoCard: {
     flexGrow: 1,
+    justifyContent: "space-around",
+  },
+  info: {
+    marginBottom: 5,
+    padding: 5
   },
   lastFreightsCard: {
     flexGrow: 5,
@@ -79,9 +78,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     alignSelf: "center",
-  },
-  info: {
-    marginBottom: 5,
   },
   lastFreightsButton: {
     fontSize: 15,

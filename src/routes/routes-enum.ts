@@ -10,6 +10,7 @@ export enum authRoutes {
 //As principais rotas privadas
 export enum mainRoutes {
   MAIN = "Main",
+  
   HOME = "Home",
   PROFILE  ="Profile",
   FIND_DRIVER = "Find driver",
@@ -17,6 +18,9 @@ export enum mainRoutes {
 
 //As subrotas
 export enum secondaryRoutes {
+  SECONDARY = "Secondary",
+
   FREIGHTAGE = "Freightage",
   FREIGHTAGE_START = "Freightage start",
+  PROFILE_SETTINGS = "Profile settings"
 }

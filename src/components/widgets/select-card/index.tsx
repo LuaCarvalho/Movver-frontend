@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from "react-native";
-
-import MvModal from "../mv-modal";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { blue } from "../../../styles/color.css";
+import { MvModal } from "../mv-modal";
+
 
 export interface Option {
   value: any;
