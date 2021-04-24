@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Login } from '../components/screens/auth/login';
-import { Register } from "../components/screens/auth/register";
-import { FreightageStart } from "../components/screens/home/freightage/freightage-start";
-import { Freightage } from '../components/screens/home/freightage/index';
+import { Login } from '../components/auth/login';
+import { Register } from "../components/auth/register";
+import { FreightageStart } from "../components/freightage/freightage-start";
+import { Freightage } from '../components/freightage/index';
 import { MainRoutes } from "./navigators/main-routes";
 import { authRoutes, mainRoutes, secondaryRoutes } from "./routes-enum";
 

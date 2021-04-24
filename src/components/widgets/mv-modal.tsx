@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   viewBottom: {
-    maxHeight: "50%",
+    maxHeight: "40%",
     alignSelf: "flex-end",
     backgroundColor: grey.lighten4,
     borderRadius: 10,

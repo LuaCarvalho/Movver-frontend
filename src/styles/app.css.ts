@@ -7,19 +7,19 @@ export const appCss = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontSize: 18,
-        opacity: 0.9,
+        fontSize: 20,
         alignSelf: "center",
     },
     subtitle: {
-        fontSize: 16,
+        fontSize: 18,
         elevation: 6,
-        opacity: 0.8
+        opacity: 0.7
     },
     infoText: {
-        fontSize: 16,
+        fontSize: 15,
         elevation: 6,
-        opacity: 0.7,
+        opacity: 0.6,
+        flexWrap: "wrap-reverse"
     },
     textIcon: {
         flexDirection: "row",

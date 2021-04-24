@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import authCss from "../../../styles/auth.css";
-import { MvButton } from "../../widgets/mv-button";
-import { MvInput } from "../../widgets/mv-input";
+import authCss from "../../styles/auth.css";
+import { MvButton } from "../widgets/mv-button";
+import { MvInput } from "../widgets/mv-input";
 
 export const Register = () => {
   const { navigate, goBack } = useNavigation();
@@ -46,13 +46,6 @@ export const Register = () => {
               icon="calendar-outline"
               keyboardType="number-pad"
             />
-            {/* <MvInput
-            placeholder="CPF"
-            value={cpf}
-            setCallback={setCpf}
-            icon="wallet-outline"
-            keyboardType="number-pad"
-          /> */}
             <MvInput
               placeholder="Senha"
               value={password}
