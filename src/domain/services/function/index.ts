@@ -1,3 +1,11 @@
+// export function fromTo(object1: Object, object2: Object) {
+//   Object.entries(object1).forEach(field => {
+//     const name = field[0];
+//     const value = field[1];
+//     if (object2[name]) object2[name] = value;
+//   })
+// }
+
 export function numberSeparador(bigNumber: number): string {
   const value = String(bigNumber).split("").reverse()
   const newValue = value.map((val, index) => {
@@ -10,7 +18,6 @@ export function numberSeparador(bigNumber: number): string {
 export function getPercentage(value: number, perc: number) {
   return value / 100 * perc;
 }
-
 
 export function getStateAbrev(state: string | undefined) {
   if (!state) return "";
@@ -43,3 +50,4 @@ export function getStateAbrev(state: string | undefined) {
   if (state === "Tocantins") return "TO"
   return "";
 }
+

@@ -5,16 +5,25 @@ import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useFreightContext } from "../../context/FreightContext";
 import { useLocalizationContext } from "../../context/LocalizationContext";
 import { googleApi } from "../../domain/services/config";
-import { MvButton } from '../widgets/mv-button';
-import { FreightageForm } from './freightage-form';
+import { grey } from "../../styles/color.css";
+import { MvButton } from "../widgets/mv-button";
+import { FreightageForm } from "./freightage-form";
 
 export function FreightageStart() {
   const { goBack, navigate } = useNavigation();
+  const { freight, allFieldsAreFilled, addFreight } = useFreightContext();
+  const { origin, destination, addDistance } = useLocalizationContext();
 
-  const { origin, destination, addDistance, addLocalization } = useLocalizationContext();
   const mapRef = useRef<any>(null);
+
+  function handlerConfirmFreight(): void {
+    addFreight({ ...freight });
+    console.log(freight);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <MapView
@@ -44,17 +53,21 @@ export function FreightageStart() {
           />
         )}
       </MapView>
+      <View style={styles.form}>
+        <FreightageForm />
+        <MvButton
+          action={handlerConfirmFreight}
+          propStyle={[styles.confirmButton]}
+          isTouchable={allFieldsAreFilled}
+        >
+          <Text style={[styles.actionText, { color: allFieldsAreFilled ? "white" : grey.lighten }]}>
+            CONFIRMAR
+          </Text>
+        </MvButton>
+      </View>
       <TouchableOpacity onPress={goBack} activeOpacity={0.8} style={styles.backButton}>
         <Icon name="keyboard-backspace" size={35} />
       </TouchableOpacity>
-      <View style={styles.formCard}>
-        <FreightageForm />
-        <TouchableOpacity>
-          <MvButton propStyle={{ width: "100%", height: 40 }} action={() => {}}>
-            <Text style={styles.actionText}>CONFIRMAR</Text>
-          </MvButton>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
@@ -64,14 +77,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
+    height: "60%",
     width: "100%",
-    height: "100%",
+  },
+  form: {
+    backgroundColor: "white",
+    height: "40%",
+    padding: 10,
+    justifyContent: "space-between",
+    elevation: 1,
   },
   backButton: {
     backgroundColor: "white",
-    elevation: 1,
-    //Fica a 93% abaixo do top
-    top: "-100%",
+    elevation: 10,
+    top: -780,
     height: 40,
     width: 80,
     borderRadius: 50,
@@ -79,13 +98,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  formCard: {
-    padding: 10,
-    justifyContent: "space-between",
-    backgroundColor: "white",
-    elevation: 1,
-    height: "40%",
-    top: "-55%",
+  confirmButton: {
+    width: "100%",
+    height: 40,
+    margin: 5,
   },
   actionText: {
     fontSize: 16,

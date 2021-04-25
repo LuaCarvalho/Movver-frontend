@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 import { truckBodyworkEnum } from "../../../domain/model/enums";
 import { Driver } from "../../../domain/model/interfaces/Driver";
 import driverHttp from "../../../domain/services/api/driver-http";
@@ -12,12 +12,19 @@ import DriverCard from "./driver-card";
 export const FindDriver: React.FC = () => {
   const [drivers, setDrivers] = useState<Driver[]>([]);
 
-  const [bodyworkFilter, setBodyworkFilter] = useState(truckBodyworkEnum.ANY);
   const [capacityFilter, setCapacityFilter] = useState(0);
+  const [truckBodyWorkFilter, setTruckBodyWorkFilter] = useState(truckBodyworkEnum.ANY);
 
   useEffect(() => {
-    driverHttp.getDrivers(bodyworkFilter).then(response => setDrivers(response));
+    driverHttp.getDrivers("").then(response => setDrivers(response));
   }, []);
+
+  const SetWeight: React.FC = () => (
+    <Text style={appCss.infoText}>Capacidade de carga: {capacityFilter} kg </Text>
+  );
+  const SetTruckBodyWork: React.FC = () => (
+    <Text style={appCss.infoText}>Carroceria: {truckBodyWorkFilter} </Text>
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,12 +35,15 @@ export const FindDriver: React.FC = () => {
         <Text>Seleções</Text>
         <View style={styles.options}>
           <View style={appCss.textIcon}>
-            <Text style={appCss.infoText}>Carroceria: </Text>
-            <Select setValue={setBodyworkFilter} items={Object.values(truckBodyworkEnum)} />
+            <Select
+              VisibleElement={SetTruckBodyWork}
+              setValue={setTruckBodyWorkFilter}
+              items={Object.values(truckBodyworkEnum)}
+            />
           </View>
           <View style={[appCss.textIcon]}>
-            <Text style={appCss.infoText}>Capacidade de carga: </Text>
             <Select
+              VisibleElement={SetWeight}
               setValue={setCapacityFilter}
               items={[500, 1000, 2000, 4000, 6000, 8000, 10000]}
             />
@@ -82,7 +92,7 @@ const styles = StyleSheet.create({
   options: {
     flex: 1,
     width: "100%",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   },
   select: {
     justifyContent: "center",

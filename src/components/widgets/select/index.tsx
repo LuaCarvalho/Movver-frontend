@@ -6,10 +6,16 @@ import Item from "./select-item";
 type item = { label: string; value: any };
 type items = item[] | string[] | number[];
 
-const Select = ({ setValue, items }: { setValue: Function; items: items }) => {
+const Select = ({
+  setValue,
+  items,
+  VisibleElement,
+}: {
+  setValue: Function;
+  items: items;
+  VisibleElement: React.FC;
+}) => {
   const [newValue, setNewValue] = useState(null);
-
-  const title = newValue ? String(newValue) : "Selecione";
 
   //Função q transforma qlqr tipo de array em uma array de "item"
   function transformToItems(arr: items): item[] {
@@ -18,16 +24,16 @@ const Select = ({ setValue, items }: { setValue: Function; items: items }) => {
   }
 
   //useMemo -> evita que essa função seja chamada repetidas vezes desnecessariamente
-  const itemsList: item[] = useMemo(() => transformToItems(items), [items])
+  const itemsList: item[] = useMemo(() => transformToItems(items), [items]);
 
   //Callback que será enviada ao elemento filho Item sempre q o valor mudar
   function onChangeValue(value: any) {
     setValue(value);
     setNewValue(value);
   }
-  
+
   return (
-    <MvModal title={title}>
+    <MvModal VisibleElement={VisibleElement}>
       <View style={styles.items}>
         {itemsList.map(({ label, value }) => (
           //Se o valor vier como um objeto do tipo "item" || Array<item>

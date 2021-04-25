@@ -3,24 +3,24 @@
 
 //Todas as rotas públicas
 export enum authRoutes {
-  AUTH_LOGIN = "Login",
-  AUTH_REGISTER = "Register",
+  AUTH_LOGIN = "Entrar",
+  AUTH_REGISTER = "Registrar",
 }
 
 //As principais rotas privadas
 export enum mainRoutes {
-  MAIN = "Main",
-  
-  HOME = "Home",
-  PROFILE  ="Profile",
-  FIND_DRIVER = "Find driver",
+  MAIN = "Rotas Principais",
+
+  HOME = "Inicio",
+  PROFILE = "Perfil",
+  FIND_DRIVER = "Encontrar motoristas",
 }
 
 //As subrotas
 export enum secondaryRoutes {
-  SECONDARY = "Secondary",
+  SECONDARY = "Rotas secundarias",
 
-  FREIGHTAGE = "Freightage",
-  FREIGHTAGE_START = "Freightage start",
-  PROFILE_SETTINGS = "Profile settings"
+  FREIGHTAGE = "Frete",
+  FREIGHTAGE_START = "Inicio do Frete",
+  PROFILE_SETTINGS = "Configurações do Perfil"
 }

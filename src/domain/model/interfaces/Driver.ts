@@ -1,8 +1,8 @@
+import { User } from "./User";
 import { Vehicle } from "./Vehicle";
 
-export interface Driver {
+export interface Driver extends User {
   id: string;
-  name: string;
   trips: number;
   vehicle: Vehicle;
   location: string;

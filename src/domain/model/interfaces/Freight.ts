@@ -1,11 +1,15 @@
-import { Driver } from "./Driver";
 
+import { Localization } from './Localization';
+
+export type status = "Aguardando" | "Finalizada" | "Cancelada";
 export interface Freight {
-  id: number;
-  driver: Driver;
+  id?: number;
   date: Date;
-  status: "Finalizada" | "Cancelada";
+  status: status;
   price: number;
-  locationOrigin: string;
-  locationDestination: string;
+  service: string;
+  weight: number;
+  origin: Localization;
+  destination: Localization;
+  description?: string;
 }

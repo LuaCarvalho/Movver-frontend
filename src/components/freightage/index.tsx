@@ -15,7 +15,7 @@ export const Freightage = () => {
 
   const isLocalization = Boolean(origin.region) && Boolean(destination.region);
 
-  //Quando a localização de origem e destino são selecionadas, o frete inicia
+  //Quando a localização de origem e destino são selecionadas, a busca por motorista se inicia
   useEffect(() => {
     if (isLocalization) navigate(secondaryRoutes.FREIGHTAGE_START);
   }, [origin, destination]);

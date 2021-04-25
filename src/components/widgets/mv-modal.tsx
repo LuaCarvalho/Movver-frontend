@@ -3,10 +3,10 @@ import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "reac
 import { grey } from "../../styles/color.css";
 
 export const MvModal = ({
-  title = "Selecione",
+  VisibleElement,
   children,
 }: {
-  title?: string;
+  VisibleElement: React.FC;
   children: React.ReactNode;
 }) => {
   const [visible, setVisible] = useState(false);
@@ -19,13 +19,13 @@ export const MvModal = ({
           <Text style={styles.modalText}>Selecione</Text>
           <View style={styles.children}>{children}</View>
           <Pressable style={styles.buttonClose} onPress={() => setVisible(!visible)}>
-            <Text style={styles.buttonCloseText}>Pronto</Text>
+            <Text style={styles.buttonCloseText}>PRONTO</Text>
           </Pressable>
         </View>
       </Modal>
-      <TouchableOpacity style={styles.buttonOpen} onPress={() => setVisible(true)}>
-        <Text style={styles.textSelect}>{title}</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonOpen} onTouchStart={() => setVisible(true)}>
+        <VisibleElement />
+      </View>
     </>
   );
 };
@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
   },
 
   buttonOpen: {
+    alignItems: "center",
+    flexDirection: "row",
     width: "100%",
   },
   buttonClose: {
@@ -59,26 +61,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   buttonCloseText: {
-    color: "black",
-    fontSize: 15,
-    opacity: 0.5,
-  },
-  textStyle: {
+    color: "white",
     fontSize: 16,
-    color: "black",
-  },
-  textSelect: {
-    fontSize: 16,
-    color: "black",
-    opacity: 0.5,
   },
   modalText: {
     color: "black",
     fontSize: 17,
     opacity: 0.6,
     textAlign: "center",
-  },
-  items: {
-    flexGrow: 1,
   },
 });

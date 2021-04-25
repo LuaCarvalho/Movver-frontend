@@ -5,6 +5,7 @@ import MapView from "react-native-maps";
 import { useLocalizationContext } from "../../../context/LocalizationContext";
 import { directionEnum } from "../../../domain/model/enums";
 import { getCurrentLocation } from "../../../domain/services/maps/location";
+import { secondaryRoutes } from "../../../routes/routes-enum";
 
 
 
@@ -17,14 +18,16 @@ export const Home: React.FC = () => {
   useEffect(() => {
     (async function () {
       const location = await getCurrentLocation(directionEnum.ORIGIN);
+      const location2 = await getCurrentLocation(directionEnum.DESTINATION);
       addLocalization(location);
+      addLocalization(location2);
     })();
   }, []);
 
   return (
     <>
       <MapView style={styles.map} initialRegion={origin.region} showsUserLocation loadingEnabled />
-      <View onTouchStart={() => navigate("Freightage")} style={styles.findButton}>
+      <View onTouchStart={() => navigate(secondaryRoutes.FREIGHTAGE)} style={styles.findButton}>
         <Text>Buscar?</Text>
       </View>
     </>
