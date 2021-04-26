@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuthContext } from "../../context/AuthContext";
 import { mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
 import { MvButton } from "../widgets/mv-button";
@@ -11,9 +12,13 @@ export const Login = () => {
   const { navigate } = useNavigation();
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { signIn, signed } = useAuthContext();
 
   function handlerLogin() {
-    navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+    signIn(phone, password);
+    if (signed) {
+      navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+    }
   }
 
   return (

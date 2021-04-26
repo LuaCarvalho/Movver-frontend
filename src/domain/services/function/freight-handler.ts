@@ -1,17 +1,17 @@
 
-import { Freight, status } from '../../model/interfaces/Freight';
+import { Freight, service, status } from '../../model/interfaces/Freight';
 import { Localization } from '../../model/interfaces/Localization';
 
 function createFreigth(
   date: Date = new Date(),
   price: number = 0,
   weight: number = 0,
-  service: string = "",
+  service: service,
   origin: Localization,
   destination: Localization,
   status: status = "Aguardando",
   description: string,
-  id: number,
+  id?: number,
 ): Freight {
   return {
     id, weight, service, date, status, price, description, origin, destination

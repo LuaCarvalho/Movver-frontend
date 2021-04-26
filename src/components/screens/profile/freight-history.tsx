@@ -23,11 +23,11 @@ export const FreightHistory = ({ freightList }: { freightList: Freight[] }) => {
           <View>
             <View style={appCss.textIcon}>
               <Icon name="room" size={20} color={"gray"} />
-              <Text style={styles.text}>{item.locationOrigin}</Text>
+              <Text style={styles.text}>{item.origin}</Text>
             </View>
             <View style={appCss.textIcon}>
               <Icon name="room" size={20} color={"black"} />
-              <Text style={styles.text}>{item.locationDestination}</Text>
+              <Text style={styles.text}>{item.destination}</Text>
             </View>
           </View>
           <View style={styles.priceStatus}>

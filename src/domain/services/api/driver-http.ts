@@ -1,19 +1,16 @@
-import axios from "axios";
 import { Driver } from "../../model/interfaces/Driver";
-import { driversUrl } from "../config/api-endpoints";
-import { DriverHttp } from "./interfaces/DriverHttp";
+import { http } from "./api";
 
+const url = "/drivers"
 
-export async function getDrivers(filter: string): Promise<Driver[]> {
-  const response = await axios.get(driversUrl)
+export async function getDrivers(filter?: string): Promise<Driver[]> {
+  const response = await http.get(url)
   const drivers = response.data;
   return drivers;
 }
 
 
-const driverHttp: DriverHttp = {
+
+export const DriverHttp = {
   getDrivers,
 }
-
-
-export default driverHttp;

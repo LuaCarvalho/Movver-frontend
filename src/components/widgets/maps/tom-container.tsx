@@ -6,7 +6,7 @@ import { useTomCompleteContext } from "../../../context/TomCompleteContext";
 import { Address } from "../../../domain/model/interfaces/Address";
 import { Localization } from "../../../domain/model/interfaces/Localization";
 import { Result } from "../../../domain/model/interfaces/TomTomSearch";
-import { getStateAbrev } from "../../../domain/services/function";
+import { getStateAbrev } from "../../../domain/services/function/utils";
 import { Address_FC } from "../../../domain/services/maps/handler-address";
 import { Locatization_CF } from "../../../domain/services/maps/location";
 import { grey } from "../../../styles/color.css";

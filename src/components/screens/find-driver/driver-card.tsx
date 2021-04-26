@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Driver } from "../../../domain/model/interfaces/Driver";
-import { numberSeparador } from "../../../domain/services/function";
+import { numberSeparador } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
 import { green, grey } from "../../../styles/color.css";
 

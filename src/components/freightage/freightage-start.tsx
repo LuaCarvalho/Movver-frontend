@@ -20,7 +20,6 @@ export function FreightageStart() {
   const mapRef = useRef<any>(null);
 
   function handlerConfirmFreight(): void {
-    addFreight({ ...freight });
     console.log(freight);
   }
 
@@ -33,25 +32,23 @@ export function FreightageStart() {
         loadingEnabled
         ref={mapRef}
       >
-        {destination && (
-          <MapViewDirections
-            origin={origin.region}
-            destination={destination.region}
-            apikey={googleApi}
-            strokeWidth={3}
-            onReady={result => {
-              addDistance(result.distance);
-              mapRef.current.fitToCoordinates(result.coordinates, {
-                edgePadding: {
-                  bottom: 50,
-                  top: 50,
-                  left: 50,
-                  right: 50,
-                },
-              });
-            }}
-          />
-        )}
+        <MapViewDirections
+          origin={origin.region}
+          destination={destination.region}
+          apikey={googleApi}
+          strokeWidth={3}
+          onReady={result => {
+            addDistance(result.distance);
+            mapRef.current.fitToCoordinates(result.coordinates, {
+              edgePadding: {
+                bottom: 50,
+                top: 50,
+                left: 50,
+                right: 50,
+              },
+            });
+          }}
+        />
       </MapView>
       <View style={styles.form}>
         <FreightageForm />

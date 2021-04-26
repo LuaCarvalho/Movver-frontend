@@ -1,17 +1,17 @@
 /** Componente para o perfil do usuário
  */
-import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuthContext } from "../../../context/AuthContext";
 import { freights } from "../../../domain/services/mocks/mock";
 import { appCss } from "../../../styles/app.css";
 import { FreightHistory } from "./freight-history";
 import { ProfileSettings } from "./profile-settings/index";
 
 export const Profile = () => {
-  const { navigate } = useNavigation();
+  const { user } = useAuthContext();
 
   return (
     <SafeAreaView style={appCss.container}>
@@ -21,17 +21,17 @@ export const Profile = () => {
         </View>
         <View>
           <Image style={styles.img} source={require("../../../assets/perfil.jpeg")} />
-          <Text style={styles.name}>Joás Andrade</Text>
+          <Text style={styles.name}>{user.name}</Text>
         </View>
       </View>
       <View style={[styles.card, styles.infoCard]}>
         <View style={styles.info}>
-          <Text style={appCss.infoText}>Email</Text>
-          <Text>joas7777777@hotmail.com</Text>
+          <Text style={appCss.infoText}>Número de Telefone</Text>
+          <Text>{user.phoneNumber}</Text>
         </View>
         <View style={styles.info}>
-          <Text style={appCss.infoText}>Número de Telefone</Text>
-          <Text>(62) 98390-9812</Text>
+          <Text style={appCss.infoText}>Data de nascimento</Text>
+          <Text>{user.birthDate}</Text>
         </View>
       </View>
       <View style={[styles.card, styles.lastFreightsCard]}>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   info: {
     marginBottom: 5,
-    padding: 5
+    padding: 5,
   },
   lastFreightsCard: {
     flexGrow: 5,

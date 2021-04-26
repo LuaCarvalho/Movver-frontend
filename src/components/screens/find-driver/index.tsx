@@ -4,7 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { truckBodyworkEnum } from "../../../domain/model/enums";
 import { Driver } from "../../../domain/model/interfaces/Driver";
-import driverHttp from "../../../domain/services/api/driver-http";
+import { DriverHttp } from "../../../domain/services/api/driver-http";
 import { appCss } from "../../../styles/app.css";
 import Select from "../../widgets/select";
 import DriverCard from "./driver-card";
@@ -16,7 +16,7 @@ export const FindDriver: React.FC = () => {
   const [truckBodyWorkFilter, setTruckBodyWorkFilter] = useState(truckBodyworkEnum.ANY);
 
   useEffect(() => {
-    driverHttp.getDrivers("").then(response => setDrivers(response));
+    DriverHttp.getDrivers("").then(response => setDrivers(response));
   }, []);
 
   const SetWeight: React.FC = () => (

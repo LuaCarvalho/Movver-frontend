@@ -11,12 +11,13 @@ interface ContextType {
 export const FreightContext = createContext({} as ContextType);
 
 export const FreightProvider = ({ children }: { children: React.ReactNode }) => {
-  const [allFieldsAreFilled, setAllFieldsAreFilled] = useState(false);
-  const freight: Freight = {} as Freight;
+  const [allFieldsAreFilled, setAllFieldsAreFilled] = useState<boolean>(false);
+  const [ freight ] = useState<Freight>({} as Freight);
 
-  function addFreight(newFreight: Freight): void {
-    Object.assign(freight, newFreight);
-    setAllFieldsAreFilled(FreightHandler.allFieldsAreFilled(freight));
+  function addFreight(freightSource: Freight) {
+    Object.assign(freight, freightSource)
+    const isCompleted = FreightHandler.allFieldsAreFilled(freight);
+    setAllFieldsAreFilled(isCompleted);
   }
 
   return (

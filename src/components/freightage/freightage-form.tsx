@@ -3,14 +3,14 @@ import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-nat
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFreightContext } from "../../context/FreightContext";
 import { useLocalizationContext } from "../../context/LocalizationContext";
-import { Freight } from "../../domain/model/interfaces/Freight";
+import { Freight, service } from "../../domain/model/interfaces/Freight";
 import { appCss } from "../../styles/app.css";
 import { blue, grey } from "../../styles/color.css";
 import { MvModal } from "../widgets/mv-modal";
 import Select from "../widgets/select/index";
 
 type serviceOption = {
-  serviceName: string;
+  serviceName: service;
   label?: string;
   icon: string;
 };
@@ -27,10 +27,10 @@ export type freightItems = {
 };
 
 export const FreightageForm = () => {
-  const { addFreight } = useFreightContext();
-  const { origin, destination } = useLocalizationContext();
+  const { addFreight, allFieldsAreFilled } = useFreightContext();
+  const { destination, origin } = useLocalizationContext();
 
-  const [service, setSelectedService] = useState<string>("");
+  const [service, setService] = useState<service>({} as service);
   const [weight, setWeight] = useState<number>(0);
   const [description, setDescription] = useState<string>();
 
@@ -76,7 +76,7 @@ export const FreightageForm = () => {
         <View style={styles.serviceOptions}>
           {services.map(({ icon, serviceName, label }) => (
             <TouchableHighlight
-              onPress={() => setSelectedService(serviceName)}
+              onPress={() => setService(serviceName)}
               style={service == serviceName ? styles.serviceOptionSelected : styles.serviceOption}
               underlayColor={grey.lighten3}
               key={serviceName}
