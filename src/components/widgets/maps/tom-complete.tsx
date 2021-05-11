@@ -59,7 +59,7 @@ export const TomComplete = ({ direction }: { direction: directionEnum }) => {
         value={query}
         style={{ height: 55, marginBottom: 0, marginTop: 0 }}
         //Sempre que uma nova entrada for digitada, ira buscar novos endereções
-        setCallback={searchAddres}
+        onChangeText={searchAddres}
       />
       <TouchableHighlight
         onPress={() => setQuery("")}

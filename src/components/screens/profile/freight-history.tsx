@@ -6,7 +6,6 @@ import { appCss } from "../../../styles/app.css";
 import colorCss from "../../../styles/color.css";
 
 export const FreightHistory = ({ freightList }: { freightList: Freight[] }) => {
-  
   const list = freightList.sort((a, b) => {
     if (a.date.getTime() < b.date.getTime()) return 1;
     if (a.date.getTime() > b.date.getTime()) return -1;
@@ -15,32 +14,38 @@ export const FreightHistory = ({ freightList }: { freightList: Freight[] }) => {
 
   return (
     <>
-      {list.map((item) => (
-        <View key={item.id} style={styles.myFreight}>
-          <View style={styles.dateCard}>
-            <Text style={styles.dateText}>{item.date.toLocaleString()}</Text>
+      {list.length ? (
+        list.map(item => (
+          <View key={item.id} style={styles.myFreight}>
+            <View style={styles.dateCard}>
+              <Text style={styles.dateText}>{item.date.toLocaleString()}</Text>
+            </View>
+            <View>
+              <View style={appCss.textIcon}>
+                <Icon name="room" size={20} color={"gray"} />
+                <Text style={styles.text}>{item.origin}</Text>
+              </View>
+              <View style={appCss.textIcon}>
+                <Icon name="room" size={20} color={"black"} />
+                <Text style={styles.text}>{item.destination}</Text>
+              </View>
+            </View>
+            <View style={styles.priceStatus}>
+              <View style={appCss.textIcon}>
+                <Icon name="circle" size={15} color={"gray"} />
+                <Text style={[styles.text, styles.status]}>{item.status}</Text>
+              </View>
+              <View style={appCss.textIcon}>
+                <Text style={styles.text}>R$ {item.price}</Text>
+              </View>
+            </View>
           </View>
-          <View>
-            <View style={appCss.textIcon}>
-              <Icon name="room" size={20} color={"gray"} />
-              <Text style={styles.text}>{item.origin}</Text>
-            </View>
-            <View style={appCss.textIcon}>
-              <Icon name="room" size={20} color={"black"} />
-              <Text style={styles.text}>{item.destination}</Text>
-            </View>
-          </View>
-          <View style={styles.priceStatus}>
-            <View style={appCss.textIcon}>
-              <Icon name="circle" size={15} color={"gray"} />
-              <Text style={[styles.text, styles.status]}>{item.status}</Text>
-            </View>
-            <View style={appCss.textIcon}>
-              <Text style={styles.text}>R$ {item.price}</Text>
-            </View>
-          </View>
+        ))
+      ) : (
+        <View style={styles.emptyList}>
+          <Text style={styles.emptyListText}>Você ainda não contratou nem um frete</Text>
         </View>
-      ))}
+      )}
     </>
   );
 };
@@ -77,6 +82,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   status: {
-    marginLeft: 3
+    marginLeft: 3,
   },
+  emptyList: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  emptyListText: {
+    fontSize: 17,
+    opacity: 0.5
+  }
 });

@@ -1,6 +1,6 @@
 export interface User {
   readonly name: string;
   readonly phoneNumber: string;
-  readonly birthDate: string;
+  readonly birthday: string;
   readonly password: string;
 }

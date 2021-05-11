@@ -1,5 +1,17 @@
-import axios from "axios"
+import axios, { AxiosError, AxiosResponse } from "axios";
 
-export const http = axios.create({
+function onSuccessReponse(value: AxiosResponse): Promise<AxiosResponse> {
+  return Promise.resolve(value);
+}
+
+function onErrorReponse(value: AxiosError): Promise<AxiosError> {
+  return Promise.reject(value);
+}
+
+const http = axios.create({
   baseURL: "http://192.168.100.4:8080",
 })
+
+http.interceptors.response.use(onSuccessReponse, onErrorReponse);
+
+export { http };

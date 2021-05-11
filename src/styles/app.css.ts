@@ -20,6 +20,12 @@ export const appCss = StyleSheet.create({
         elevation: 6,
         opacity: 0.7,
     },
+    infoText2: {
+        fontSize: 14,
+        elevation: 6,
+        opacity: 0.6,
+        paddingHorizontal: 10
+    },
     textIcon: {
         margin: 5,
         flexDirection: "row",

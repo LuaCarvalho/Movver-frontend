@@ -27,33 +27,17 @@ export type freightItems = {
 };
 
 export const FreightageForm = () => {
-  const { addFreight, allFieldsAreFilled } = useFreightContext();
+  const { addFreight } = useFreightContext();
   const { destination, origin } = useLocalizationContext();
 
   const [service, setService] = useState<service>({} as service);
   const [weight, setWeight] = useState<number>(0);
-  const [description, setDescription] = useState<string>();
+  const [description, setDescription] = useState("");
 
   const optionSelectedColor = (value: string): string => {
     return service == value ? blue.darken : grey.darken;
   };
 
-  const SendComment: React.FC = () => (
-    <View style={appCss.textIcon}>
-      <Icon style={styles.fieldIcon} name="comment-text-outline" color={grey.darken} size={25} />
-      <Text style={appCss.subtitle}>Enviar comentario</Text>
-    </View>
-  );
-
-  const SetWeight: React.FC = () => (
-    <View style={appCss.textIcon}>
-      <Icon style={styles.fieldIcon} name="weight-kilogram" color={grey.darken} size={25} />
-      <Text style={appCss.subtitle}>Peso estimado: {weight} kg</Text>
-    </View>
-  );
-
-  // Sempre que um dos valores do formulario mudar,
-  // executa um callback passando esse valores para o componente pai
   useEffect(() => {
     const freight: Freight = {
       date: new Date(),
@@ -67,6 +51,20 @@ export const FreightageForm = () => {
     };
     addFreight(freight);
   }, [service, weight, description]);
+
+  const SendCommentVisible: React.FC = () => (
+    <View style={appCss.textIcon}>
+      <Icon style={styles.fieldIcon} name="comment-text-outline" color={grey.darken} size={25} />
+      <Text style={appCss.subtitle}>Enviar comentario</Text>
+    </View>
+  );
+
+  const SetWeight: React.FC = () => (
+    <View style={appCss.textIcon}>
+      <Icon style={styles.fieldIcon} name="weight-kilogram" color={grey.darken} size={25} />
+      <Text style={appCss.subtitle}>Peso estimado: {weight} kg</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -102,13 +100,22 @@ export const FreightageForm = () => {
             setValue={setWeight}
             items={[500, 1000, 2000, 4000, 6000, 8000, 10000]}
           />
-          <MvModal VisibleElement={SendComment}>
-            <TextInput
-              onChangeText={setDescription}
-              style={styles.inputComment}
-              multiline
-              numberOfLines={3}
-            />
+          <MvModal VisibleElement={SendCommentVisible}>
+            <View style={styles.sendComment}>
+              <View style={styles.sendCommentText}>
+                <Text style={appCss.subtitle}>Enviar comentario</Text>
+                <Text style={appCss.infoText2}>
+                  Há algum detalhe importante que você gostaria de acrescentar?
+                </Text>
+              </View>
+              <TextInput
+                value={description}
+                onChangeText={(text) => setDescription(text)}
+                numberOfLines={3}
+                multiline
+                style={styles.sendCommentInput}
+              />
+            </View>
           </MvModal>
         </View>
       </View>
@@ -161,6 +168,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderRightWidth: 2,
   },
+  sendComment: {
+    flex: 1,
+    padding: 10,
+  },
+  sendCommentText: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  sendCommentInput: {
+    flexGrow: 1,
+    backgroundColor: grey.lighten3,
+    justifyContent: "flex-start",
+    alignContent: "flex-start",
+  },
   serviceCard: {
     alignItems: "center",
   },
@@ -172,9 +193,5 @@ const styles = StyleSheet.create({
   },
   fieldIcon: {
     marginRight: 10,
-  },
-  inputComment: {
-    height: "50%",
-    backgroundColor: grey.lighten3,
   },
 });

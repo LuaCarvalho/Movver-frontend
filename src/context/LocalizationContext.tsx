@@ -18,9 +18,8 @@ export const LocalizationProvider = ({ children }: { children: React.ReactNode }
   const [distance, setDistance] = useState(0);
 
   function addLocalization(local: Localization): void {
-    if (local.direction === directionEnum.ORIGIN)
-      return setOrigin(local);
-    setDestination(local);
+    if (local.direction === directionEnum.ORIGIN) return setOrigin(local);
+    return setDestination(local);
   }
 
   return (

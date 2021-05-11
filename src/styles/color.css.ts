@@ -27,6 +27,17 @@ export const grey = {
   lighten5: "#FAFAFA",
 }
 
-export default { blue, green, grey }
+export const red = {
+  c: "#EF5350",
+  darken: "#E53935",
+  darken3: "#C62828",
+  lighten: "#EF5350",
+  lighten2: "#E57373",
+  accent: "#FF8A80",
+  accent2: "#FF5252",
+  accent3: "#FF1744",
+}
+
+export default { blue, green, grey, red }
 
 //FONTE: https://vuetifyjs.com/en/styles/colors/#material-colors

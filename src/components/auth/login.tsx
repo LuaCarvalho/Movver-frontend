@@ -1,24 +1,33 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../context/AuthContext";
-import { mainRoutes } from "../../routes/routes-enum";
+import { useFormContext } from "../../context/FormContext";
+import { Utils } from "../../domain/services/function/utils";
+import { authRoutes, mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
 import { MvButton } from "../widgets/mv-button";
 import { MvInput } from "../widgets/mv-input";
 
 export const Login = () => {
   const { navigate } = useNavigation();
+  const { signIn } = useAuthContext();
+  const { add } = useFormContext();
+
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { signIn, signed } = useAuthContext();
 
-  function handlerLogin() {
-    signIn(phone, password);
-    if (signed) {
-      navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
-    }
+  const formattedPhone = useMemo(() => Utils.formatPhoneNumber(phone), [phone]);
+
+  function handlerRegister() {
+    navigate(authRoutes.AUTH_REGISTER);
+  }
+
+  async function handlerLogin() {
+    const signed = await signIn(phone, password);
+    if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+    else add(true, "Login ou senha invalidos", "login, password");
   }
 
   return (
@@ -31,26 +40,30 @@ export const Login = () => {
         </View>
         <View style={authCss.form}>
           <MvInput
-            value={phone}
-            setCallback={setPhone}
+            value={formattedPhone}
+            placeholder="Número de telefone"
             icon="phone-outline"
-            placeholder="phone"
+            maxLength={15}
+            onChangeText={setPhone}
             keyboardType="phone-pad"
           />
           <MvInput
             value={password}
-            setCallback={setPassword}
             icon="lock-outline"
             placeholder="Senha"
+            onChangeText={setPassword}
             secureTextEntry
           />
         </View>
-        <MvButton propStyle={authCss.loginButton} action={handlerLogin}>
+        <MvButton
+          propStyle={authCss.loginButton}
+          onPress={handlerLogin}
+        >
           <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>
           <Text style={{ opacity: 0.8 }}>Ainda não possui uma conta?</Text>
-          <TouchableOpacity onPress={() => navigate("Register")}>
+          <TouchableOpacity onPress={handlerRegister}>
             <Text style={authCss.alreadyExistOrNo}>Crie uma nova conta</Text>
           </TouchableOpacity>
         </View>

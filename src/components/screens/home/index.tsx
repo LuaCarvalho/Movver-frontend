@@ -8,19 +8,15 @@ import { getCurrentLocation } from "../../../domain/services/maps/location";
 import { secondaryRoutes } from "../../../routes/routes-enum";
 
 
-
-
 export const Home: React.FC = () => {
   const { origin, addLocalization } = useLocalizationContext();
   const { navigate } = useNavigation();
 
   //Inicialmente o mapa irá mostrar a localização atual
   useEffect(() => {
-    (async function () {
-      const location = await getCurrentLocation(directionEnum.ORIGIN);
-      const location2 = await getCurrentLocation(directionEnum.DESTINATION);
-      addLocalization(location);
-      addLocalization(location2);
+    (async () => {
+      const locationOrigin = await getCurrentLocation(directionEnum.ORIGIN);
+      addLocalization(locationOrigin);
     })();
   }, []);
 

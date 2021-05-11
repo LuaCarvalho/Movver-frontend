@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { grey } from "../../styles/color.css";
+import { grey } from "../../../styles/color.css";
 
 export const MvModal = ({
   VisibleElement,
@@ -16,7 +16,6 @@ export const MvModal = ({
       <Modal animationType="slide" transparent={true} visible={visible} collapsable={true}>
         <TouchableOpacity style={styles.view} onPressIn={() => setVisible(false)} />
         <View style={[styles.view, styles.viewBottom]}>
-          <Text style={styles.modalText}>Selecione</Text>
           <View style={styles.children}>{children}</View>
           <Pressable style={styles.buttonClose} onPress={() => setVisible(!visible)}>
             <Text style={styles.buttonCloseText}>PRONTO</Text>
@@ -44,7 +43,6 @@ const styles = StyleSheet.create({
   },
   children: {
     flexGrow: 1,
-    margin: 5,
   },
 
   buttonOpen: {

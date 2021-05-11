@@ -13,7 +13,7 @@ import { MvButton } from "../widgets/mv-button";
 import { FreightageForm } from "./freightage-form";
 
 export function FreightageStart() {
-  const { goBack, navigate } = useNavigation();
+  const { goBack } = useNavigation();
   const { freight, allFieldsAreFilled, addFreight } = useFreightContext();
   const { origin, destination, addDistance } = useLocalizationContext();
 
@@ -53,7 +53,7 @@ export function FreightageStart() {
       <View style={styles.form}>
         <FreightageForm />
         <MvButton
-          action={handlerConfirmFreight}
+          onPress={handlerConfirmFreight}
           propStyle={[styles.confirmButton]}
           isTouchable={allFieldsAreFilled}
         >

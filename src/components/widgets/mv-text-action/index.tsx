@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, TextStyle, TouchableHighlight, View, ViewStyle } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { appCss } from '../../styles/app.css';
-import colorCss from "../../styles/color.css";
+import { appCss } from '../../../styles/app.css';
+import colorCss from "../../../styles/color.css";
 
 export const MvTextAction = ({
   text,

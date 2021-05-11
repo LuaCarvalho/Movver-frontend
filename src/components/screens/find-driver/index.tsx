@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,16 +15,27 @@ export const FindDriver: React.FC = () => {
   const [capacityFilter, setCapacityFilter] = useState(0);
   const [truckBodyWorkFilter, setTruckBodyWorkFilter] = useState(truckBodyworkEnum.ANY);
 
-  useEffect(() => {
-    DriverHttp.getDrivers("").then(response => setDrivers(response));
-  }, []);
-
   const SetWeight: React.FC = () => (
     <Text style={appCss.infoText}>Capacidade de carga: {capacityFilter} kg </Text>
   );
   const SetTruckBodyWork: React.FC = () => (
     <Text style={appCss.infoText}>Carroceria: {truckBodyWorkFilter} </Text>
   );
+
+  useEffect(() => {
+    DriverHttp.getDrivers()
+      .then(response => setDrivers(response));
+  }, []);
+
+  const filtredDrivers: Driver[] = useMemo(() => {
+    return drivers
+      .filter(driver => driver.vehicle.capacity >= capacityFilter)
+      .filter(driver => {
+        if (truckBodyWorkFilter === truckBodyworkEnum.ANY) return true;
+        return driver.vehicle.truckBodyWork === truckBodyWorkFilter
+      })
+  }, [drivers, capacityFilter, truckBodyWorkFilter])
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,8 +64,8 @@ export const FindDriver: React.FC = () => {
       <ScrollView style={[styles.card, styles.driversCard]}>
         <Text
           style={styles.resultCounter}
-        >{`Resultados: ${drivers.length} de ${drivers.length}`}</Text>
-        <DriverCard drivers={drivers} />
+        >{`Resultados: ${filtredDrivers.length} de ${drivers.length}`}</Text>
+        <DriverCard drivers={filtredDrivers} />
       </ScrollView>
     </SafeAreaView>
   );

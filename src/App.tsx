@@ -5,6 +5,7 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./context/AuthContext";
+import { FormProvider } from "./context/FormContext";
 import { FreightProvider } from "./context/FreightContext";
 import { LocalizationProvider } from "./context/LocalizationContext";
 import { TomCompleteProvider } from "./context/TomCompleteContext";
@@ -18,9 +19,11 @@ export default function () {
           <TomCompleteProvider>
             <LocalizationProvider>
               <FreightProvider>
-                <SafeAreaView style={{ flex: 1 }}>
-                  <Routes />
-                </SafeAreaView>
+                <FormProvider>
+                  <SafeAreaView style={{ flex: 1 }}>
+                    <Routes />
+                  </SafeAreaView>
+                </FormProvider>
               </FreightProvider>
             </LocalizationProvider>
           </TomCompleteProvider>

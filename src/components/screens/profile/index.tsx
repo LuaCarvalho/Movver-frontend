@@ -1,17 +1,28 @@
 /** Componente para o perfil do usuário
  */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../../context/AuthContext";
-import { freights } from "../../../domain/services/mocks/mock";
+import { Freight } from '../../../domain/model/interfaces/Freight';
+import { FreightHttp } from "../../../domain/services/api/freight-http";
+import { Utils } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
 import { FreightHistory } from "./freight-history";
 import { ProfileSettings } from "./profile-settings/index";
 
 export const Profile = () => {
   const { user } = useAuthContext();
+
+  const [freights, setFreights] = useState([] as Freight[])
+
+  useEffect(() => {
+    (async () => {
+      const response = await FreightHttp.getFreights()
+      setFreights(response)
+    })()
+  }, [])
 
   return (
     <SafeAreaView style={appCss.container}>
@@ -27,11 +38,11 @@ export const Profile = () => {
       <View style={[styles.card, styles.infoCard]}>
         <View style={styles.info}>
           <Text style={appCss.infoText}>Número de Telefone</Text>
-          <Text>{user.phoneNumber}</Text>
+          <Text>{Utils.formatPhoneNumber(user.phoneNumber)}</Text>
         </View>
         <View style={styles.info}>
           <Text style={appCss.infoText}>Data de nascimento</Text>
-          <Text>{user.birthDate}</Text>
+          <Text>{Utils.formatDate(user.birthday)}</Text>
         </View>
       </View>
       <View style={[styles.card, styles.lastFreightsCard]}>
@@ -58,7 +69,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   infoCard: {
-    flexGrow: 1,
+    flexGrow: 0,
     justifyContent: "space-around",
   },
   info: {

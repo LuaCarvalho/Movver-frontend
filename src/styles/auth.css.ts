@@ -4,7 +4,7 @@ import * as colors from "./color.css"
 export default StyleSheet.create(
   {
     container: {
-      flex: 1,
+      flexGrow: 1,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: colors.grey.lighten5,
@@ -18,7 +18,7 @@ export default StyleSheet.create(
       flexGrow: 5,
     },
     form: {
-      maxHeight: "80%",
+      maxHeight: "70%",
       marginBottom: 10,
     },
     loginButton: {

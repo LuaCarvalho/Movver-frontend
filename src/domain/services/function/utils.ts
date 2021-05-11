@@ -1,10 +1,16 @@
-// export function fromTo(object1: Object, object2: Object) {
-//   Object.entries(object1).forEach(field => {
-//     const name = field[0];
-//     const value = field[1];
-//     if (object2[name]) object2[name] = value;
-//   })
-// }
+
+function formatPhoneNumber(phoneNumber: string): string {
+  let v = phoneNumber;
+  v = v.replace(/\D/g, "");
+  v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+  v = v.replace(/(\d)(\d{4})$/, "$1-$2");
+  return v;
+}
+
+function formatDate(date: string) {
+  const value = new Date(date);
+  return `${value.getDay() }/${value.getMonth()}/${value.getFullYear()}`
+}
 
 export function numberSeparador(bigNumber: number): string {
   const value = String(bigNumber).split("").reverse()
@@ -19,7 +25,7 @@ export function getPercentage(value: number, perc: number) {
   return value / 100 * perc;
 }
 
-export function getStateAbrev(state: string | undefined) {
+export function getStateAbrev(state: string | undefined): string {
   if (!state) return "";
   if (state === "Acre") return "AC"
   if (state === "Alagoas") return "AL"
@@ -51,3 +57,10 @@ export function getStateAbrev(state: string | undefined) {
   return "";
 }
 
+export const Utils = {
+  formatPhoneNumber,
+  formatDate,
+  numberSeparador,
+  getPercentage,
+  getStateAbrev,
+}
