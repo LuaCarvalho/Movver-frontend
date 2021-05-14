@@ -1,18 +1,17 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../../context/localization-context";
-import { useTomCompleteContext } from "../../../context/tom-complete-context";
-import { Address } from "../../../domain/model/interfaces/Address";
-import { Localization } from "../../../domain/model/interfaces/Localization";
-import { Result } from "../../../domain/model/interfaces/TomTomSearch";
-import { getStateAbrev } from "../../../domain/services/function/utils";
-import { Address_FC } from "../../../domain/services/maps/handler-address";
-import { Locatization_CF } from "../../../domain/services/maps/location";
-import { grey } from "../../../styles/color.css";
+import { useLocalizationContext } from "../../context/localization-context";
+import { useTomCompleteContext } from "../../context/tom-complete-context";
+import { Address } from "../../domain/model/interfaces/Address";
+import { Localization } from "../../domain/model/interfaces/Localization";
+import { Result } from "../../domain/model/interfaces/TomTomSearch";
+import { AddressHandler } from "../../domain/services/function/address-handler";
+import { LocalizationHandler } from "../../domain/services/function/localization-handler";
+import { getStateAbrev } from "../../domain/services/function/utils";
+import { grey } from "../../styles/color.css";
 
-
-export const TomContainer  = () => {
+export const TomContainer = () => {
   const { addLocalization } = useLocalizationContext();
   const { tomSearch, contextDirection, setContextQuery } = useTomCompleteContext();
 
@@ -24,9 +23,9 @@ export const TomContainer  = () => {
   };
 
   function getPosition(result: Result): Localization {
-    const lat = result.position.lat;
-    const lon = result.position.lon;
-    return Locatization_CF(contextDirection, lat, lon);
+    const latitude = result.position.lat;
+    const longitude = result.position.lon;
+    return LocalizationHandler.Create(contextDirection, latitude, longitude);
   }
 
   function getAddress(result: Result): Address {
@@ -37,7 +36,15 @@ export const TomContainer  = () => {
     const city = textFrom(address?.municipality);
     const state = getStateAbrev(address?.countrySubdivision);
     const distance = result.dist;
-    return Address_FC(resultId, title, district, city, state, distance, getPosition(result));
+    return AddressHandler.Create(
+      resultId,
+      title,
+      district,
+      city,
+      state,
+      distance,
+      getPosition(result)
+    );
   }
 
   function handlerOnPress(resultId: string) {

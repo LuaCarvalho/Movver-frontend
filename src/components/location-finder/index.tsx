@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { directionEnum } from "../../../domain/model/enums";
-import { TomComplete } from "../../widgets/maps/tom-complete";
-import { TomContainer } from "../../widgets/maps/tom-container";
+import { directionEnum } from "../../domain/model/enums";
+import { TomComplete } from "./tom-complete";
+import { TomContainer } from "./tom-container";
 
 export function LocationFinder() {
   return (

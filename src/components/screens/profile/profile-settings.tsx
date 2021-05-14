@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { useAuthContext } from "../../../../context/auth-context";
-import { appCss } from "../../../../styles/app.css";
-import colorCss from "../../../../styles/color.css";
-import { MvTextAction } from "../../../widgets/mv-text-action";
+import { useAuthContext } from "../../../context/auth-context";
+import { appCss } from "../../../styles/app.css";
+import colorCss from "../../../styles/color.css";
+import { MvTextAction } from "../../widgets/mv-text-action";
 
 export const ProfileSettings = () => {
   const [visibility, setVisibility] = useState(false);

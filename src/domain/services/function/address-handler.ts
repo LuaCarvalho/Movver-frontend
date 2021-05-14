@@ -4,7 +4,7 @@ import { Address } from "../../model/interfaces/Address";
 import { TomTomSearch } from "../../model/interfaces/TomTomSearch";
 import { tomKey } from "../config";
 
-export function Address_FC(
+function Create(
   resultId: string,
   title: string,
   district: string,
@@ -15,7 +15,7 @@ export function Address_FC(
   return { resultId, title, district, city, state, distance, localization }
 }
 
-export async function getAddress(search: string, localization: Localization): Promise<TomTomSearch> {
+async function getAddress(search: string, localization: Localization): Promise<TomTomSearch> {
   const query = encodeURIComponent(search);
   const BASE_URL = "https://api.tomtom.com/search/2/search/";
   const APROX_LAT = localization.region.latitude;
@@ -26,3 +26,10 @@ export async function getAddress(search: string, localization: Localization): Pr
   const data: TomTomSearch = res.data;
   return data;
 }
+
+const AddressHandler = {
+  Create,
+  getAddress
+}
+
+export { AddressHandler };

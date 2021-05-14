@@ -25,13 +25,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   function signOut() {
     AuthHttp.signOut()
-      .then(() => setSigned(false))
+      .then(_ => setSigned(false))
   }
 
   useEffect(() => {
     AuthHttp.automaticSignIn()
       .then(setUser)
-      .then(() => setSigned(true));
+      .then(_ => setSigned(true));
   }, []);
 
   return (

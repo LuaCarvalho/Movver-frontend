@@ -6,7 +6,7 @@ export const MvModal = ({
   VisibleElement,
   children,
 }: {
-  VisibleElement: React.FC;
+  VisibleElement?: React.FC;
   children: React.ReactNode;
 }) => {
   const [visible, setVisible] = useState(false);
@@ -23,7 +23,7 @@ export const MvModal = ({
         </View>
       </Modal>
       <View style={styles.buttonOpen} onTouchStart={() => setVisible(true)}>
-        <VisibleElement />
+        {VisibleElement && <VisibleElement />}
       </View>
     </>
   );

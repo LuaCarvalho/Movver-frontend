@@ -1,24 +1,20 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
 import { useLocalizationContext } from "../../../context/localization-context";
-import { directionEnum } from "../../../domain/model/enums";
-import { getCurrentLocation } from "../../../domain/services/maps/location";
 import { secondaryRoutes } from "../../../routes/routes-enum";
 
-
 export const Home: React.FC = () => {
-  const { origin, addLocalization } = useLocalizationContext();
+  const { origin } = useLocalizationContext();
   const { navigate } = useNavigation();
 
-  //Inicialmente o mapa irá mostrar a localização atual
-  useEffect(() => {
-    (async () => {
-      const locationOrigin = await getCurrentLocation(directionEnum.ORIGIN);
-      addLocalization(locationOrigin);
-    })();
-  }, []);
+  // //Inicialmente o mapa irá mostrar a localização atual
+  // useEffect(() => {
+  //   LocalizationHandler.getCurrentLocation(directionEnum.ORIGIN).then(addLocalization);
+  //   //teste ->
+  //   LocalizationHandler.getCurrentLocation(directionEnum.DESTINATION).then(addLocalization);
+  // }, []);
 
   return (
     <>

@@ -1,3 +1,5 @@
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 
 function formatPhoneNumber(phoneNumber: string): string {
   let v = phoneNumber;
@@ -7,9 +9,18 @@ function formatPhoneNumber(phoneNumber: string): string {
   return v;
 }
 
+async function askForLocationAccess(): Promise<{ latitude: number, longitude: number }> {
+  const { status } = await Permissions.askAsync(Permissions.LOCATION);
+  if (status !== "granted") throw new Error("O acesso a localização não foi permitido!");
+  const { coords } = await Location.getCurrentPositionAsync({
+    accuracy: Location.LocationAccuracy.Highest,
+  });
+  return coords;
+}
+
 function formatDate(date: string) {
   const value = new Date(date);
-  return `${value.getDay() }/${value.getMonth()}/${value.getFullYear()}`
+  return `${value.getDay()}/${value.getMonth()}/${value.getFullYear()}`
 }
 
 export function numberSeparador(bigNumber: number): string {

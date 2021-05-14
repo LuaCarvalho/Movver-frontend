@@ -2,7 +2,7 @@
 import { Freight, service, status } from '../../model/interfaces/Freight';
 import { Localization } from '../../model/interfaces/Localization';
 
-function createFreigth(
+function Create(
   date: Date = new Date(),
   price: number = 0,
   weight: number = 0,
@@ -30,7 +30,7 @@ function allFieldsAreFilled(freight: Freight): boolean {
 
 
 const FreightHandler = {
-  createFreigth,
+  Create,
   allFieldsAreFilled
 }
 

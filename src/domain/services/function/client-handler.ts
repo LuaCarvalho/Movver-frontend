@@ -1,10 +1,12 @@
-import { Client } from '../../model/interfaces/Client';
+import { User } from '../../model/interfaces/User';
 
-function createClient(name: string, phoneNumber: string, birthDate: string, password: string): Client {
-  return { name, phoneNumber, birthDate, password }
+function Create(name: string, phoneNumber: string, birthday: string, password: string): User {
+  return { name, phoneNumber, birthday, password }
 }
 
 
-export const ClientHandler = {
-  createClient,
+const ClientHandler = {
+  Create,
 }
+
+export { ClientHandler };

@@ -9,8 +9,8 @@ import { Freight } from '../../../domain/model/interfaces/Freight';
 import { FreightHttp } from "../../../domain/services/api/freight-http";
 import { Utils } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
-import { FreightHistory } from "./freight-history";
-import { ProfileSettings } from "./profile-settings/index";
+import { FreightHistory } from "./profile-freight-history";
+import { ProfileSettings } from "./profile-settings";
 
 export const Profile = () => {
   const { user } = useAuthContext();

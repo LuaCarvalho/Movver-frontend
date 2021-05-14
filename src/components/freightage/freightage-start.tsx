@@ -22,13 +22,12 @@ export function FreightageStart() {
   const mapRef = useRef<any>(null);
 
   const FreightageConfirm = () => {
-    const Confirm = () => <View></View>;
     return (
-      <View>
-        <MvModal VisibleElement={Confirm}>
+      <MvModal>
+        <View>
           <Text>Hello</Text>
-        </MvModal>
-      </View>
+        </View>
+      </MvModal>
     );
   };
 
