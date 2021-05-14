@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuthContext } from "../../../context/AuthContext";
+import { useAuthContext } from "../../../context/auth-context";
 import { Freight } from '../../../domain/model/interfaces/Freight';
 import { FreightHttp } from "../../../domain/services/api/freight-http";
 import { Utils } from "../../../domain/services/function/utils";

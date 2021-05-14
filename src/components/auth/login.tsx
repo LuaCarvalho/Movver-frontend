@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuthContext } from "../../context/AuthContext";
-import { useFormContext } from "../../context/FormContext";
+import { useAuthContext } from "../../context/auth-context";
+import { useFormContext } from "../../context/form-context";
 import { Utils } from "../../domain/services/function/utils";
 import { authRoutes, mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
@@ -12,13 +12,18 @@ import { MvInput } from "../widgets/mv-input";
 
 export const Login = () => {
   const { navigate } = useNavigation();
-  const { signIn } = useAuthContext();
+  const { signIn, signed } = useAuthContext();
   const { add } = useFormContext();
 
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const formattedPhone = useMemo(() => Utils.formatPhoneNumber(phone), [phone]);
+
+  useEffect(() => {
+    if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+    else navigate(authRoutes.AUTH_LOGIN);
+  }, [signed]);
 
   function handlerRegister() {
     navigate(authRoutes.AUTH_REGISTER);
@@ -55,10 +60,7 @@ export const Login = () => {
             secureTextEntry
           />
         </View>
-        <MvButton
-          propStyle={authCss.loginButton}
-          onPress={handlerLogin}
-        >
+        <MvButton propStyle={authCss.loginButton} onPress={handlerLogin}>
           <Text style={cStyle.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>

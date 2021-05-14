@@ -1,20 +1,18 @@
-import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { authRoutes } from "../../../../routes/routes-enum";
+import { useAuthContext } from "../../../../context/auth-context";
 import { appCss } from "../../../../styles/app.css";
 import colorCss from "../../../../styles/color.css";
 import { MvTextAction } from "../../../widgets/mv-text-action";
 
 export const ProfileSettings = () => {
   const [visibility, setVisibility] = useState(false);
+  const { signOut } = useAuthContext();
 
-  const { navigate } = useNavigation();
-
-  function handlerSignOut() {
+  function handlerSignOut(): void {
     setVisibility(false);
-    navigate(authRoutes.AUTH_LOGIN);
+    signOut();
   }
 
   return (

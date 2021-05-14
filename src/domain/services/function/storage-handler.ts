@@ -12,7 +12,12 @@ async function set(key: string, value: any): Promise<void> {
   await AsyncStorage.setItem(key, store)
 }
 
+async function remove(key: string) {
+  await AsyncStorage.removeItem(key)
+}
+
 export const StorageHandler = {
   get,
-  set
+  set,
+  remove
 }

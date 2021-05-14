@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../context/LocalizationContext";
+import { useLocalizationContext } from "../../context/localization-context";
 import { secondaryRoutes } from "../../routes/routes-enum";
 import { appCss } from "../../styles/app.css";
 import { LocationFinder } from "../widgets/maps/location-finder";

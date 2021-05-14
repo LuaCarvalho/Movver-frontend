@@ -1,8 +1,8 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../../context/LocalizationContext";
-import { useTomCompleteContext } from "../../../context/TomCompleteContext";
+import { useLocalizationContext } from "../../../context/localization-context";
+import { useTomCompleteContext } from "../../../context/tom-complete-context";
 import { Address } from "../../../domain/model/interfaces/Address";
 import { Localization } from "../../../domain/model/interfaces/Localization";
 import { Result } from "../../../domain/model/interfaces/TomTomSearch";

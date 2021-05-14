@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useFormContext } from "../../../context/FormContext";
+import { useFormContext } from "../../../context/form-context";
 import { blue, grey, red } from "../../../styles/color.css";
 import { styleError, stylesEnum, styleSuccess as styles, styleSuccess } from "./styles.css";
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useFreightContext } from "../../context/FreightContext";
-import { useLocalizationContext } from "../../context/LocalizationContext";
+import { useFreightContext } from "../../context/freight-context";
+import { useLocalizationContext } from "../../context/localization-context";
 import { Freight, service } from "../../domain/model/interfaces/Freight";
 import { appCss } from "../../styles/app.css";
 import { blue, grey } from "../../styles/color.css";

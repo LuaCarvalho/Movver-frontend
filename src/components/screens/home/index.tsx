@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
-import { useLocalizationContext } from "../../../context/LocalizationContext";
+import { useLocalizationContext } from "../../../context/localization-context";
 import { directionEnum } from "../../../domain/model/enums";
 import { getCurrentLocation } from "../../../domain/services/maps/location";
 import { secondaryRoutes } from "../../../routes/routes-enum";

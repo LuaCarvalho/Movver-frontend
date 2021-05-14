@@ -4,7 +4,7 @@ import { Login } from "../components/auth/login";
 import { Register } from "../components/auth/register";
 import { FreightageStart } from "../components/freightage/freightage-start";
 import { Freightage } from "../components/freightage/index";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/auth-context";
 import { MainRoutes } from "./navigators/main-routes";
 import { authRoutes, mainRoutes, secondaryRoutes } from "./routes-enum";
 

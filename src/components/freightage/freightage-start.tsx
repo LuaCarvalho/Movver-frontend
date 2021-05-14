@@ -1,25 +1,39 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useFreightContext } from "../../context/FreightContext";
-import { useLocalizationContext } from "../../context/LocalizationContext";
+import { useFreightContext } from "../../context/freight-context";
+import { useLocalizationContext } from "../../context/localization-context";
 import { googleApi } from "../../domain/services/config";
 import { grey } from "../../styles/color.css";
 import { MvButton } from "../widgets/mv-button";
+import { MvModal } from "../widgets/mv-modal";
 import { FreightageForm } from "./freightage-form";
 
 export function FreightageStart() {
   const { goBack } = useNavigation();
-  const { freight, allFieldsAreFilled, addFreight } = useFreightContext();
+  const { freight, isReadyToStart, addFreight } = useFreightContext();
   const { origin, destination, addDistance } = useLocalizationContext();
+  const [freighIsConfirmed, setFreighIsConfirmed] = useState(false);
 
   const mapRef = useRef<any>(null);
 
+  const FreightageConfirm = () => {
+    const Confirm = () => <View></View>;
+    return (
+      <View>
+        <MvModal VisibleElement={Confirm}>
+          <Text>Hello</Text>
+        </MvModal>
+      </View>
+    );
+  };
+
   function handlerConfirmFreight(): void {
+    setFreighIsConfirmed(true);
     console.log(freight);
   }
 
@@ -51,16 +65,22 @@ export function FreightageStart() {
         />
       </MapView>
       <View style={styles.form}>
-        <FreightageForm />
-        <MvButton
-          onPress={handlerConfirmFreight}
-          propStyle={[styles.confirmButton]}
-          isTouchable={allFieldsAreFilled}
-        >
-          <Text style={[styles.actionText, { color: allFieldsAreFilled ? "white" : grey.lighten }]}>
-            CONFIRMAR
-          </Text>
-        </MvButton>
+        {freighIsConfirmed ? (
+          <FreightageConfirm />
+        ) : (
+          <>
+            <FreightageForm />
+            <MvButton
+              onPress={handlerConfirmFreight}
+              propStyle={[styles.confirmButton]}
+              isTouchable={isReadyToStart}
+            >
+              <Text style={[styles.actionText, { color: isReadyToStart ? "white" : grey.lighten }]}>
+                CONFIRMAR
+              </Text>
+            </MvButton>
+          </>
+        )}
       </View>
       <TouchableOpacity onPress={goBack} activeOpacity={0.8} style={styles.backButton}>
         <Icon name="keyboard-backspace" size={35} />

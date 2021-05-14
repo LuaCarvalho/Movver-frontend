@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../../context/LocalizationContext";
-import { useTomCompleteContext } from "../../../context/TomCompleteContext";
+import { useLocalizationContext } from "../../../context/localization-context";
+import { useTomCompleteContext } from "../../../context/tom-complete-context";
 import { directionEnum } from "../../../domain/model/enums";
 import { getAddress } from "../../../domain/services/maps/handler-address";
 import { getCurrentLocation } from "../../../domain/services/maps/location";

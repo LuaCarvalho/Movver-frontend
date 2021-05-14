@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "../domain/model/interfaces/User";
 import { AuthHttp } from "../domain/services/api/auth-http";
-import { StorageKeys } from "../domain/services/config/index";
-import { StorageHandler } from "../domain/services/function/storage-handler";
 
 interface ContextType {
   signed: boolean;
@@ -18,20 +16,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [signed, setSigned] = useState(false);
 
   async function signIn(phoneNumber: string, password: string): Promise<boolean> {
-    const { user, token } = await AuthHttp.signIn(phoneNumber, password);
+    const user: User = await AuthHttp.signIn(phoneNumber, password);
+    const isLogged = Boolean(user.phoneNumber);
     setUser(user);
-    setSigned(Boolean(user.phoneNumber));
-    await StorageHandler.set(StorageKeys.user, user);
-    await StorageHandler.set(StorageKeys.token, token);
-    return Boolean(token);
+    setSigned(isLogged);
+    return isLogged;
   }
 
   function signOut() {
-    AuthHttp.signOut();
+    AuthHttp.signOut()
+      .then(() => setSigned(false))
   }
 
+  useEffect(() => {
+    AuthHttp.automaticSignIn()
+      .then(setUser)
+      .then(() => setSigned(true));
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ signed: Boolean(user.phoneNumber), user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed, user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
