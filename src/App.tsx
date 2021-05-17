@@ -7,7 +7,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./context/auth-context";
 import { FormProvider } from "./context/form-context";
 import { FreightProvider } from "./context/freight-context";
-import { LocalizationProvider } from "./context/localization-context";
+import { LocationProvider } from "./context/location-context";
 import { TomCompleteProvider } from "./context/tom-complete-context";
 import { Routes } from "./routes";
 
@@ -18,7 +18,7 @@ export default function () {
       <NavigationContainer>
         <AuthProvider>
           <TomCompleteProvider>
-            <LocalizationProvider>
+            <LocationProvider>
               <FreightProvider>
                 <FormProvider>
                   <SafeAreaView style={{ flex: 1 }}>
@@ -26,7 +26,7 @@ export default function () {
                   </SafeAreaView>
                 </FormProvider>
               </FreightProvider>
-            </LocalizationProvider>
+            </LocationProvider>
           </TomCompleteProvider>
         </AuthProvider>
       </NavigationContainer>

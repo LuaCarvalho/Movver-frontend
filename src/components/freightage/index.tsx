@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../context/localization-context";
+import { useLocationContext } from "../../context/location-context";
 import { secondaryRoutes } from "../../routes/routes-enum";
 import { appCss } from "../../styles/app.css";
 import { LocationFinder } from "../location-finder";
@@ -11,14 +11,12 @@ import { LocationFinder } from "../location-finder";
 export const Freightage = () => {
   const { goBack, navigate } = useNavigation();
 
-  const { origin, destination } = useLocalizationContext();
-
-  const isLocalization = Boolean(origin.region) && Boolean(destination.region);
+  const { isReady } = useLocationContext();
 
   //Quando a localização de origem e destino são selecionadas, a busca por motorista se inicia
   useEffect(() => {
-    if (isLocalization) navigate(secondaryRoutes.FREIGHTAGE_START);
-  }, [origin, destination]);
+    if (isReady) navigate(secondaryRoutes.FREIGHTAGE_START);
+  }, [isReady]);
 
   return (
     <SafeAreaView style={appCss.container}>

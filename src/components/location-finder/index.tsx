@@ -7,18 +7,18 @@ import { TomContainer } from "./tom-container";
 export function LocationFinder() {
   return (
     <>
-      <View style={cStyle.searches}>
+      <View style={styles.searches}>
         <TomComplete direction={directionEnum.ORIGIN} />
         <TomComplete direction={directionEnum.DESTINATION} />
       </View>
-      <View style={cStyle.resultsContainer}>
+      <View style={styles.resultsContainer}>
         <TomContainer />
       </View>
     </>
   );
 }
 
-const cStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   searches: {
     margin: 10,
   },

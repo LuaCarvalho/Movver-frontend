@@ -1,11 +1,11 @@
-import { Localization } from "./Localization";
+import { iLocation } from "./iLocation";
 
-export interface Address {
+export interface iAddress {
   readonly resultId: string,
   readonly title: string,
   readonly district: string,
   readonly city: string,
   readonly state: string,
   readonly distance: number, 
-  readonly localization: Localization
+  readonly location: iLocation
 }

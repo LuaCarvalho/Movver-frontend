@@ -3,30 +3,44 @@ import React, { useMemo, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useAuthContext } from "../../context/auth-context";
+import { iClient } from "../../domain/model/interfaces/iClient";
+import { ClientHttp } from "../../domain/services/api/client-http";
 import { Utils } from "../../domain/services/function/utils";
+import { mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
 import { MvButton } from "../widgets/mv-button";
 import { MvInput } from "../widgets/mv-input";
 
 export const Register = () => {
-  const { navigate, goBack } = useNavigation();
+  const { signIn } = useAuthContext();
+
+  const { goBack, navigate } = useNavigation();
   const [name, setName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [birthday, setBirthday] = useState<string>("");
-  const [cpf, setCpf] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmpassword, setConfirmPassword] = useState<string>("");
 
-  const formattedPhone = useMemo(() => Utils.formatPhoneNumber(phone), [phone]);
-  const formattedBirthday = useMemo(() => {
-    let v = birthday;
-    v = v.replace(/\D/g, "");
-    v = v.replace(/^(\d{2})(\d)/g, "$1/$2");
-    v = v.replace(/(\d)(\d{4})$/, "$1/$2");
-    const date = v.split("/");
-    const isValid = new Date(`${date[1]}/${date[0]}/${date[2]}`);
-    return v;
-  }, [birthday]);
+  const formattedPhone: string = useMemo(() => Utils.formatPhoneNumber(phoneNumber), [phoneNumber]);
+
+  const formattedBirthday: [string, boolean] = useMemo(() => Utils.maskDate(birthday), [birthday]);
+
+  async function handlerRegister() {
+    const client: iClient = {
+      name,
+      phoneNumber,
+      birthday,
+      password,
+    };
+    console.log("enviado: ", client)
+    const clientSaved: iClient = await ClientHttp.save(client);
+    console.log("salvo: ", clientSaved);
+    const signed = await signIn(clientSaved.phoneNumber, clientSaved.password);
+    console.log("logou", signed)
+    if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+    else console.log("Login ou senha informados são invalidos");
+  }
 
   return (
     <SafeAreaView style={authCss.container}>
@@ -52,7 +66,7 @@ export const Register = () => {
               placeholder="Número do telefone"
               value={formattedPhone}
               maxLength={15}
-              onChangeText={setPhone}
+              onChangeText={setPhoneNumber}
               icon="cellphone"
               keyboardType="phone-pad"
             />
@@ -60,7 +74,7 @@ export const Register = () => {
               placeholder="Data de nascimento"
               maxLength={10}
               editable={false}
-              value={formattedBirthday}
+              value={formattedBirthday[0]}
               onChangeText={setBirthday}
               icon="calendar-outline"
               keyboardType="number-pad"
@@ -82,10 +96,7 @@ export const Register = () => {
           </ScrollView>
         </View>
 
-        <MvButton
-          propStyle={authCss.loginButton}
-          onPress={() => console.log(name, phone, password, birthday, cpf)}
-        >
+        <MvButton propStyle={authCss.loginButton} onPress={handlerRegister}>
           <Text style={authCss.registerText}>Criar conta</Text>
         </MvButton>
 

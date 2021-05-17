@@ -6,7 +6,7 @@ import MapViewDirections from "react-native-maps-directions";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFreightContext } from "../../context/freight-context";
-import { useLocalizationContext } from "../../context/localization-context";
+import { useLocationContext } from "../../context/location-context";
 import { googleApi } from "../../domain/services/config";
 import { grey } from "../../styles/color.css";
 import { MvButton } from "../widgets/mv-button";
@@ -15,8 +15,8 @@ import { FreightageForm } from "./freightage-form";
 
 export function FreightageStart() {
   const { goBack } = useNavigation();
-  const { freight, isReadyToStart, addFreight } = useFreightContext();
-  const { origin, destination, addDistance } = useLocalizationContext();
+  const { freight, isReadyToStart } = useFreightContext();
+  const { origin, destination, setDistance } = useLocationContext();
   const [freighIsConfirmed, setFreighIsConfirmed] = useState(false);
 
   const mapRef = useRef<any>(null);
@@ -40,18 +40,18 @@ export function FreightageStart() {
     <SafeAreaView style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={origin.region}
+        initialRegion={origin}
         showsUserLocation
         loadingEnabled
         ref={mapRef}
       >
         <MapViewDirections
-          origin={origin.region}
-          destination={destination.region}
+          origin={origin}
+          destination={destination}
           apikey={googleApi}
           strokeWidth={3}
           onReady={result => {
-            addDistance(result.distance);
+            setDistance(result.distance);
             mapRef.current.fitToCoordinates(result.coordinates, {
               edgePadding: {
                 bottom: 50,

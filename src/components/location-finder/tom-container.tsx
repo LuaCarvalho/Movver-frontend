@@ -1,18 +1,16 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useLocalizationContext } from "../../context/localization-context";
+import { useLocationContext } from "../../context/location-context";
 import { useTomCompleteContext } from "../../context/tom-complete-context";
-import { Address } from "../../domain/model/interfaces/Address";
-import { Localization } from "../../domain/model/interfaces/Localization";
-import { Result } from "../../domain/model/interfaces/TomTomSearch";
-import { AddressHandler } from "../../domain/services/function/address-handler";
-import { LocalizationHandler } from "../../domain/services/function/localization-handler";
+import { iAddress } from "../../domain/model/interfaces/iAddress";
+import { iLocation } from "../../domain/model/interfaces/iLocation";
+import { iResult } from "../../domain/model/interfaces/iTomTomSearch";
 import { getStateAbrev } from "../../domain/services/function/utils";
 import { grey } from "../../styles/color.css";
 
 export const TomContainer = () => {
-  const { addLocalization } = useLocalizationContext();
+  const { setLocation } = useLocationContext();
   const { tomSearch, contextDirection, setContextQuery } = useTomCompleteContext();
 
   const textFrom = (text: string | undefined) => (text ? text + "," : "");
@@ -22,39 +20,43 @@ export const TomContainer = () => {
     return (meters / 1000).toFixed(2) + "km";
   };
 
-  function getPosition(result: Result): Localization {
+  function getPosition(result: iResult): iLocation {
     const latitude = result.position.lat;
     const longitude = result.position.lon;
-    return LocalizationHandler.Create(contextDirection, latitude, longitude);
+    return {
+      latitude,
+      longitude,
+      longitudeDelta: 0,
+      latitudeDelta: 0,
+    };
   }
 
-  function getAddress(result: Result): Address {
-    const { address, poi, id } = result;
-    const resultId = id;
+  function getAddress(result: iResult): iAddress {
+    const { address, poi, id, dist } = result;
     const title = poi?.name || address?.streetName || "";
     const district = textFrom(address?.municipalitySubdivision);
     const city = textFrom(address?.municipality);
     const state = getStateAbrev(address?.countrySubdivision);
-    const distance = result.dist;
-    return AddressHandler.Create(
-      resultId,
+    const location = getPosition(result);
+    return {
+      resultId: id,
+      distance: dist,
       title,
       district,
       city,
       state,
-      distance,
-      getPosition(result)
-    );
+      location,
+    };
   }
 
   function handlerOnPress(resultId: string) {
     const result = tomSearch.results.find(({ id }) => id === resultId);
     if (!result) return;
     const address = getAddress(result);
-    const localization = address?.localization;
+    const localization = address.location;
     const query = `${address.title},${address.district}${address.city}${address.state}`;
     setContextQuery(query);
-    addLocalization(localization);
+    setLocation(contextDirection)(localization);
   }
 
   return (

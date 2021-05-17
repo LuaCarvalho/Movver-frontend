@@ -1,9 +1,8 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../context/auth-context";
-import { useFormContext } from "../../context/form-context";
 import { Utils } from "../../domain/services/function/utils";
 import { authRoutes, mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
@@ -13,17 +12,11 @@ import { MvInput } from "../widgets/mv-input";
 export const Login = () => {
   const { navigate } = useNavigation();
   const { signIn, signed } = useAuthContext();
-  const { add } = useFormContext();
 
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const formattedPhone = useMemo(() => Utils.formatPhoneNumber(phone), [phone]);
-
-  useEffect(() => {
-    if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
-    else navigate(authRoutes.AUTH_LOGIN);
-  }, [signed]);
 
   function handlerRegister() {
     navigate(authRoutes.AUTH_REGISTER);
@@ -32,7 +25,7 @@ export const Login = () => {
   async function handlerLogin() {
     const signed = await signIn(phone, password);
     if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
-    else add(true, "Login ou senha invalidos", "login, password");
+    else console.log("Login ou senha informados são invalidos")
   }
 
   return (

@@ -3,14 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { truckBodyworkEnum } from "../../../domain/model/enums";
-import { Driver } from "../../../domain/model/interfaces/Driver";
+import { iDriver } from "../../../domain/model/interfaces/iDriver";
 import { DriverHttp } from "../../../domain/services/api/driver-http";
 import { appCss } from "../../../styles/app.css";
 import Select from "../../widgets/select";
 import DriverCard from "./driver-card";
 
 export const FindDriver: React.FC = () => {
-  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [drivers, setDrivers] = useState<iDriver[]>([]);
 
   const [capacityFilter, setCapacityFilter] = useState(0);
   const [truckBodyWorkFilter, setTruckBodyWorkFilter] = useState(truckBodyworkEnum.ANY);
@@ -27,7 +27,7 @@ export const FindDriver: React.FC = () => {
       .then(response => setDrivers(response));
   }, []);
 
-  const filtredDrivers: Driver[] = useMemo(() => {
+  const filtredDrivers: iDriver[] = useMemo(() => {
     return drivers
       .filter(driver => driver.vehicle.capacity >= capacityFilter)
       .filter(driver => {

@@ -1,14 +1,13 @@
-import { Driver } from "../../model/interfaces/Driver";
+import { iDriver } from "../../model/interfaces/iDriver";
 import { http } from "./api";
 
 const url = "/drivers"
 
-export async function getDrivers(filter?: string): Promise<Driver[]> {
+export async function getDrivers(filter?: string): Promise<iDriver[]> {
   const response = await http.get(url)
   const drivers = response.data;
   return drivers;
 }
-
 
 
 export const DriverHttp = {

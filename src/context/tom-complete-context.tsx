@@ -1,21 +1,21 @@
 import React, { createContext, useContext, useState } from "react";
 import { directionEnum } from "../domain/model/enums";
-import { TomTomSearch } from "../domain/model/interfaces/TomTomSearch";
+import { iTomTomSearch } from "../domain/model/interfaces/iTomTomSearch";
 
 interface ContextType {
   contextQuery: string;
   contextDirection: directionEnum;
-  tomSearch: TomTomSearch;
+  tomSearch: iTomTomSearch;
   setContextQuery: (query: string) => void;
   setContextDirection: (context: directionEnum) => void;
-  setTomSearch: (tomSearch: TomTomSearch) => void;
+  setTomSearch: (tomSearch: iTomTomSearch) => void;
 }
 
 export const TomCompleteContext = createContext({} as ContextType);
 
 export const TomCompleteProvider = ({ children }: { children: React.ReactNode }) => {
   const [contextQuery, setContextQuery] = useState<string>("");
-  const [tomSearch, setTomSearch] = useState({} as TomTomSearch);
+  const [tomSearch, setTomSearch] = useState({} as iTomTomSearch);
   const [contextDirection, setContextDirection] = useState({} as directionEnum);
 
   return (

@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../../context/auth-context";
-import { Freight } from '../../../domain/model/interfaces/Freight';
+import { iFreight } from '../../../domain/model/interfaces/iFreight';
 import { FreightHttp } from "../../../domain/services/api/freight-http";
 import { Utils } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
@@ -15,7 +15,7 @@ import { ProfileSettings } from "./profile-settings";
 export const Profile = () => {
   const { user } = useAuthContext();
 
-  const [freights, setFreights] = useState([] as Freight[])
+  const [freights, setFreights] = useState([] as iFreight[])
 
   useEffect(() => {
     (async () => {

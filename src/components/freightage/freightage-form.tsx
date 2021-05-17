@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFreightContext } from "../../context/freight-context";
-import { useLocalizationContext } from "../../context/localization-context";
-import { Freight, service } from "../../domain/model/interfaces/Freight";
+import { useLocationContext } from "../../context/location-context";
+import { Freight } from "../../domain/model/classes/Freight";
+import { iFreight, service } from "../../domain/model/interfaces/iFreight";
 import { appCss } from "../../styles/app.css";
 import { blue, grey } from "../../styles/color.css";
 import { MvModal } from "../widgets/mv-modal";
@@ -28,7 +29,7 @@ export type freightItems = {
 
 export const FreightageForm = () => {
   const { addFreight } = useFreightContext();
-  const { destination, origin } = useLocalizationContext();
+  const { destination, origin } = useLocationContext();
 
   const [service, setService] = useState<service>({} as service);
   const [weight, setWeight] = useState<number>(0);
@@ -39,14 +40,14 @@ export const FreightageForm = () => {
   };
 
   useEffect(() => {
-    const freight: Freight = {
-      date: new Date(),
-      destination,
-      origin,
+    const freight: iFreight = {
       service,
       weight,
-      status: "Aguardando",
+      origin,
+      destination,
       price: 0,
+      status: "Aguardando",
+      date: new Date(),
       description,
     };
     addFreight(freight);
@@ -107,10 +108,11 @@ export const FreightageForm = () => {
                 <Text style={appCss.infoText2}>
                   Há algum detalhe importante que você gostaria de acrescentar?
                 </Text>
+                import {Freight} from '../../domain/model/classes/Freight';
               </View>
               <TextInput
                 value={description}
-                onChangeText={(text) => setDescription(text)}
+                onChangeText={text => setDescription(text)}
                 numberOfLines={3}
                 multiline
                 style={styles.sendCommentInput}

@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 async function get(key: string): Promise<Object> {
   const value = await AsyncStorage.getItem(key);
   if (!value) return new Error("Nem um item foi encontrado com essa chave: " + key)
@@ -16,8 +15,10 @@ async function remove(key: string) {
   await AsyncStorage.removeItem(key)
 }
 
-export const StorageHandler = {
+const StorageFunctions = {
   get,
   set,
   remove
 }
+
+export { StorageFunctions };

@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { User } from "../domain/model/interfaces/User";
+import { iClient } from "../domain/model/interfaces/iClient";
 import { AuthHttp } from "../domain/services/api/auth-http";
 
 interface ContextType {
   signed: boolean;
-  user: User;
+  user: iClient;
   signIn(phoneNumber: string, password: string): Promise<boolean>;
   signOut(): void;
 }
@@ -12,13 +12,13 @@ interface ContextType {
 export const AuthContext = createContext({} as ContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setClient] = useState<iClient>({} as iClient);
   const [signed, setSigned] = useState(false);
 
   async function signIn(phoneNumber: string, password: string): Promise<boolean> {
-    const user: User = await AuthHttp.signIn(phoneNumber, password);
+    const user: iClient = await AuthHttp.signIn(phoneNumber, password);
     const isLogged = Boolean(user.phoneNumber);
-    setUser(user);
+    setClient(user);
     setSigned(isLogged);
     return isLogged;
   }
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     AuthHttp.automaticSignIn()
-      .then(setUser)
+      .then(setClient)
       .then(_ => setSigned(true));
   }, []);
 

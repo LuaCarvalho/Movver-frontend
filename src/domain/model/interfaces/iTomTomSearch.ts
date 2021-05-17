@@ -1,4 +1,3 @@
-
 /* https://api.tomtom.com/search/2/search/
     * {consulta}
     * .json?
@@ -10,7 +9,7 @@
     * key=*****
     */
 
-interface Address {
+interface iAddress {
   municipalitySubdivision?: string,
   streetName?: string,
   municipality?: string,
@@ -23,13 +22,13 @@ interface Address {
   freeformAddress?: string,
   localName?: string
 }
-export interface Result {
+export interface iResult {
   type: string,
   id: string,
   score: number,
   dist: number,
   info: string,
-  address: Address,
+  address: iAddress,
   poi?: {
     name: string,
     categorySet: [
@@ -75,7 +74,7 @@ export interface Result {
   ]
 }
 
-export interface TomTomSearch {
+export interface iTomTomSearch {
   summary: {
     query: string,
     queryType: string,
@@ -89,5 +88,5 @@ export interface TomTomSearch {
       lon: number
     }
   },
-  results: Result[]
+  results: iResult[]
 }

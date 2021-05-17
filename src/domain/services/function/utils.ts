@@ -1,5 +1,3 @@
-import * as Location from "expo-location";
-import * as Permissions from "expo-permissions";
 
 function formatPhoneNumber(phoneNumber: string): string {
   let v = phoneNumber;
@@ -9,18 +7,27 @@ function formatPhoneNumber(phoneNumber: string): string {
   return v;
 }
 
-async function askForLocationAccess(): Promise<{ latitude: number, longitude: number }> {
-  const { status } = await Permissions.askAsync(Permissions.LOCATION);
-  if (status !== "granted") throw new Error("O acesso a localização não foi permitido!");
-  const { coords } = await Location.getCurrentPositionAsync({
-    accuracy: Location.LocationAccuracy.Highest,
-  });
-  return coords;
+function verifyDate(value: string): boolean {
+  const array = value.split("/");
+  const dateString = `${array[1]}/${array[0]}/${array[2]}`
+  const date = new Date(dateString);
+  if (date.getTime()) return true;
+  return false;
 }
 
-function formatDate(date: string) {
-  const value = new Date(date);
-  return `${value.getDay()}/${value.getMonth()}/${value.getFullYear()}`
+function maskDate(birthday: string): [string, boolean] {
+  let v = birthday;
+  v = v.replace(/\D/g, "");
+  v = v.replace(/^(\d{2})(\d)/g, "$1/$2");
+  v = v.replace(/(\d)(\d{4})$/, "$1/$2");
+  const isValid = v.length === 10 && verifyDate(v);
+  return [v, isValid];
+}
+
+function formatDate(dateValue: string): string {
+  const date = new Date(dateValue);
+  const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
+  return `${day}/${date.getMonth()}/${date.getFullYear()}`
 }
 
 export function numberSeparador(bigNumber: number): string {
@@ -31,11 +38,6 @@ export function numberSeparador(bigNumber: number): string {
   })
   return newValue.reverse().join("")
 }
-
-export function getPercentage(value: number, perc: number) {
-  return value / 100 * perc;
-}
-
 export function getStateAbrev(state: string | undefined): string {
   if (!state) return "";
   if (state === "Acre") return "AC"
@@ -71,7 +73,7 @@ export function getStateAbrev(state: string | undefined): string {
 export const Utils = {
   formatPhoneNumber,
   formatDate,
+  maskDate,
   numberSeparador,
-  getPercentage,
   getStateAbrev,
 }

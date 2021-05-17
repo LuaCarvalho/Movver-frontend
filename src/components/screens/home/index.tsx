@@ -2,23 +2,16 @@ import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
-import { useLocalizationContext } from "../../../context/localization-context";
+import { useLocationContext } from "../../../context/location-context";
 import { secondaryRoutes } from "../../../routes/routes-enum";
 
 export const Home: React.FC = () => {
-  const { origin } = useLocalizationContext();
+  const { origin } = useLocationContext();
   const { navigate } = useNavigation();
-
-  // //Inicialmente o mapa irá mostrar a localização atual
-  // useEffect(() => {
-  //   LocalizationHandler.getCurrentLocation(directionEnum.ORIGIN).then(addLocalization);
-  //   //teste ->
-  //   LocalizationHandler.getCurrentLocation(directionEnum.DESTINATION).then(addLocalization);
-  // }, []);
 
   return (
     <>
-      <MapView style={styles.map} initialRegion={origin.region} showsUserLocation loadingEnabled />
+      <MapView style={styles.map} showsUserLocation loadingEnabled initialRegion={origin} />
       <View onTouchStart={() => navigate(secondaryRoutes.FREIGHTAGE)} style={styles.findButton}>
         <Text>Buscar?</Text>
       </View>
