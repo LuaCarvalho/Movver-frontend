@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-nat
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFreightContext } from "../../context/freight-context";
 import { useLocationContext } from "../../context/location-context";
-import { Freight } from "../../domain/model/classes/Freight";
 import { iFreight, service } from "../../domain/model/interfaces/iFreight";
 import { appCss } from "../../styles/app.css";
 import { blue, grey } from "../../styles/color.css";
@@ -28,8 +27,8 @@ export type freightItems = {
 };
 
 export const FreightageForm = () => {
-  const { addFreight } = useFreightContext();
-  const { destination, origin } = useLocationContext();
+  const FreightContext = useFreightContext();
+  const LocationContext = useLocationContext();
 
   const [service, setService] = useState<service>({} as service);
   const [weight, setWeight] = useState<number>(0);
@@ -43,14 +42,14 @@ export const FreightageForm = () => {
     const freight: iFreight = {
       service,
       weight,
-      origin,
-      destination,
       price: 0,
-      status: "Aguardando",
-      date: new Date(),
       description,
+      date: new Date(),
+      status: "Aguardando",
+      origin: LocationContext.origin,
+      destination: LocationContext.destination,
     };
-    addFreight(freight);
+    FreightContext.addFreight(freight);
   }, [service, weight, description]);
 
   const SendCommentVisible: React.FC = () => (
@@ -70,13 +69,16 @@ export const FreightageForm = () => {
   return (
     <View style={styles.container}>
       <View style={[styles.expand, styles.expand2]}></View>
-      <View style={[styles.expand]}></View>
+      <View style={styles.expand}></View>
       <View style={styles.form}>
         <View style={styles.serviceOptions}>
           {services.map(({ icon, serviceName, label }) => (
             <TouchableHighlight
-              onPress={() => setService(serviceName)}
-              style={service == serviceName ? styles.serviceOptionSelected : styles.serviceOption}
+              onPress={_ => setService(serviceName)}
+              style={[
+                styles.serviceOption,
+                service == serviceName ? styles.serviceOptionSelected : {},
+              ]}
               underlayColor={grey.lighten3}
               key={serviceName}
             >
@@ -108,7 +110,6 @@ export const FreightageForm = () => {
                 <Text style={appCss.infoText2}>
                   Há algum detalhe importante que você gostaria de acrescentar?
                 </Text>
-                import {Freight} from '../../domain/model/classes/Freight';
               </View>
               <TextInput
                 value={description}
@@ -130,7 +131,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   form: {
-    paddingTop: 10,
+    flex: 1,
+    paddingVertical: 15,
+    justifyContent: "space-around",
   },
   expand: {
     width: "40%",
@@ -150,21 +153,18 @@ const styles = StyleSheet.create({
     backgroundColor: grey.lighten4,
   },
   serviceOptions: {
+    flexGrow: 1,
     flexDirection: "row",
   },
   serviceOption: {
     flex: 1,
     elevation: 2,
+    justifyContent: "center",
     borderRadius: 10,
     backgroundColor: "white",
     margin: 5,
   },
   serviceOptionSelected: {
-    flex: 1,
-    elevation: 2,
-    borderRadius: 10,
-    backgroundColor: "white",
-    margin: 5,
     borderColor: blue.lighten3,
     borderWidth: 1,
     borderBottomWidth: 2,
@@ -188,10 +188,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   fields: {
+    flexGrow: 2,
     borderRadius: 10,
     elevation: 2,
     backgroundColor: "white",
     padding: 10,
+    marginVertical: 5 
   },
   fieldIcon: {
     marginRight: 10,

@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -8,50 +9,42 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFreightContext } from "../../context/freight-context";
 import { useLocationContext } from "../../context/location-context";
 import { googleApi } from "../../domain/services/config";
+import { appCss } from "../../styles/app.css";
 import { grey } from "../../styles/color.css";
 import { MvButton } from "../widgets/mv-button";
-import { MvModal } from "../widgets/mv-modal";
+import { FreightageConfirm } from "./freightage-confirm";
 import { FreightageForm } from "./freightage-form";
 
 export function FreightageStart() {
-  const { goBack } = useNavigation();
-  const { freight, isReadyToStart } = useFreightContext();
-  const { origin, destination, setDistance } = useLocationContext();
-  const [freighIsConfirmed, setFreighIsConfirmed] = useState(false);
+  const Navigation = useNavigation();
+  const FreightContext = useFreightContext();
+  const LocationContext = useLocationContext();
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   const mapRef = useRef<any>(null);
 
-  const FreightageConfirm = () => {
-    return (
-      <MvModal>
-        <View>
-          <Text>Hello</Text>
-        </View>
-      </MvModal>
-    );
-  };
+  const activeColor = () => (FreightContext.isReadyToStart ? "white" : grey.lighten);
 
   function handlerConfirmFreight(): void {
-    setFreighIsConfirmed(true);
-    console.log(freight);
+    setIsConfirmed(true);
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={origin}
+        initialRegion={LocationContext.origin}
         showsUserLocation
         loadingEnabled
         ref={mapRef}
       >
         <MapViewDirections
-          origin={origin}
-          destination={destination}
+          origin={LocationContext.origin}
+          destination={LocationContext.destination}
           apikey={googleApi}
           strokeWidth={3}
           onReady={result => {
-            setDistance(result.distance);
+            LocationContext.setDistance(result.distance);
             mapRef.current.fitToCoordinates(result.coordinates, {
               edgePadding: {
                 bottom: 50,
@@ -63,25 +56,26 @@ export function FreightageStart() {
           }}
         />
       </MapView>
-      <View style={styles.form}>
-        {freighIsConfirmed ? (
-          <FreightageConfirm />
+      <View style={styles.content}>
+        {isConfirmed ? (
+          <FreightageConfirm freight={FreightContext.freight} />
         ) : (
           <>
             <FreightageForm />
             <MvButton
               onPress={handlerConfirmFreight}
               propStyle={[styles.confirmButton]}
-              isTouchable={isReadyToStart}
+              isTouchable={FreightContext.isReadyToStart}
             >
-              <Text style={[styles.actionText, { color: isReadyToStart ? "white" : grey.lighten }]}>
-                CONFIRMAR
-              </Text>
+              <View style={appCss.textIcon}>
+                <Text style={[styles.confirmButtonText, { color: activeColor() }]}>AVANÇAR</Text>
+                <MaterialCommunityIcons name={"arrow-right-bold-outline"} color={activeColor()} size={22} />
+              </View>
             </MvButton>
           </>
         )}
       </View>
-      <TouchableOpacity onPress={goBack} activeOpacity={0.8} style={styles.backButton}>
+      <TouchableOpacity onPress={Navigation.goBack} activeOpacity={0.8} style={styles.backButton}>
         <Icon name="keyboard-backspace" size={35} />
       </TouchableOpacity>
     </SafeAreaView>
@@ -93,15 +87,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    height: "60%",
+    height: "50%",
     width: "100%",
   },
-  form: {
-    backgroundColor: "white",
-    height: "40%",
+  content: {
+    height: "50%",
     padding: 10,
-    justifyContent: "space-between",
     elevation: 1,
+    backgroundColor: "white",
+    justifyContent: "space-between",
   },
   backButton: {
     backgroundColor: "white",
@@ -117,10 +111,9 @@ const styles = StyleSheet.create({
   confirmButton: {
     width: "100%",
     height: 40,
-    margin: 5,
   },
-  actionText: {
-    fontSize: 16,
+  confirmButtonText: {
+    fontSize: 17,
     color: "white",
   },
 });

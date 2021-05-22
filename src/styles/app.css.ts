@@ -26,6 +26,11 @@ export const appCss = StyleSheet.create({
         opacity: 0.6,
         paddingHorizontal: 10
     },
+    infoText3: {
+        fontSize: 15,
+        opacity: 0.7,
+        paddingHorizontal: 10
+    },
     textIcon: {
         margin: 5,
         flexDirection: "row",

@@ -10,8 +10,8 @@ import { getStateAbrev } from "../../domain/services/function/utils";
 import { grey } from "../../styles/color.css";
 
 export const TomContainer = () => {
-  const { setLocation } = useLocationContext();
-  const { tomSearch, contextDirection, setContextQuery } = useTomCompleteContext();
+  const LocationContext = useLocationContext();
+  const TomCompleteContext = useTomCompleteContext();
 
   const textFrom = (text: string | undefined) => (text ? text + "," : "");
 
@@ -32,12 +32,12 @@ export const TomContainer = () => {
   }
 
   function getAddress(result: iResult): iAddress {
-    const { address, poi, id, dist } = result;
-    const title = poi?.name || address?.streetName || "";
-    const district = textFrom(address?.municipalitySubdivision);
-    const city = textFrom(address?.municipality);
-    const state = getStateAbrev(address?.countrySubdivision);
-    const location = getPosition(result);
+    const { address, poi, id, dist }: iResult = result;
+    const district: string = textFrom(address?.municipalitySubdivision);
+    const title: string = poi?.name || address?.streetName || district;
+    const city: string = textFrom(address?.municipality);
+    const state: string = getStateAbrev(address?.countrySubdivision);
+    const location: iLocation = { ...getPosition(result), name: title };
     return {
       resultId: id,
       distance: dist,
@@ -50,18 +50,18 @@ export const TomContainer = () => {
   }
 
   function handlerOnPress(resultId: string) {
-    const result = tomSearch.results.find(({ id }) => id === resultId);
+    const result = TomCompleteContext.tomSearch.results.find(({ id }) => id === resultId);
     if (!result) return;
     const address = getAddress(result);
     const localization = address.location;
     const query = `${address.title},${address.district}${address.city}${address.state}`;
-    setContextQuery(query);
-    setLocation(contextDirection)(localization);
+    TomCompleteContext.setQuery(query);
+    LocationContext.setLocation(TomCompleteContext.direction)(localization);
   }
 
   return (
     <ScrollView style={styles.container}>
-      {tomSearch?.results
+      {TomCompleteContext.tomSearch?.results
         ?.map(res => getAddress(res))
         .filter(p => p.title)
         .map(address => (

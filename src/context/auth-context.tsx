@@ -4,7 +4,7 @@ import { AuthHttp } from "../domain/services/api/auth-http";
 
 interface ContextType {
   signed: boolean;
-  user: iClient;
+  client: iClient;
   signIn(phoneNumber: string, password: string): Promise<boolean>;
   signOut(): void;
 }
@@ -12,7 +12,7 @@ interface ContextType {
 export const AuthContext = createContext({} as ContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setClient] = useState<iClient>({} as iClient);
+  const [client, setClient] = useState<iClient>({} as iClient);
   const [signed, setSigned] = useState(false);
 
   async function signIn(phoneNumber: string, password: string): Promise<boolean> {
@@ -23,19 +23,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return isLogged;
   }
 
-  function signOut() {
-    AuthHttp.signOut()
-      .then(_ => setSigned(false))
+  async function signOut() {
+    await AuthHttp.signOut();
+    setSigned(false);
+    setClient({} as iClient);
   }
 
   useEffect(() => {
     AuthHttp.automaticSignIn()
       .then(setClient)
       .then(_ => setSigned(true));
+      console.log("hello");
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signed, user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed, client, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

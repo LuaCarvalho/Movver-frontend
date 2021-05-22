@@ -13,7 +13,7 @@ import { MvButton } from "../widgets/mv-button";
 import { MvInput } from "../widgets/mv-input";
 
 export const Register = () => {
-  const { signIn } = useAuthContext();
+  const AuthContext = useAuthContext();
 
   const { goBack, navigate } = useNavigation();
   const [name, setName] = useState<string>("");
@@ -33,11 +33,8 @@ export const Register = () => {
       birthday,
       password,
     };
-    console.log("enviado: ", client)
-    const clientSaved: iClient = await ClientHttp.save(client);
-    console.log("salvo: ", clientSaved);
-    const signed = await signIn(clientSaved.phoneNumber, clientSaved.password);
-    console.log("logou", signed)
+    await ClientHttp.save(client);
+    const signed = await AuthContext.signIn(phoneNumber, password);
     if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
     else console.log("Login ou senha informados são invalidos");
   }

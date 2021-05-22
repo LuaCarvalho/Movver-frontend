@@ -5,14 +5,12 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./context/auth-context";
-import { FormProvider } from "./context/form-context";
 import { FreightProvider } from "./context/freight-context";
 import { LocationProvider } from "./context/location-context";
 import { TomCompleteProvider } from "./context/tom-complete-context";
 import { Routes } from "./routes";
 
 export default function () {
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -20,11 +18,9 @@ export default function () {
           <TomCompleteProvider>
             <LocationProvider>
               <FreightProvider>
-                <FormProvider>
-                  <SafeAreaView style={{ flex: 1 }}>
-                    <Routes />
-                  </SafeAreaView>
-                </FormProvider>
+                <SafeAreaView style={{ flex: 1 }}>
+                  <Routes />
+                </SafeAreaView>
               </FreightProvider>
             </LocationProvider>
           </TomCompleteProvider>

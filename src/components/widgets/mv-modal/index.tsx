@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Modal,
+  ModalProps,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import { grey } from "../../../styles/color.css";
 
-export const MvModal = ({
-  VisibleElement,
-  children,
-}: {
+interface MvModalProps extends ModalProps {
   VisibleElement?: React.FC;
   children: React.ReactNode;
-}) => {
+}
+
+export const MvModal: React.FC<MvModalProps> = ({ VisibleElement, children, ...rest }) => {
   const [visible, setVisible] = useState(false);
 
   return (
     <>
-      <Modal animationType="slide" transparent={true} visible={visible} collapsable={true}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={visible}
+        collapsable={true}
+        {...rest}
+      >
         <TouchableOpacity style={styles.view} onPressIn={() => setVisible(false)} />
         <View style={[styles.view, styles.viewBottom]}>
           <View style={styles.children}>{children}</View>

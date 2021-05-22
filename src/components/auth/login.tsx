@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../context/auth-context";
@@ -10,23 +10,31 @@ import { MvButton } from "../widgets/mv-button";
 import { MvInput } from "../widgets/mv-input";
 
 export const Login = () => {
-  const { navigate } = useNavigation();
-  const { signIn, signed } = useAuthContext();
+  const Navigation = useNavigation();
+  const AuthContext = useAuthContext();
 
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const formattedPhone = useMemo(() => Utils.formatPhoneNumber(phone), [phone]);
 
-  function handlerRegister() {
-    navigate(authRoutes.AUTH_REGISTER);
+  function goToHome(): void {
+    Navigation.navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
+  }
+
+  function handlerRegister(): void {
+    Navigation.navigate(authRoutes.AUTH_REGISTER);
   }
 
   async function handlerLogin() {
-    const signed = await signIn(phone, password);
-    if (signed) navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
-    else console.log("Login ou senha informados são invalidos")
+    const signed = await AuthContext.signIn(phone, password);
+    if (signed) goToHome();
+    else console.log("Login ou senha informados são invalidos");
   }
+
+  useEffect(() => {
+    if (AuthContext.signed) goToHome();
+  }, [AuthContext.signed]);
 
   return (
     <SafeAreaView style={authCss.container}>

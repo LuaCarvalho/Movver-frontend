@@ -3,4 +3,5 @@ export interface iLocation {
   longitude: number,
   latitudeDelta: number,
   longitudeDelta: number
+  name?: string;
 }

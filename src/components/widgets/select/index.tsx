@@ -36,7 +36,6 @@ const Select = ({
     <MvModal VisibleElement={VisibleElement}>
       <View style={styles.items}>
         {itemsList.map(({ label, value }) => (
-          //Se o valor vier como um objeto do tipo "item" || Array<item>
           <Item
             label={label}
             value={value}
@@ -54,24 +53,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  centeredView: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    flex: 1,
-    minHeight: "40%",
-    alignSelf: "flex-end",
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 10,
-    elevation: 100,
-  },
-  buttonOpen: {
-    width: "100%",
-  },
   buttonClose: {
     width: "100%",
     justifyContent: "center",
@@ -79,27 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196F3",
     padding: 5,
     borderRadius: 10,
-  },
-  buttonCloseText: {
-    color: "black",
-    fontSize: 15,
-    opacity: 0.5,
-  },
-  textStyle: {
-    fontSize: 16,
-    color: "black",
-  },
-  textSelect: {
-    fontSize: 16,
-    color: "black",
-    opacity: 0.5,
-  },
-  modalText: {
-    color: "black",
-    fontSize: 17,
-    opacity: 0.6,
-    marginBottom: 15,
-    textAlign: "center",
   },
   items: {
     flexGrow: 1,

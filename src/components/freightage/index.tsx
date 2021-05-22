@@ -9,19 +9,18 @@ import { appCss } from "../../styles/app.css";
 import { LocationFinder } from "../location-finder";
 
 export const Freightage = () => {
-  const { goBack, navigate } = useNavigation();
-
-  const { isReady } = useLocationContext();
+  const Navigation = useNavigation();
+  const LocationContext = useLocationContext();
 
   //Quando a localização de origem e destino são selecionadas, a busca por motorista se inicia
   useEffect(() => {
-    if (isReady) navigate(secondaryRoutes.FREIGHTAGE_START);
-  }, [isReady]);
+    if (LocationContext.isReady) Navigation.navigate(secondaryRoutes.FREIGHTAGE_START);
+  }, [LocationContext.destination, LocationContext.origin]);
 
   return (
     <SafeAreaView style={appCss.container}>
       <View style={cStyle.mainView}>
-        <TouchableOpacity onPress={goBack} style={cStyle.close}>
+        <TouchableOpacity onPress={Navigation.goBack} style={cStyle.close}>
           <Icon name="window-close" size={30} />
         </TouchableOpacity>
         <LocationFinder />

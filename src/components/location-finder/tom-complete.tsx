@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useLocationContext } from "../../context/location-context";
 import { useTomCompleteContext } from "../../context/tom-complete-context";
 import { directionEnum } from "../../domain/model/enums";
+import { iLocation } from '../../domain/model/interfaces/iLocation';
 import { TomTomFunctions } from "../../domain/services/function/tom-tom-function";
 import { grey } from "../../styles/color.css";
 import { MvInput } from "../widgets/mv-input";
@@ -11,9 +12,8 @@ import { MvInput } from "../widgets/mv-input";
 /* TomComplete:
  * providencia uma forma de simples de buscar endereções atráves de entradas de texto */
 export const TomComplete = ({ direction }: { direction: directionEnum }) => {
-  const { contextQuery, contextDirection, setTomSearch, setContextDirection } =
-    useTomCompleteContext();
-  const { setLocation, origin } = useLocationContext();
+  const TomCompleteContext = useTomCompleteContext();
+  const LocationContext = useLocationContext();
   const [query, setQuery] = useState<string>("");
 
   function removeLocation() {
@@ -24,26 +24,30 @@ export const TomComplete = ({ direction }: { direction: directionEnum }) => {
   async function searchAddres(text: string) {
     setQuery(text);
     //Evita que ao digitar haja uma excesso de consultas
-    if (query.length === 0 || query.length % 2 !== 0) return;
-    const result = await TomTomFunctions.getAddress(query, origin);
-    setTomSearch(result);
-    setContextDirection(direction);
+    if (query.length % 2 !== 0) return;
+    const result = await TomTomFunctions.getAddress(query, LocationContext.origin);
+    TomCompleteContext.setTomSearch(result);
+    TomCompleteContext.setDirection(direction);
   }
 
   //Primeira função a ser executada ao clicar no componente
   useEffect(() => {
-    setContextDirection(direction);
+    TomCompleteContext.setDirection(direction);
     /* Se esse componente receber a localização de origem, irá apontar para a localização atual */
     if (direction !== directionEnum.ORIGIN) return;
     setQuery("Localização atual");
-    setLocation(directionEnum.ORIGIN)(origin);
+    const origin: iLocation = {
+      ...LocationContext.origin,
+      name: "Localização atual",
+    };
+    LocationContext.setLocation(directionEnum.ORIGIN)(origin);
   }, []);
 
   //Atualiza o campo do input de acordo com os dados escolhidos pelo usuário no "TomContainer"
   useEffect(() => {
     //Verifica se os dados deve ser inseridos nesse componente ou não
-    if (contextDirection === direction) setQuery(contextQuery);
-  }, [contextQuery]);
+    if (TomCompleteContext.direction === direction) setQuery(TomCompleteContext.query);
+  }, [TomCompleteContext.query]);
 
   return (
     <View style={styles.search}>

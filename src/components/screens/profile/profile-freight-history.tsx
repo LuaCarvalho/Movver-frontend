@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Freight } from "../../../domain/model/interfaces/Freight";
+import { iFreight } from "../../../domain/model/interfaces/iFreight";
 import { appCss } from "../../../styles/app.css";
 import colorCss from "../../../styles/color.css";
 
-export const FreightHistory = ({ freightList }: { freightList: Freight[] }) => {
+export const FreightHistory = ({ freightList }: { freightList: iFreight[] }) => {
   const list = freightList.sort((a, b) => {
     if (a.date.getTime() < b.date.getTime()) return 1;
     if (a.date.getTime() > b.date.getTime()) return -1;

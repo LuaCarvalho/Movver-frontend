@@ -13,9 +13,14 @@ import { FreightHistory } from "./profile-freight-history";
 import { ProfileSettings } from "./profile-settings";
 
 export const Profile = () => {
-  const { user } = useAuthContext();
+  const AuthContext = useAuthContext();
 
   const [freights, setFreights] = useState([] as iFreight[])
+
+  const phoneNumber = Utils.formatPhoneNumber(AuthContext.client.phoneNumber);
+  const birthday = Utils.formatDate(AuthContext.client.birthday);
+  const name = AuthContext.client.name
+
 
   useEffect(() => {
     (async () => {
@@ -32,17 +37,17 @@ export const Profile = () => {
         </View>
         <View>
           <Image style={styles.img} source={require("../../../assets/perfil.jpeg")} />
-          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.name}>{name}</Text>
         </View>
       </View>
       <View style={[styles.card, styles.infoCard]}>
         <View style={styles.info}>
           <Text style={appCss.infoText}>Número de Telefone</Text>
-          <Text>{Utils.formatPhoneNumber(user.phoneNumber)}</Text>
+          <Text>{phoneNumber}</Text>
         </View>
         <View style={styles.info}>
           <Text style={appCss.infoText}>Data de nascimento</Text>
-          <Text>{Utils.formatDate(user.birthday)}</Text>
+          <Text>{birthday}</Text>
         </View>
       </View>
       <View style={[styles.card, styles.lastFreightsCard]}>

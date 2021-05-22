@@ -1,5 +1,5 @@
 
-function formatPhoneNumber(phoneNumber: string): string {
+function formatPhoneNumber(phoneNumber: string = ""): string {
   let v = phoneNumber;
   v = v.replace(/\D/g, "");
   v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
@@ -15,7 +15,7 @@ function verifyDate(value: string): boolean {
   return false;
 }
 
-function maskDate(birthday: string): [string, boolean] {
+function maskDate(birthday: string = ""): [string, boolean] {
   let v = birthday;
   v = v.replace(/\D/g, "");
   v = v.replace(/^(\d{2})(\d)/g, "$1/$2");
@@ -24,7 +24,7 @@ function maskDate(birthday: string): [string, boolean] {
   return [v, isValid];
 }
 
-function formatDate(dateValue: string): string {
+function formatDate(dateValue: string = ""): string {
   const date = new Date(dateValue);
   const day = date.getDay() < 10 ? "0" + date.getDay() : date.getDay();
   return `${day}/${date.getMonth()}/${date.getFullYear()}`
