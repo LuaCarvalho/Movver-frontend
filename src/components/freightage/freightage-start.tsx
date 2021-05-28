@@ -25,10 +25,6 @@ export function FreightageStart() {
 
   const activeColor = () => (FreightContext.isReadyToStart ? "white" : grey.lighten);
 
-  function handlerConfirmFreight(): void {
-    setIsConfirmed(true);
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <MapView
@@ -63,13 +59,17 @@ export function FreightageStart() {
           <>
             <FreightageForm />
             <MvButton
-              onPress={handlerConfirmFreight}
+              onPress={() => setIsConfirmed(true)}
               propStyle={[styles.confirmButton]}
               isTouchable={FreightContext.isReadyToStart}
             >
               <View style={appCss.textIcon}>
                 <Text style={[styles.confirmButtonText, { color: activeColor() }]}>AVANÇAR</Text>
-                <MaterialCommunityIcons name={"arrow-right-bold-outline"} color={activeColor()} size={22} />
+                <MaterialCommunityIcons
+                  name={"arrow-right-bold-outline"}
+                  color={activeColor()}
+                  size={22}
+                />
               </View>
             </MvButton>
           </>

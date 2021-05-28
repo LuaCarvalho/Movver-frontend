@@ -1,5 +1,7 @@
 
 import { iFreight, service, status } from '../../model/interfaces/iFreight';
+import { iClient } from "../interfaces/iClient";
+import { iDriver } from "../interfaces/iDriver";
 import { iLocation } from "../interfaces/iLocation";
 
 export class Freight implements iFreight {
@@ -10,8 +12,10 @@ export class Freight implements iFreight {
   weight: number;
   origin: iLocation;
   destination: iLocation;
+  client: iClient;
   description?: string | undefined;
   id?: number | undefined;
+  driver?: iDriver | undefined;
 
   constructor(freight: iFreight) {
     this.date = freight.date;
@@ -23,6 +27,8 @@ export class Freight implements iFreight {
     this.destination = freight.destination;
     this.description = freight.description;
     this.id = freight.id;
+    this.client = freight.client;
+    this.driver = freight.driver;
   }
 
 

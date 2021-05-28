@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useAuthContext } from "../../context/auth-context";
 import { useFreightContext } from "../../context/freight-context";
 import { useLocationContext } from "../../context/location-context";
 import { iFreight, service } from "../../domain/model/interfaces/iFreight";
@@ -29,6 +30,7 @@ export type freightItems = {
 export const FreightageForm = () => {
   const FreightContext = useFreightContext();
   const LocationContext = useLocationContext();
+  const AuthContext = useAuthContext();
 
   const [service, setService] = useState<service>({} as service);
   const [weight, setWeight] = useState<number>(0);
@@ -40,12 +42,13 @@ export const FreightageForm = () => {
 
   useEffect(() => {
     const freight: iFreight = {
-      service,
       weight,
+      service,
       price: 0,
       description,
       date: new Date(),
       status: "Aguardando",
+      client: AuthContext.client,
       origin: LocationContext.origin,
       destination: LocationContext.destination,
     };

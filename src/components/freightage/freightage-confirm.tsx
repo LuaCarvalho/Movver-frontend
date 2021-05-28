@@ -1,8 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { useFreightContext } from "../../context/freight-context";
 import { useLocationContext } from "../../context/location-context";
 import { iFreight } from "../../domain/model/interfaces/iFreight";
+import { FreightHttp } from "../../domain/services/api/freight-http";
 import { appCss } from "../../styles/app.css";
 import colorCss, { grey } from "../../styles/color.css";
 import { MvButton } from "../widgets/mv-button";
@@ -13,6 +15,11 @@ interface Props {
 
 export const FreightageConfirm: React.FC<Props> = ({ freight }) => {
   const LocationContext = useLocationContext();
+  const FreightContext = useFreightContext()
+
+  async function handlerConfirm() {
+    await FreightHttp.save(FreightContext.freight)
+  }
 
   return (
     <View style={styles.container}>
@@ -49,7 +56,7 @@ export const FreightageConfirm: React.FC<Props> = ({ freight }) => {
           </Text>
         </View>
       </View>
-      <MvButton>
+      <MvButton onPress={handlerConfirm}>
         <Text>CONFIRMAR</Text>
       </MvButton>
     </View>
