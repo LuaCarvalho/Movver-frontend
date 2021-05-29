@@ -5,7 +5,8 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../../context/auth-context";
-import { iFreight } from '../../../domain/model/interfaces/iFreight';
+import { iClient } from "../../../domain/model/interfaces/iClient";
+import { iFreight } from "../../../domain/model/interfaces/iFreight";
 import { FreightHttp } from "../../../domain/services/api/freight-http";
 import { Utils } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
@@ -13,21 +14,19 @@ import { FreightHistory } from "./profile-freight-history";
 import { ProfileSettings } from "./profile-settings";
 
 export const Profile = () => {
-  const AuthContext = useAuthContext();
+  const client: iClient = useAuthContext().client;
+  console.log(client);
 
-  const [freights, setFreights] = useState([] as iFreight[])
+  const [freights, setFreights] = useState([] as iFreight[]);
 
-  const phoneNumber = Utils.formatPhoneNumber(AuthContext.client.phoneNumber);
-  const birthday = Utils.formatDate(AuthContext.client.birthday);
-  const name = AuthContext.client.name
-
+  const phoneNumber = Utils.formatPhoneNumber(client.phoneNumber);
+  const birthdate = Utils.formatDate(client.birthdate);
+  const name = client.name;
 
   useEffect(() => {
-    (async () => {
-      const response = await FreightHttp.getFreights()
-      setFreights(response)
-    })()
-  }, [])
+    FreightHttp.getFreights()
+      .then(setFreights);
+  }, []);
 
   return (
     <SafeAreaView style={appCss.container}>
@@ -47,7 +46,7 @@ export const Profile = () => {
         </View>
         <View style={styles.info}>
           <Text style={appCss.infoText}>Data de nascimento</Text>
-          <Text>{birthday}</Text>
+          <Text>{birthdate}</Text>
         </View>
       </View>
       <View style={[styles.card, styles.lastFreightsCard]}>

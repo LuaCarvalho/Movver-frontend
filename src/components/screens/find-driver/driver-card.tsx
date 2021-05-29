@@ -34,7 +34,7 @@ const DriverCard = ({ drivers }: { drivers: Array<iDriver> }) => {
           </View>
           <View style={appCss.textIcon}>
             <Icon name="map-marker-radius" size={20} color={grey.darken3} />
-            <Text> {location}</Text>
+            <Text> {location.name}</Text>
           </View>
         </View>
       ))}

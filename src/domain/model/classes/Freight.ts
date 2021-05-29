@@ -5,8 +5,9 @@ import { iDriver } from "../interfaces/iDriver";
 import { iLocation } from "../interfaces/iLocation";
 
 export class Freight implements iFreight {
-  date: Date;
   status: status;
+  startDate: string;
+  endDate: string;
   price: number;
   service: service;
   weight: number;
@@ -18,7 +19,6 @@ export class Freight implements iFreight {
   driver?: iDriver | undefined;
 
   constructor(freight: iFreight) {
-    this.date = freight.date;
     this.status = freight.status;
     this.price = freight.price;
     this.service = freight.service;
@@ -29,6 +29,8 @@ export class Freight implements iFreight {
     this.id = freight.id;
     this.client = freight.client;
     this.driver = freight.driver;
+    this.startDate = freight.startDate;
+    this.endDate = freight.endDate;
   }
 
 

@@ -4,5 +4,5 @@ export const tomKey = "paxMtSWNKplGGLIpjb2olddAd26qRHB0";
 
 export const StorageKeys = {
   token: "@#Movver:token",
-  user: "@#Movver:user"
+  client: "@#Movver:client"
 }

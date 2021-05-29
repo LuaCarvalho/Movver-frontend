@@ -4,27 +4,26 @@ import { StorageFunctions } from "../function/storage-function";
 import { http } from "./api";
 
 interface Crendentials {
-  readonly user: iClient;
   readonly token: string;
+  readonly user: iClient;
 }
 
 const AUTH_URL = "/auth";
 const AUTH_VALIDATION_URL = `${AUTH_URL}/token-validation`
 
-///Salva no armazenamento (Storage) do aparelho o objeto "user" e "token" do cliente
-async function setCredentials(crendentials: Crendentials): Promise<iClient> {
+///Salva no armazenamento (Storage) do aparelho o objeto "client" e "token" do cliente
+async function setCredentials(crendentials: Crendentials): Promise<void> {
   const { user, token }: Crendentials = crendentials;
   http.defaults.headers["Authorization"] = `Bearer ${token}`
-  await StorageFunctions.set(StorageKeys.user, user)
+  await StorageFunctions.set(StorageKeys.client, user)
   await StorageFunctions.set(StorageKeys.token, token);
-  return user;
 }
 
-//Retorna do armazenamento (Storage) o objeto "user" e seu "token"
+//Retorna do armazenamento (Storage) o objeto "client" e seu "token"
 async function getCredentials(): Promise<Crendentials> {
-  const user = await StorageFunctions.get(StorageKeys.user) as iClient;
+  const client = await StorageFunctions.get(StorageKeys.client) as iClient;
   const token = await StorageFunctions.get(StorageKeys.token) as string;
-  return { user, token };
+  return { user: client, token };
 }
 
 //Verifica se o usuario atual possui um token de login valido
@@ -39,9 +38,10 @@ async function isLogged(): Promise<boolean> {
 //Realiza o primeiro login do usuario (caso ele esteja usando o aplicativo pela primeira vez)
 async function signIn(phoneNumber: string, password: string): Promise<iClient> {
   const response = await http.post(AUTH_URL, { phoneNumber, password });
+  console.log(response.data)
   const credentials: Crendentials = response.data;
-  const user = setCredentials(credentials);
-  return user;
+  await setCredentials(credentials);
+  return credentials.user;
 }
 
 //Realiza o login automatico (caso o usuário já tenha se logado no aplicativo atráves do dispositivo atual)
@@ -49,13 +49,13 @@ async function automaticSignIn(): Promise<iClient> {
   const isValid = await isLogged();
   if (!isValid) return Promise.reject(isValid)
   const credentials = await getCredentials();
-  const user = setCredentials(credentials);
-  return user;
+  await setCredentials(credentials);
+  return credentials.user;
 }
 
 async function signOut(): Promise<void> {
   await StorageFunctions.remove(StorageKeys.token);
-  await StorageFunctions.remove(StorageKeys.user);
+  await StorageFunctions.remove(StorageKeys.client);
 }
 
 

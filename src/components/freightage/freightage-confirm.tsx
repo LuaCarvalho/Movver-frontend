@@ -18,7 +18,7 @@ export const FreightageConfirm: React.FC<Props> = ({ freight }) => {
   const FreightContext = useFreightContext()
 
   async function handlerConfirm() {
-    await FreightHttp.save(FreightContext.freight)
+    await FreightHttp.save(FreightContext.freight);
   }
 
   return (

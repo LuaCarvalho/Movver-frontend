@@ -15,8 +15,8 @@ function verifyDate(value: string): boolean {
   return false;
 }
 
-function maskDate(birthday: string = ""): [string, boolean] {
-  let v = birthday;
+function maskDate(birthdate: string = ""): [string, boolean] {
+  let v = birthdate;
   v = v.replace(/\D/g, "");
   v = v.replace(/^(\d{2})(\d)/g, "$1/$2");
   v = v.replace(/(\d)(\d{4})$/, "$1/$2");

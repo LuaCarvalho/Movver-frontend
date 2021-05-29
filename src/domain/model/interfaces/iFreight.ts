@@ -6,7 +6,8 @@ export type service = "Mudança" | "Transporte de Materiais";
 export type status = "Aguardando" | "Finalizada" | "Cancelada";
 
 export interface iFreight {
-  date: Date;
+  startDate: string;
+  endDate: string;
   status: status;
   price: number;
   service: service;

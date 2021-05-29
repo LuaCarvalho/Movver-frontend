@@ -3,14 +3,13 @@ import { http } from "./api";
 
 const url = "/freights";
 
-async function getFreights(filter?: string): Promise<iFreight[]> {
+async function getFreights(): Promise<iFreight[]> {
   const response = await http.get(url)
   const freights = response.data;
   return freights;
 }
 
 async function save(freight: iFreight): Promise<iFreight> {
-  console.log(freight)
   const response = await http.post(url, freight);
   const freightData: iFreight = response.data
   return freightData;

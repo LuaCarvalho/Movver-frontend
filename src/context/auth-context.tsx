@@ -16,9 +16,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [signed, setSigned] = useState(false);
 
   async function signIn(phoneNumber: string, password: string): Promise<boolean> {
-    const user: iClient = await AuthHttp.signIn(phoneNumber, password);
-    const isLogged = Boolean(user.phoneNumber);
-    setClient(user);
+    const client: iClient = await AuthHttp.signIn(phoneNumber, password);
+    const isLogged = Boolean(client.phoneNumber);
+    setClient(client);
     setSigned(isLogged);
     return isLogged;
   }
@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     AuthHttp.automaticSignIn()
       .then(setClient)
       .then(_ => setSigned(true));
-      console.log("hello");
   }, []);
 
   return (

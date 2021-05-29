@@ -18,19 +18,19 @@ export const Register = () => {
   const { goBack, navigate } = useNavigation();
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [birthday, setBirthday] = useState<string>("");
+  const [birthdate, setBirthdate] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmpassword, setConfirmPassword] = useState<string>("");
 
   const formattedPhone: string = useMemo(() => Utils.formatPhoneNumber(phoneNumber), [phoneNumber]);
 
-  const formattedBirthday: [string, boolean] = useMemo(() => Utils.maskDate(birthday), [birthday]);
+  const formattedBirthdate: [string, boolean] = useMemo(() => Utils.maskDate(birthdate), [birthdate]);
 
   async function handlerRegister() {
     const client: iClient = {
       name,
       phoneNumber,
-      birthday,
+      birthdate,
       password,
     };
     await ClientHttp.save(client);
@@ -71,8 +71,8 @@ export const Register = () => {
               placeholder="Data de nascimento"
               maxLength={10}
               editable={false}
-              value={formattedBirthday[0]}
-              onChangeText={setBirthday}
+              value={formattedBirthdate[0]}
+              onChangeText={setBirthdate}
               icon="calendar-outline"
               keyboardType="number-pad"
             />

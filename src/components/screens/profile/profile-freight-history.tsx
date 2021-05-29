@@ -6,11 +6,7 @@ import { appCss } from "../../../styles/app.css";
 import colorCss from "../../../styles/color.css";
 
 export const FreightHistory = ({ freightList }: { freightList: iFreight[] }) => {
-  const list = freightList.sort((a, b) => {
-    if (a.date.getTime() < b.date.getTime()) return 1;
-    if (a.date.getTime() > b.date.getTime()) return -1;
-    return 0;
-  });
+  const list = freightList;
 
   return (
     <>
@@ -18,16 +14,16 @@ export const FreightHistory = ({ freightList }: { freightList: iFreight[] }) => 
         list.map(item => (
           <View key={item.id} style={styles.myFreight}>
             <View style={styles.dateCard}>
-              <Text style={styles.dateText}>{item.date.toLocaleString()}</Text>
+              <Text style={styles.dateText}>{item.startDate.toLocaleString()}</Text>
             </View>
             <View>
               <View style={appCss.textIcon}>
                 <Icon name="room" size={20} color={"gray"} />
-                <Text style={styles.text}>{item.origin}</Text>
+                <Text style={styles.text}>{item.origin.name}</Text>
               </View>
               <View style={appCss.textIcon}>
                 <Icon name="room" size={20} color={"black"} />
-                <Text style={styles.text}>{item.destination}</Text>
+                <Text style={styles.text}>{item.destination.name}</Text>
               </View>
             </View>
             <View style={styles.priceStatus}>

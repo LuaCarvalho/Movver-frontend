@@ -1,5 +1,4 @@
 import { iLocation } from "./iLocation";
-
 export interface iAddress {
   readonly resultId: string,
   readonly title: string,
