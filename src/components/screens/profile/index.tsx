@@ -22,7 +22,10 @@ export const Profile = () => {
   const name = client.name;
 
   useEffect(() => {
-    FreightHttp.getFreights("?sort=startDate,desc&size=3").then(setFreights);
+    FreightHttp
+      .getFreights("?startDate!=null&sort=startDate,desc&size=3")
+      .then(data => data.filter(f => f.status === "STARTED"))
+      .then(setFreights);
   }, []);
 
   return (

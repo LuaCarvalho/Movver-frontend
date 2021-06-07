@@ -6,21 +6,22 @@ import { iDriver } from "../interfaces/iDriver";
 import { iLocation } from "../interfaces/iLocation";
 
 export class Freight {
-   origin: iLocation;
-   destination: iLocation;
-   client: iClient;
-   id?: number;
-   driver?: iDriver;
-   description?: string;
-  
-  private  _distance: number;
-  private  _weight: number;
-  private  _service: freightService;
-  private  _price: number;
-  private  _status: freightStatus;
-  private  _startDate?: Date;
-  private  _endDate?: Date;
-  
+  origin: iLocation;
+  destination: iLocation;
+  client: iClient;
+
+  id: number | null;
+  driver: iDriver | undefined;
+  description: string | undefined;
+
+  private _startDate: Date | undefined;
+  private _endDate: Date | undefined;
+  private _distance: number;
+  private _weight: number;
+  private _service: freightService;
+  private _price: number;
+  private _status: freightStatus;
+
   private readonly freight: iFreight;
 
   constructor(freight: iFreight) {
@@ -39,15 +40,15 @@ export class Freight {
       endDate,
       price = 50,
       status = "UNCONFIRMED"
-    }  = freight;
+    } = freight;
 
-    this.id = id;
     this.origin = origin;
     this.destination = destination;
     this.client = client;
+    this._distance = distance;
+    this.id = id || null;
     this.driver = driver;
     this.description = description;
-    this._distance = distance;
     this._startDate = startDate ? new Date(startDate) : undefined;
     this._endDate = endDate ? new Date(endDate) : undefined;
     this._price = price;
@@ -84,7 +85,7 @@ export class Freight {
     return this._weight.toFixed(2)
   }
 
-  get startDate(): string| undefined {
+  get startDate(): string | undefined {
     return this._startDate?.toDateString()
   }
 
