@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   async function signOut() {
     await AuthHttp.signOut();
     setSigned(false);
-    setClient({} as iClient);
   }
 
   useEffect(() => {

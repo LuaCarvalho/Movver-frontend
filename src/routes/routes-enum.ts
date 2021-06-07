@@ -20,7 +20,8 @@ export enum mainRoutes {
 export enum secondaryRoutes {
   SECONDARY = "Rotas secundarias",
 
+  LOCATION_FINDER = "selecionar rota",
   FREIGHTAGE = "Frete",
-  FREIGHTAGE_START = "Inicio do Frete",
+  FREIGHTAGE_CONFIRM = "Inicio do Frete",
   PROFILE_SETTINGS = "Configurações do Perfil"
 }

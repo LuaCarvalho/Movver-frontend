@@ -1,44 +1,102 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import MapView from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useFreightContext } from "../../context/freight-context";
 import { useLocationContext } from "../../context/location-context";
-import { secondaryRoutes } from "../../routes/routes-enum";
-import { appCss } from "../../styles/app.css";
-import { LocationFinder } from "../location-finder";
+import { googleApi } from "../../domain/services/config";
+import { FreightageConfirm } from "./freightage-confirm";
+import { FreightageFinish } from "./freightage-finished";
+import { FreightageInit } from "./freightage-init";
+import { FreightageStart } from "./freightage-start";
 
-export const Freightage = () => {
+export function Freightage() {
   const Navigation = useNavigation();
   const LocationContext = useLocationContext();
+  const FreightContext = useFreightContext();
 
-  //Quando a localização de origem e destino são selecionadas, a busca por motorista se inicia
+  const status = FreightContext.freight.status;
+
+  const mapRef = useRef<any>(null);
+  const edgePadding = {
+    bottom: 50,
+    top: 50,
+    left: 50,
+    right: 50,
+  };
+
   useEffect(() => {
-    if (LocationContext.isReady) Navigation.navigate(secondaryRoutes.FREIGHTAGE_START);
-  }, [LocationContext.destination, LocationContext.origin]);
+    Navigation.addListener("beforeRemove", () => {
+      FreightContext.setFreight({ ...FreightContext.freight, status: "UNCONFIRMED" });
+    });
+  }, []);
 
   return (
-    <SafeAreaView style={appCss.container}>
-      <View style={cStyle.mainView}>
-        <TouchableOpacity onPress={Navigation.goBack} style={cStyle.close}>
-          <Icon name="window-close" size={30} />
-        </TouchableOpacity>
-        <LocationFinder />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={LocationContext.origin}
+        showsUserLocation
+        loadingEnabled
+        ref={mapRef}
+      >
+        <MapViewDirections
+          origin={LocationContext.origin}
+          destination={LocationContext.destination}
+          apikey={googleApi}
+          strokeWidth={3}
+          onReady={result => {
+            LocationContext.setDistance(result.distance);
+            mapRef.current.fitToCoordinates(result.coordinates, edgePadding);
+          }}
+        />
+      </MapView>
+      {status === "UNCONFIRMED" && <FreightageInit />}
+      {status === "CONFIRMED" && <FreightageConfirm />}
+      {status === "STARTED" && <FreightageStart />}
+      {status === "FINISHED" && <FreightageFinish />}
+      <TouchableOpacity onPress={Navigation.goBack} activeOpacity={0.8} style={styles.backButton}>
+        <Icon name="keyboard-backspace" size={35} />
+      </TouchableOpacity>
     </SafeAreaView>
   );
-};
+}
 
-const cStyle = StyleSheet.create({
-  mainView: {
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
+  },
+  map: {
+    height: "45%",
+    width: "100%",
+  },
+  content: {
+    height: "55%",
+    padding: 10,
+    elevation: 1,
     backgroundColor: "white",
+    justifyContent: "space-between",
   },
-  close: {
-    top: 1,
-    marginLeft: 10,
-    width: 35,
+  backButton: {
+    backgroundColor: "white",
+    elevation: 10,
+    top: -780,
+    height: 40,
+    width: 80,
+    borderRadius: 50,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  card: {},
-  form: {},
+  confirmButton: {
+    width: "100%",
+    height: 40,
+  },
+  confirmButtonText: {
+    fontSize: 17,
+    color: "white",
+  },
 });

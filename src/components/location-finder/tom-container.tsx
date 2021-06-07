@@ -15,11 +15,6 @@ export const TomContainer = () => {
 
   const textFrom = (text: string | undefined) => (text ? text + "," : "");
 
-  const distanceFrom = (meters: number): string => {
-    if (meters < 1000) return meters.toFixed(0) + "m";
-    return (meters / 1000).toFixed(2) + "km";
-  };
-
   function getPosition(result: iResult): iLocation {
     const latitude = result.position.lat;
     const longitude = result.position.lon;
@@ -29,6 +24,11 @@ export const TomContainer = () => {
       longitudeDelta: 0,
       latitudeDelta: 0,
     };
+  }
+
+  function distanceFrom(meters: number): string {
+    if (meters < 1000) return meters.toFixed(0) + "m";
+    return (meters / 1000).toFixed(2) + "km";
   }
 
   function getAddress(result: iResult): iAddress {

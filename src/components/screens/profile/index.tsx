@@ -1,31 +1,28 @@
-/** Componente para o perfil do usuário
- */
+/** Componente para o perfil do usuário */
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../../context/auth-context";
-import { iClient } from "../../../domain/model/interfaces/iClient";
+import { Client } from "../../../domain/model/classes/Client";
 import { iFreight } from "../../../domain/model/interfaces/iFreight";
 import { FreightHttp } from "../../../domain/services/api/freight-http";
 import { Utils } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
-import { FreightHistory } from "./profile-freight-history";
+import { FreightCard } from "./profile-freight-card";
 import { ProfileSettings } from "./profile-settings";
 
 export const Profile = () => {
-  const client: iClient = useAuthContext().client;
-  console.log(client);
-
+  const AuthContext = useAuthContext();
   const [freights, setFreights] = useState([] as iFreight[]);
+  const client = new Client(AuthContext.client);
 
   const phoneNumber = Utils.formatPhoneNumber(client.phoneNumber);
-  const birthdate = Utils.formatDate(client.birthdate);
+  const birthdate = client.birthdate;
   const name = client.name;
 
   useEffect(() => {
-    FreightHttp.getFreights()
-      .then(setFreights);
+    FreightHttp.getFreights("?sort=startDate,desc&size=3").then(setFreights);
   }, []);
 
   return (
@@ -49,9 +46,20 @@ export const Profile = () => {
           <Text>{birthdate}</Text>
         </View>
       </View>
-      <View style={[styles.card, styles.lastFreightsCard]}>
+      <View style={[styles.card, styles.lastFreightList]}>
         <Text style={appCss.title}>Fretes recentes</Text>
-        <FreightHistory freightList={freights} />
+        {freights.length ? (
+          <FlatList
+            style={{ width: "100%", marginBottom: 5 }}
+            scrollEnabled
+            data={freights}
+            renderItem={({ item }) => <FreightCard freight={item} />}
+          />
+        ) : (
+          <View style={styles.emptyList}>
+            <Text style={styles.emptyListText}>Você ainda não contratou nem um frete</Text>
+          </View>
+        )}
         <TouchableOpacity>
           <Text style={styles.lastFreightsButton}>Ver mais antigos</Text>
         </TouchableOpacity>
@@ -69,6 +77,18 @@ const styles = StyleSheet.create({
     elevation: 3,
     padding: 5,
   },
+  lastFreightList: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexGrow: 5,
+    width: "100%",
+    padding: 10,
+  },
+  lastFreightsButton: {
+    fontSize: 14,
+    opacity: 0.5,
+    alignSelf: "center",
+  },
   settings: {
     alignSelf: "flex-start",
   },
@@ -80,10 +100,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     padding: 5,
   },
-  lastFreightsCard: {
-    flexGrow: 5,
-    justifyContent: "space-around",
-  },
   img: {
     width: 50,
     height: 50,
@@ -94,9 +110,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: "center",
   },
-  lastFreightsButton: {
-    fontSize: 15,
+
+  emptyList: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyListText: {
+    fontSize: 17,
     opacity: 0.5,
-    alignSelf: "center",
   },
 });

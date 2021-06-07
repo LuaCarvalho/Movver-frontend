@@ -1,28 +1,18 @@
 import React, { createContext, useContext, useState } from "react";
-import { Freight } from '../domain/model/classes/Freight';
 import { iFreight } from "../domain/model/interfaces/iFreight";
 
 interface ContextType {
   freight: iFreight;
-  isReadyToStart: boolean;
-  addFreight: (freight: iFreight) => void;
+  setFreight: (freight: iFreight) => void;
 }
 
 export const FreightContext = createContext({} as ContextType);
 
 export const FreightProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isReadyToStart, setIsReadyToStart] = useState(false);
-  const [ freight ] = useState<Freight>(new Freight({} as iFreight));
-
-  function addFreight(freightSource: iFreight) {
-    Object.assign(freight, new Freight(freightSource));
-    setIsReadyToStart(freight.isReady());
-  }
+  const [freight, setFreight] = useState<iFreight>({ status: "UNCONFIRMED" } as iFreight);
 
   return (
-    <FreightContext.Provider value={{ freight, isReadyToStart, addFreight }}>
-      {children}
-    </FreightContext.Provider>
+    <FreightContext.Provider value={{ freight, setFreight }}>{children}</FreightContext.Provider>
   );
 };
 

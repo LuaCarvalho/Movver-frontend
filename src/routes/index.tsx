@@ -2,8 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Login } from "../components/auth/login";
 import { Register } from "../components/auth/register";
-import { FreightageStart } from "../components/freightage/freightage-start";
-import { Freightage } from "../components/freightage/index";
+import { Freightage } from "../components/freightage";
+import { LocationFinder } from "../components/location-finder";
 import { useAuthContext } from "../context/auth-context";
 import { MainRoutes } from "./navigators/main-routes";
 import { authRoutes, mainRoutes, secondaryRoutes } from "./routes-enum";
@@ -20,8 +20,8 @@ export const Routes = () => {
       {signed && (
         <>
           <Stack.Screen name={mainRoutes.MAIN} component={MainRoutes} />
+          <Stack.Screen name={secondaryRoutes.LOCATION_FINDER} component={LocationFinder} />
           <Stack.Screen name={secondaryRoutes.FREIGHTAGE} component={Freightage} />
-          <Stack.Screen name={secondaryRoutes.FREIGHTAGE_START} component={FreightageStart} />
         </>
       )}
     </Stack.Navigator>

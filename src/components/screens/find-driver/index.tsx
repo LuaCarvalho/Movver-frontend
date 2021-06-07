@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { truckBodyworkEnum } from "../../../domain/model/enums";
 import { iDriver } from "../../../domain/model/interfaces/iDriver";
+import { getTruckBodyworkName, truckBodyworkType } from "../../../domain/model/interfaces/iVehicle";
 import { DriverHttp } from "../../../domain/services/api/driver-http";
 import { appCss } from "../../../styles/app.css";
 import Select from "../../widgets/select";
@@ -13,29 +13,27 @@ export const FindDriver: React.FC = () => {
   const [drivers, setDrivers] = useState<iDriver[]>([]);
 
   const [capacityFilter, setCapacityFilter] = useState(0);
-  const [truckBodyWorkFilter, setTruckBodyWorkFilter] = useState(truckBodyworkEnum.ANY);
+  const [truckBodyWorkFilter, setTruckBodyWorkFilter] = useState<truckBodyworkType>("ANY");
 
   const SetWeight: React.FC = () => (
     <Text style={appCss.infoText}>Capacidade de carga: {capacityFilter} kg </Text>
   );
   const SetTruckBodyWork: React.FC = () => (
-    <Text style={appCss.infoText}>Carroceria: {truckBodyWorkFilter} </Text>
+    <Text style={appCss.infoText}>Carroceria: {getTruckBodyworkName(truckBodyWorkFilter)} </Text>
   );
 
   useEffect(() => {
-    DriverHttp.getDrivers()
-      .then(response => setDrivers(response));
+    DriverHttp.getDrivers().then(response => setDrivers(response));
   }, []);
 
   const filtredDrivers: iDriver[] = useMemo(() => {
     return drivers
       .filter(driver => driver.vehicle.capacity >= capacityFilter)
       .filter(driver => {
-        if (truckBodyWorkFilter === truckBodyworkEnum.ANY) return true;
-        return driver.vehicle.truckBodyWork === truckBodyWorkFilter
-      })
-  }, [drivers, capacityFilter, truckBodyWorkFilter])
-
+        if (truckBodyWorkFilter === "ANY") return true;
+        return driver.vehicle.truckBodyWork === truckBodyWorkFilter;
+      });
+  }, [drivers, capacityFilter, truckBodyWorkFilter]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,7 +47,11 @@ export const FindDriver: React.FC = () => {
             <Select
               VisibleElement={SetTruckBodyWork}
               setValue={setTruckBodyWorkFilter}
-              items={Object.values(truckBodyworkEnum)}
+              items={[
+                { label: "Fechada", value: "CLOSED" },
+                { label: "Aberta", value: "OPEN" },
+                { label: "Todas", value: "ANY" },
+              ]}
             />
           </View>
           <View style={[appCss.textIcon]}>

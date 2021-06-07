@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useMemo, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -6,6 +7,7 @@ import { useAuthContext } from "../../context/auth-context";
 import { Utils } from "../../domain/services/function/utils";
 import { authRoutes, mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
+import { blue, grey } from "../../styles/color.css";
 import { MvButton } from "../widgets/mv-button";
 import { MvInput } from "../widgets/mv-input";
 
@@ -15,6 +17,7 @@ export const Login = () => {
 
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const formattedPhone = useMemo(() => Utils.formatPhoneNumber(phone), [phone]);
 
@@ -58,8 +61,15 @@ export const Login = () => {
             icon="lock-outline"
             placeholder="Senha"
             onChangeText={setPassword}
-            secureTextEntry
-          />
+            secureTextEntry={showPassword}
+          >
+            <MaterialCommunityIcons
+              onPress={() => setShowPassword(!showPassword)}
+              name={showPassword ? "eye-check" : "eye"}
+              color={showPassword ? grey.darken : blue.c }
+              size={22}
+            />
+          </MvInput>
         </View>
         <MvButton propStyle={authCss.loginButton} onPress={handlerLogin}>
           <Text style={cStyle.loginText}>Entrar</Text>

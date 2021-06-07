@@ -2,19 +2,19 @@ import { iClient } from "./iClient";
 import { iDriver } from "./iDriver";
 import { iLocation } from "./iLocation";
 
-export type service = "Mudança" | "Transporte de Materiais";
-export type status = "Aguardando" | "Finalizada" | "Cancelada";
-
+export type freightService = "HOME_MOVING" | "MATERIAL_TRANSPORT";
+export type freightStatus = "UNCONFIRMED" | "CONFIRMED" | "STARTED" | "FINISHED"
 export interface iFreight {
-  startDate: string;
-  endDate: string;
-  status: status;
-  price: number;
-  service: service;
+  service: freightService;
   weight: number;
   client: iClient;
   origin: iLocation;
   destination: iLocation;
+  status: freightStatus;
+  distance: number;
+  price?: number;
+  startDate?: number;
+  endDate?: number;
   driver?: iDriver;
   description?: string;
   id?: number;

@@ -3,8 +3,6 @@ import { iVehicle } from "./iVehicle";
 export interface iDriver {
   readonly name: string,
   readonly phoneNumber: string,
-  readonly birthdate: string,
-  readonly password: string,
   readonly trips: number,
   readonly vehicle: iVehicle,
   readonly location: iLocation,

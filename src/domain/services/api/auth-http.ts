@@ -38,7 +38,6 @@ async function isLogged(): Promise<boolean> {
 //Realiza o primeiro login do usuario (caso ele esteja usando o aplicativo pela primeira vez)
 async function signIn(phoneNumber: string, password: string): Promise<iClient> {
   const response = await http.post(AUTH_URL, { phoneNumber, password });
-  console.log(response.data)
   const credentials: Crendentials = response.data;
   await setCredentials(credentials);
   return credentials.user;

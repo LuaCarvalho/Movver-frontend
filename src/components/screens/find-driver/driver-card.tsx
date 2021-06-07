@@ -1,16 +1,16 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { truckBodyworkEnum } from "../../../domain/model/enums";
 import { iDriver } from "../../../domain/model/interfaces/iDriver";
+import { truckBodyworkType } from "../../../domain/model/interfaces/iVehicle";
 import { numberSeparador } from "../../../domain/services/function/utils";
 import { appCss } from "../../../styles/app.css";
 import { green, grey } from "../../../styles/color.css";
 
 
 const DriverCard = ({ drivers }: { drivers: Array<iDriver> }) => {
-  const iconTruck = (truckBodywork: truckBodyworkEnum) => {
-    return truckBodywork === truckBodyworkEnum.OPEN ? "truck" : "dump-truck";
+  const iconTruck = (truckBodywork: truckBodyworkType) => {
+    return truckBodywork === "CLOSED" ? "truck" : "dump-truck";
   };
 
   return (

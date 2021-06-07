@@ -9,10 +9,14 @@ export const Home: React.FC = () => {
   const { origin } = useLocationContext();
   const { navigate } = useNavigation();
 
+  function handlerFindDriver() {
+    navigate(secondaryRoutes.LOCATION_FINDER);
+  }
+
   return (
     <>
       <MapView style={styles.map} showsUserLocation loadingEnabled initialRegion={origin} />
-      <View onTouchStart={() => navigate(secondaryRoutes.FREIGHTAGE)} style={styles.findButton}>
+      <View onTouchStart={handlerFindDriver} style={styles.findButton}>
         <Text>Buscar?</Text>
       </View>
     </>

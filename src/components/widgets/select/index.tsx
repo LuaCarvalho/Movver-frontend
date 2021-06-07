@@ -6,15 +6,14 @@ import Item from "./select-item";
 type item = { label: string; value: any };
 type items = item[] | string[] | number[];
 
-const Select = ({
-  setValue,
-  items,
-  VisibleElement,
-}: {
+interface Props {
   setValue: Function;
   items: items;
   VisibleElement: React.FC;
-}) => {
+  showValue?: boolean;
+}
+
+const Select: React.FC<Props> = ({items, setValue, VisibleElement, showValue}) => {
   const [newValue, setNewValue] = useState(null);
 
   //Função q transforma qlqr tipo de array em uma array de "item"

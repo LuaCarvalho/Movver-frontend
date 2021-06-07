@@ -24,7 +24,7 @@ export const TomComplete = ({ direction }: { direction: directionEnum }) => {
   async function searchAddres(text: string) {
     setQuery(text);
     //Evita que ao digitar haja uma excesso de consultas
-    if (query.length % 2 !== 0) return;
+    if (query.length % 3 !== 0) return;
     const result = await TomTomFunctions.getAddress(query, LocationContext.origin);
     TomCompleteContext.setTomSearch(result);
     TomCompleteContext.setDirection(direction);
