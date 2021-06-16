@@ -9,10 +9,6 @@ import colorCss from "../../../styles/color.css";
 export const FreightCard: React.FC<{ freight: iFreight }> = ({ freight })  => {
   const freightHistory = new Freight(freight);
 
-  console.log(freight)
-  console.log(freightHistory)
-
-
   return (
     <View key={freightHistory.id} style={styles.freightCard}>
       <View style={styles.dateCard}>

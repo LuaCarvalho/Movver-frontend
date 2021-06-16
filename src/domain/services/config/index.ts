@@ -1,4 +1,5 @@
-export const googleApi = "AIzaSyBXbpgnLrpq3RmdIm6MLGt9e6bHl1NI3SU";
+export const googleApi = "AIzaSyCU4zjegvqFTnzc0RL8AbrkIGVGYjUJUmo";
+
 
 export const tomKey = "paxMtSWNKplGGLIpjb2olddAd26qRHB0";
 

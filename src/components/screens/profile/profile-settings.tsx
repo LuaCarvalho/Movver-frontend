@@ -37,7 +37,7 @@ export const ProfileSettings = () => {
                 <Text style={appCss.infoText}>Lugares</Text>
               </View>
               <View style={[styles.section, styles.sectionActions]}>
-                <MvTextAction text="Sobre" action={() => console.log("oi")} />
+                <MvTextAction text="Sobre" action={() => {}} />
                 <MvTextAction text="Sair" action={handlerSignOut} showIcon={false} />
               </View>
             </View>

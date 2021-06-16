@@ -16,6 +16,5 @@ const styles = StyleSheet.create({
     height: "55%",
     padding: 55,
     elevation: 1,
-    backgroundColor: "white",
   },
 });

@@ -34,6 +34,10 @@ export function Freightage() {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(status)
+  }, [status])
+
   return (
     <SafeAreaView style={styles.container}>
       <MapView

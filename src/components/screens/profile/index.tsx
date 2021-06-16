@@ -24,7 +24,7 @@ export const Profile = () => {
   useEffect(() => {
     FreightHttp
       .getFreights("?startDate!=null&sort=startDate,desc&size=3")
-      .then(data => data.filter(f => f.status === "STARTED"))
+      .then(data => data.filter(f => f.status !== "UNCONFIRMED"))
       .then(setFreights);
   }, []);
 

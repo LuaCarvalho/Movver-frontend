@@ -61,12 +61,12 @@ export const Login = () => {
             icon="lock-outline"
             placeholder="Senha"
             onChangeText={setPassword}
-            secureTextEntry={showPassword}
+            secureTextEntry={!showPassword}
           >
             <MaterialCommunityIcons
               onPress={() => setShowPassword(!showPassword)}
               name={showPassword ? "eye-check" : "eye"}
-              color={showPassword ? grey.darken : blue.c }
+              color={showPassword ?  blue.c : grey.darken }
               size={22}
             />
           </MvInput>
