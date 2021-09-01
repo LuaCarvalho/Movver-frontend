@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { appCss } from "../../../styles/app.css";
-import { blue } from "../../../styles/color.css";
+import { appCss } from "../../styles/app.css";
+import { blue } from "../../styles/color.css";
 
 export const FreightageStart: React.FC = () => {
   return (

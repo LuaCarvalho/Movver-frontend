@@ -2,18 +2,17 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useAuthContext } from "../../../context/auth-context";
-import { useFreightContext } from "../../../context/freight-context";
-import { useLocationContext } from "../../../context/location-context";
-import { Freight } from "../../../domain/model/classes/Freight";
-import { freightService, iFreight } from "../../../domain/model/interfaces/iFreight";
-import { FreightHttp } from "../../../domain/services/api/freight-http";
-import { FreightFunction } from "../../../domain/services/function/freight-function";
-import { appCss } from "../../../styles/app.css";
-import { blue, grey } from "../../../styles/color.css";
-import { MvButton } from "../../widgets/mv-button";
-import { MvModal } from "../../widgets/mv-modal";
-import Select from "../../widgets/select/index";
+import { useAuthContext } from "../../context/auth-context";
+import { useFreightContext } from "../../context/freight-context";
+import { useLocationContext } from "../../context/location-context";
+import { freightService, iFreight } from "../../domain/model/interfaces/iFreight";
+import { FreightHttp } from "../../domain/services/api/freight-http";
+import { FreightFunction } from "../../domain/services/function/freight-function";
+import { appCss } from "../../styles/app.css";
+import { blue, grey } from "../../styles/color.css";
+import { MvButton } from "../widgets/mv-button";
+import { MvModal } from "../widgets/mv-modal";
+import Select from "../widgets/mv-select/index";
 
 type serviceOption = {
   freightService: freightService;
@@ -37,7 +36,7 @@ export const FreightageInit: React.FC = () => {
 
   const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
 
-  const freight = new Freight(FreightContext.freight);
+  const freight: iFreight = FreightContext.freight;
 
   const optionSelectedColor = (value: string): string => {
     return service == value ? blue.darken : grey.darken;
@@ -46,12 +45,13 @@ export const FreightageInit: React.FC = () => {
   const activeColor = () => (isConfirmed ? "white" : grey.lighten);
 
   async function handlerConfirm() {
-    const freightResponse = await FreightHttp.confirm(freight.toSend());
+    const freightResponse = await FreightHttp.confirm(freight);
     FreightContext.setFreight(freightResponse);
   }
 
   useEffect(() => {
     const freight: iFreight = {
+      id: 0,
       weight: weight,
       service: service,
       status: "UNCONFIRMED",
@@ -62,7 +62,7 @@ export const FreightageInit: React.FC = () => {
       destination: LocationContext.destination,
     };
     FreightContext.setFreight(freight);
-    setIsConfirmed(new Freight(freight).isReady());
+    setIsConfirmed(FreightFunction.isReady(freight));
   }, [service, weight, description]);
 
   const SendCommentVisible: React.FC = () => (

@@ -4,7 +4,7 @@ import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../../context/auth-context";
-import { Client } from "../../../domain/model/classes/Client";
+import { iClient } from "../../../domain/model/interfaces/iClient";
 import { iFreight } from "../../../domain/model/interfaces/iFreight";
 import { FreightHttp } from "../../../domain/services/api/freight-http";
 import { Utils } from "../../../domain/services/function/utils";
@@ -14,17 +14,17 @@ import { ProfileSettings } from "./profile-settings";
 
 export const Profile = () => {
   const AuthContext = useAuthContext();
-  const [freights, setFreights] = useState([] as iFreight[]);
-  const client = new Client(AuthContext.client);
 
-  const phoneNumber = Utils.formatPhoneNumber(client.phoneNumber);
-  const birthdate = client.birthdate;
+  const [freights, setFreights] = useState([] as iFreight[]);
+  const client: iClient = AuthContext.client;
+
   const name = client.name;
+  const phoneNumber = Utils.formatPhoneNumber(client.phoneNumber);
+  const birthdate = new Date(client.birthdate).toDateString();
 
   useEffect(() => {
-    FreightHttp
-      .getFreights("?startDate!=null&sort=startDate,desc&size=3")
-      .then(data => data.filter(f => f.status !== "UNCONFIRMED"))
+    FreightHttp.getFreights("?startDate!=null&sort=startDate,desc&size=3")
+      .then(d => d.filter(({ status }) => status === "FINISHED"))
       .then(setFreights);
   }, []);
 

@@ -13,9 +13,9 @@ export interface iFreight {
   status: freightStatus;
   distance: number;
   price?: number;
-  startDate?: number;
+  startDate: number;
   endDate?: number;
   driver?: iDriver;
   description?: string;
-  id?: number;
+  id: number;
 }

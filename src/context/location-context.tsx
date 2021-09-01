@@ -26,9 +26,7 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
 
   //Inicialmente o mapa irá mostrar a localização atual
   useEffect(() => {
-    LocationFunctions
-      .getCurrentLocation()
-      .then(setOrigin);
+    LocationFunctions.getCurrentLocation().then(setOrigin);
   }, []);
 
   return (

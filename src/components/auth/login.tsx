@@ -7,7 +7,7 @@ import { useAuthContext } from "../../context/auth-context";
 import { Utils } from "../../domain/services/function/utils";
 import { authRoutes, mainRoutes } from "../../routes/routes-enum";
 import authCss from "../../styles/auth.css";
-import { blue, grey } from "../../styles/color.css";
+import colorCss, { blue, grey } from "../../styles/color.css";
 import { MvButton } from "../widgets/mv-button";
 import { MvInput } from "../widgets/mv-input";
 
@@ -25,8 +25,11 @@ export const Login = () => {
     Navigation.navigate(mainRoutes.MAIN, { screen: mainRoutes.HOME });
   }
 
-  function handlerRegister(): void {
-    Navigation.navigate(authRoutes.AUTH_REGISTER);
+  function handlerRegisterClient(): void {
+    Navigation.navigate(authRoutes.AUTH_REGISTER_CLIENT);
+  }
+  function handlerRegisterDriver(): void {
+    Navigation.navigate(authRoutes.AUTH_REGISTER_DRIVER);
   }
 
   async function handlerLogin() {
@@ -42,8 +45,8 @@ export const Login = () => {
   return (
     <SafeAreaView style={authCss.container}>
       <View style={authCss.mainView}>
-        <View style={cStyle.user}>
-          <Image style={cStyle.image} source={require("../../assets/perfil.jpeg")} />
+        <View style={styles.user}>
+          <Image style={styles.image} source={require("../../assets/perfil.jpeg")} />
           <Text style={{ fontSize: 20 }}>Seja bem-vindo</Text>
           <Text>Faça a autenticação para continuar</Text>
         </View>
@@ -72,12 +75,16 @@ export const Login = () => {
           </MvInput>
         </View>
         <MvButton propStyle={authCss.loginButton} onPress={handlerLogin}>
-          <Text style={cStyle.loginText}>Entrar</Text>
+          <Text style={styles.loginText}>Entrar</Text>
         </MvButton>
         <View style={authCss.cardRegister}>
           <Text style={{ opacity: 0.8 }}>Ainda não possui uma conta?</Text>
-          <TouchableOpacity onPress={handlerRegister}>
-            <Text style={authCss.alreadyExistOrNo}>Crie uma nova conta</Text>
+          <TouchableOpacity onPress={handlerRegisterClient}>
+            <Text style={authCss.alreadyExistOrNo}>Crie sua conta</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handlerRegisterDriver}>
+            <Text style={styles.collaboratorTxt}>Desejo me tornar um parceiro</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -85,7 +92,7 @@ export const Login = () => {
   );
 };
 
-const cStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   user: {
     justifyContent: "center",
     alignItems: "center",
@@ -113,5 +120,10 @@ const cStyle = StyleSheet.create({
     alignItems: "center",
     margin: 20,
     padding: 5,
+  },
+  collaboratorTxt: {
+    marginTop: 20,
+    fontSize: 15,
+    color: colorCss.blue.darken2,
   },
 });

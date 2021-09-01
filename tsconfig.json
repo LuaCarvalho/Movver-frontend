@@ -9,6 +9,6 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "es6",
-    "baseUrl": "./src",
-  }
+    "baseUrl": "./src"
+  },
 }

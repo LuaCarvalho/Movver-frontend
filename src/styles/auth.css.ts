@@ -3,11 +3,21 @@ import * as colors from "./color.css"
 
 export default StyleSheet.create(
   {
+    goBack: {
+      position: "absolute",
+      top: 0,
+      left: 0
+    },
     container: {
       flexGrow: 1,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: colors.grey.lighten5,
+    },
+    infos: {
+      marginTop: "15%",
+      justifyContent: "center",
+      alignItems: "center",
     },
     mainView: {
       width: "95%",
@@ -27,11 +37,12 @@ export default StyleSheet.create(
       alignSelf: "center",
       borderRadius: 10,
       justifyContent: "center",
+      margin: 10
     },
     cardRegister: {
       justifyContent: "center",
       alignItems: "center",
-      marginBottom: 20,
+      marginBottom: "10%",
       padding: 5,
     },
     registerText: {

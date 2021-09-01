@@ -16,10 +16,8 @@ async function confirm(freight: iFreight): Promise<iFreight> {
 }
 
 async function start(freight: iFreight): Promise<iFreight> {
-  console.log(freight)
   const response = await http.patch(`${url}/${freight.id}/start`, freight);
   const data: iFreight = response.data
-  console.log("start:", data)
   return data;
 }
 

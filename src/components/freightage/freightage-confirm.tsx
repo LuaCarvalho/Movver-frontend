@@ -1,24 +1,28 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useFreightContext } from "../../../context/freight-context";
-import { Freight } from "../../../domain/model/classes/Freight";
-import { FreightHttp } from "../../../domain/services/api/freight-http";
-import { appCss } from "../../../styles/app.css";
-import colorCss, { blue, grey } from "../../../styles/color.css";
-import { MvButton } from "../../widgets/mv-button";
+import { useFreightContext } from "../../context/freight-context";
+import { iFreight } from "../../domain/model/interfaces/iFreight";
+import { FreightHttp } from "../../domain/services/api/freight-http";
+import { FreightFunction } from "../../domain/services/function/freight-function";
+import { appCss } from "../../styles/app.css";
+import colorCss, { blue, grey } from "../../styles/color.css";
+import { MvButton } from "../widgets/mv-button";
 
 export const FreightageConfirm: React.FC = () => {
   const FreightContext = useFreightContext();
 
-  const freight = new Freight(FreightContext.freight);
-  const { price, weight, distance, service } = freight;
+  const freight: iFreight = FreightContext.freight;
+
+  const { weight, distance } = freight;
+  const price = freight.price?.toFixed(2);
+  const service = FreightFunction.getServiceName(freight.service)
 
   const originName = freight.origin?.name;
   const destinationName = freight.destination?.name;
 
   function handlerStart() {
-    FreightHttp.start(freight.toSend())
+    FreightHttp.start(freight)
       .then(FreightContext.setFreight);
   }
 
@@ -28,7 +32,7 @@ export const FreightageConfirm: React.FC = () => {
         <Text style={appCss.title}>Buscar motorista</Text>
         <View style={appCss.textIcon}>
           <MaterialCommunityIcons
-            name={freight.service === "Mudança" ? "truck" : "dump-truck"}
+            name={freight.service === "HOME_MOVING" ? "truck" : "dump-truck"}
             color={colorCss.grey.c}
             size={22}
           />
@@ -40,11 +44,11 @@ export const FreightageConfirm: React.FC = () => {
         </View>
         <View style={appCss.textIcon}>
           <MaterialCommunityIcons name="weight" color={colorCss.grey.c} size={22} />
-          <Text style={[appCss.infoText3, styles.data]}>{weight} KG</Text>
+          <Text style={[appCss.infoText3, styles.data]}>{weight} kg</Text>
         </View>
         <View style={appCss.textIcon}>
           <MaterialCommunityIcons name="map-marker-distance" color={colorCss.grey.c} size={22} />
-          <Text style={[appCss.infoText3, styles.data]}>{distance}</Text>
+          <Text style={[appCss.infoText3, styles.data]}>{distance} km</Text>
         </View>
         <View style={appCss.textIcon}>
           <MaterialCommunityIcons name="map-marker" color={colorCss.grey.darken} size={22} />

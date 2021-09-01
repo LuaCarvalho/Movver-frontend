@@ -10,7 +10,7 @@ import { grey } from "../../styles/color.css";
 import { MvInput } from "../widgets/mv-input";
 
 /* TomComplete:
- * providencia uma forma de simples de buscar endereções atráves de entradas de texto */
+ * providencia uma forma simples de buscar endereços atráves de entradas de texto */
 export const TomComplete = ({ direction }: { direction: directionEnum }) => {
   const TomCompleteContext = useTomCompleteContext();
   const LocationContext = useLocationContext();

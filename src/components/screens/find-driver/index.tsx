@@ -6,7 +6,7 @@ import { iDriver } from "../../../domain/model/interfaces/iDriver";
 import { getTruckBodyworkName, truckBodyworkType } from "../../../domain/model/interfaces/iVehicle";
 import { DriverHttp } from "../../../domain/services/api/driver-http";
 import { appCss } from "../../../styles/app.css";
-import Select from "../../widgets/select";
+import Select from "../../widgets/mv-select";
 import DriverCard from "./driver-card";
 
 export const FindDriver: React.FC = () => {

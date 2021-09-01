@@ -1,4 +1,4 @@
-import { freightService, freightStatus } from "../../../model/interfaces/iFreight";
+import { freightService, freightStatus, iFreight } from "../../model/interfaces/iFreight";
 
 
 function getStatusName(status: freightStatus): string {
@@ -9,6 +9,15 @@ function getStatusName(status: freightStatus): string {
     FINISHED: "Finalizado",
   };
   return values[status];
+}
+
+function isReady(freight: iFreight) {
+  return Boolean(
+    freight.origin &&
+    freight.destination &&
+    freight.weight &&
+    freight.service
+  );
 }
 
 function getServiceName(service: freightService): string {
@@ -22,5 +31,6 @@ function getServiceName(service: freightService): string {
 
 export const FreightFunction = {
   getServiceName,
-  getStatusName
+  getStatusName,
+  isReady
 }

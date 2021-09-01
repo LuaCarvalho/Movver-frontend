@@ -53,7 +53,7 @@ export const MvInput: React.FC<MvInputProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignSelf: "center",
-    margin: 5,
+    marginBottom: 15,
     flexDirection: "row",
     height: 70,
     padding: 5,

@@ -1,7 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Login } from "../components/auth/login";
-import { Register } from "../components/auth/register";
+import { RegisterClient } from "../components/auth/register-client";
+import { RegisterDriver } from "../components/auth/register-driver";
 import { Freightage } from "../components/freightage";
 import { LocationFinder } from "../components/location-finder";
 import { useAuthContext } from "../context/auth-context";
@@ -16,7 +17,8 @@ export const Routes = () => {
   return (
     <Stack.Navigator initialRouteName={mainRoutes.MAIN} headerMode="none">
       <Stack.Screen name={authRoutes.AUTH_LOGIN} component={Login} />
-      <Stack.Screen name={authRoutes.AUTH_REGISTER} component={Register} />
+      <Stack.Screen name={authRoutes.AUTH_REGISTER_CLIENT} component={RegisterClient} />
+      <Stack.Screen name={authRoutes.AUTH_REGISTER_DRIVER} component={RegisterDriver} />
       {signed && (
         <>
           <Stack.Screen name={mainRoutes.MAIN} component={MainRoutes} />

@@ -4,7 +4,9 @@
 //Todas as rotas públicas
 export enum authRoutes {
   AUTH_LOGIN = "Entrar",
-  AUTH_REGISTER = "Registrar",
+  AUTH_REGISTER_CLIENT = "Registrar Cliente",
+  AUTH_REGISTER_DRIVER = "Registrar Motorista",
+
 }
 
 //As principais rotas privadas
